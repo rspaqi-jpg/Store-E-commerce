@@ -47,7 +47,7 @@ function closeLightbox(){document.getElementById("lightbox").classList.add("hidd
 function openCheckout(){if(!cart.length)return;document.getElementById("checkoutSummary").innerHTML='<div class="flex items-center justify-between"><span>'+cart.length+' Artikel</span><strong>'+money(total())+'</strong></div><p class="mt-2 text-xs text-neutral-500">'+cart.map(p=>p.name).join(", ")+'</p>';document.getElementById("checkoutMessage").classList.add("hidden");document.getElementById("checkout").classList.remove("hidden");document.getElementById("checkout").classList.add("flex")}
 function closeCheckout(){document.getElementById("checkout").classList.add("hidden");document.getElementById("checkout").classList.remove("flex")}
 document.getElementById("lightboxClose").addEventListener("click",closeLightbox);document.getElementById("lightbox").addEventListener("click",e=>{if(e.target.id==="lightbox")closeLightbox()});document.getElementById("checkoutClose").addEventListener("click",closeCheckout);document.getElementById("cartOpen").addEventListener("click",()=>cart.length?openCheckout():alert("Dein Warenkorb ist noch leer."));
-document.getElementById("checkoutForm").addEventListener("submit",e=>{e.preventDefault();const m=document.getElementById("checkoutMessage");m.textContent="Die Shop-Oberfläche ist bereit. Für echte PayPal-Zahlungen müssen noch ein sicherer Server mit /api/paypal/create-order und /api/paypal/capture-order sowie deine PayPal Client-ID eingerichtet werden. Es wurde keine Zahlung ausgelöst.";m.classList.remove("hidden")});
+document.getElementById("checkoutForm").addEventListener("submit",e=>{e.preventDefault();const m=document.getElementById("checkoutMessage");m.textContent=document.getElementById("languageSelect").value === "en" ? "The storefront is ready. To accept real PayPal payments, a secure server with /api/paypal/create-order and /api/paypal/capture-order, plus your PayPal Client ID, must be configured. No payment was made." : "Die Shop-Oberfläche ist bereit. Für echte PayPal-Zahlungen müssen noch ein sicherer Server mit /api/paypal/create-order und /api/paypal/capture-order sowie deine PayPal Client-ID eingerichtet werden. Es wurde keine Zahlung ausgelöst.";m.classList.remove("hidden")});
 
 const translations = {
 en: {
@@ -98,7 +98,7 @@ openCheckout = function() {
   originalOpenCheckout();
   const lang = document.getElementById("languageSelect").value;
   if (!cart.length) return;
-  document.getElementById("checkoutSummary").innerHTML = '<div class="flex items-center justify-between"><span>'+cart.length+' '+(lang === "en" ? (cart.length === 1 ? "item" : "items") : "Artikel")+'</span><strong>'+money(total())+'</strong></div><p class="mt-2 text-xs text-neutral-500">'+cart.map(p => p.name).join(", ")+'</p>';
+  document.getElementById("checkoutSummary").innerHTML = '<div class="flex items-center justify-between"><span>'+cart.length+' '+(lang === "en" ? (cart.length === 1 ? "item" : "items") : "Artikel")+'</span><strong>'+money(total())+'</strong></div><p class="mt-2 text-xs text-neutral-500">'+cart.map(p => lang === "en" ? (translations.en[p.name] || p.name) : p.name).join(", ")+'</p>';
 };
 
 document.getElementById("year").textContent=new Date().getFullYear();
