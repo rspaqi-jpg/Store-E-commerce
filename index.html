@@ -9,7 +9,7 @@
 </style>
 </head>
 <body>
-<header class="sticky top-0 z-30 border-b border-black/5 bg-[#f7f7f5]/90 backdrop-blur-xl"><div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8"><a href="#" class="text-xl font-semibold tracking-[-.06em]">minimal<span class="text-neutral-400">.</span></a><nav class="hidden items-center gap-7 text-sm text-neutral-600 md:flex"><a href="#neu" class="hover:text-black">Neuheiten</a><a href="#wohnen" class="hover:text-black">Wohnen</a><a href="#technik" class="hover:text-black">Technik</a></nav><button id="cartOpen" class="focus-ring rounded-full border border-black/10 px-4 py-2 text-sm font-medium hover:bg-white">Warenkorb <span id="cartCount" class="ml-1 text-neutral-500">0</span></button></div></header>
+<header class="sticky top-0 z-30 border-b border-black/5 bg-[#f7f7f5]/90 backdrop-blur-xl"><div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 md:px-8"><a href="#" class="text-xl font-semibold tracking-[-.06em]">minimal<span class="text-neutral-400">.</span></a><nav class="hidden items-center gap-7 text-sm text-neutral-600 md:flex"><a href="#neu" class="hover:text-black">Neuheiten</a><a href="#wohnen" class="hover:text-black">Wohnen</a><a href="#technik" class="hover:text-black">Technik</a></nav><div class="flex items-center gap-3"><label for="languageSelect" class="sr-only">Sprache / Language</label><select id="languageSelect" aria-label="Sprache / Language" class="focus-ring rounded-full border border-black/10 bg-transparent px-3 py-2 text-sm"><option value="de" selected>Deutsch</option><option value="en">English</option></select><button id="cartOpen" class="focus-ring rounded-full border border-black/10 px-4 py-2 text-sm font-medium hover:bg-white"><span id="cartLabel">Warenkorb</span> <span id="cartCount" class="ml-1 text-neutral-500">0</span></button></div></div></header>
 <main class="mx-auto max-w-7xl px-5 md:px-8">
 <section class="grid min-h-[390px] items-center gap-8 py-14 md:grid-cols-[1.05fr_.95fr] md:py-20"><div><p class="mb-4 text-xs font-semibold uppercase tracking-[.24em] text-neutral-500">Weniger, aber besser</p><h1 class="max-w-xl text-5xl font-semibold leading-[1.02] tracking-[-.065em] md:text-7xl">Gute Dinge.<br>Einfach ausgewählt.</h1><p class="mt-6 max-w-md text-base leading-7 text-neutral-600">Zeitloses Design für deinen Alltag. Entdecke ausgewählte Favoriten für Zuhause, unterwegs und jeden Tag.</p><a href="#neu" class="mt-8 inline-flex rounded-full bg-black px-6 py-3 text-sm font-medium text-white transition hover:bg-neutral-700">Produkte entdecken <span class="ml-3">↘</span></a></div><div class="relative overflow-hidden rounded-[2rem] bg-[#e9e5dd]"><img src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=1200&q=85" alt="Minimalistisches, helles Zuhause" class="h-[300px] w-full object-cover md:h-[390px]"><div class="absolute bottom-5 left-5 rounded-2xl bg-white/85 px-4 py-3 backdrop-blur"><p class="text-xs text-neutral-500">Unsere Auswahl</p><p class="mt-1 text-sm font-semibold">Für ein bewusstes Zuhause</p></div></div></section>
 <section id="neu" class="border-t border-black/10 py-12"><div class="mb-6 flex items-end justify-between gap-4"><div><p class="text-xs uppercase tracking-[.2em] text-neutral-500">Sorgfältig ausgesucht</p><h2 class="mt-2 text-3xl font-semibold tracking-[-.05em]">Beliebte Produkte</h2></div><span class="text-sm text-neutral-500">01 / Essentials</span></div><div id="row1" class="hide-scrollbar flex snap-x gap-4 overflow-x-auto pb-4"></div></section>
@@ -48,5 +48,59 @@ function openCheckout(){if(!cart.length)return;document.getElementById("checkout
 function closeCheckout(){document.getElementById("checkout").classList.add("hidden");document.getElementById("checkout").classList.remove("flex")}
 document.getElementById("lightboxClose").addEventListener("click",closeLightbox);document.getElementById("lightbox").addEventListener("click",e=>{if(e.target.id==="lightbox")closeLightbox()});document.getElementById("checkoutClose").addEventListener("click",closeCheckout);document.getElementById("cartOpen").addEventListener("click",()=>cart.length?openCheckout():alert("Dein Warenkorb ist noch leer."));
 document.getElementById("checkoutForm").addEventListener("submit",e=>{e.preventDefault();const m=document.getElementById("checkoutMessage");m.textContent="Die Shop-Oberfläche ist bereit. Für echte PayPal-Zahlungen müssen noch ein sicherer Server mit /api/paypal/create-order und /api/paypal/capture-order sowie deine PayPal Client-ID eingerichtet werden. Es wurde keine Zahlung ausgelöst.";m.classList.remove("hidden")});
-document.getElementById("year").textContent=new Date().getFullYear();document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeLightbox();closeCheckout()}});
+
+const translations = {
+en: {
+"Warenkorb":"Cart","Neuheiten":"New arrivals","Wohnen":"Home","Technik":"Tech","Weniger, aber besser":"Less, but better","Gute Dinge.":"Good things.","Einfach ausgewählt.":"Simply selected.","Zeitloses Design für deinen Alltag. Entdecke ausgewählte Favoriten für Zuhause, unterwegs und jeden Tag.":"Timeless design for everyday life. Discover selected favorites for home, on the go, and every day.","Produkte entdecken":"Explore products","Unsere Auswahl":"Our selection","Für ein bewusstes Zuhause":"For a more mindful home","Sorgfältig ausgesucht":"Carefully selected","Beliebte Produkte":"Popular products","Ruhige Räume":"Calm spaces","Wohnen & Alltag":"Home & everyday","Klar und praktisch":"Simple and practical","Technik & unterwegs":"Tech & on the go","Weniger suchen. Besser finden.":"Search less. Find better.","Eine kleine Auswahl an Produkten, die Form und Funktion zusammenbringen.":"A curated selection of products that bring form and function together.","Alle Rechte vorbehalten.":"All rights reserved.","Kontakt · Versand · Rückgabe":"Contact · Shipping · Returns","Schließen ✕":"Close ✕","Sicherer Checkout":"Secure checkout","Deine Lieferadresse":"Your delivery address","Vor- und Nachname":"Full name","Straße und Hausnummer":"Street and house number","Postleitzahl":"Postal code","Stadt":"City","Telefonnummer":"Phone number","Deine Angaben werden für die Bestellabwicklung benötigt. Echte Zahlungen benötigen eine sichere Serverintegration.":"Your details are needed to process your order. Real payments require a secure server integration.","Weiter zu PayPal":"Continue to PayPal","Keramikbecher":"Ceramic mug","Tischleuchte Forma":"Forma table lamp","Canvas-Tasche":"Canvas tote bag","Edelstahlflasche":"Stainless steel bottle","Duftkerze No. 01":"Scented candle No. 01","Kabellose Kopfhörer":"Wireless headphones","Schreibtisch-Organizer":"Desk organizer","Sonnenbrille Studio":"Studio sunglasses","Kompakter Lautsprecher":"Compact speaker","Notizbuch Essential":"Essential notebook","Armbanduhr Minimal":"Minimal wristwatch","Wasserkrug Glas":"Glass water jug","Bestseller":"Bestseller","Design":"Design","Alltag":"Everyday","Praktisch":"Practical","Neu":"New","Favorit":"Favorite","Ordnung":"Organization","Sommer":"Summer","Sound":"Sound","Papier":"Paper","Zeitlos":"Timeless","Klar":"Clean","Unterwegs":"On the go","Artikel":"items","Dein Warenkorb ist noch leer.":"Your cart is empty.",
+"Die Shop-Oberfläche ist bereit. Für echte PayPal-Zahlungen müssen noch ein sicherer Server mit /api/paypal/create-order und /api/paypal/capture-order sowie deine PayPal Client-ID eingerichtet werden. Es wurde keine Zahlung ausgelöst.":"The storefront is ready. To accept real PayPal payments, a secure server with /api/paypal/create-order and /api/paypal/capture-order, plus your PayPal Client ID, must be configured. No payment was made.",
+"Bild von ":"Image of "
+},
+de: {}
+};
+function applyLanguage(lang) {
+  const dict = translations[lang] || translations.de;
+  document.documentElement.lang = lang;
+  document.title = lang === "en" ? "Minimal Store — Timeless. Simple. Good." : "Minimal Store — Zeitlos. Einfach. Gut.";
+  const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+  let node;
+  while ((node = walker.nextNode())) {
+    if (!node.nodeValue.trim()) continue;
+    let value = node.nodeValue;
+    for (const [de, en] of Object.entries(translations.en)) {
+      const replacement = lang === "en" ? en : de;
+      if (value.includes(de)) value = value.split(de).join(replacement);
+      else if (lang === "de" && value.includes(en)) value = value.split(en).join(de);
+    }
+    node.nodeValue = value;
+  }
+  document.querySelectorAll("[placeholder]").forEach(el => {
+    const placeholders = {"Max Mustermann":"Max Mustermann","Musterstraße 12":"12 Example Street","+49 ...":"+49 ...","10115":"10115","Berlin":"Berlin"};
+    if (lang === "en") {
+      if (el.name === "name") el.placeholder = "Alex Smith";
+      if (el.name === "street") el.placeholder = "12 Example Street";
+      if (el.name === "zip") el.placeholder = "10115";
+      if (el.name === "city") el.placeholder = "Berlin";
+      if (el.name === "phone") el.placeholder = "+49 ...";
+    } else {
+      if (el.name === "name") el.placeholder = "Max Mustermann";
+      if (el.name === "street") el.placeholder = "Musterstraße 12";
+      if (el.name === "zip") el.placeholder = "10115";
+      if (el.name === "city") el.placeholder = "Berlin";
+      if (el.name === "phone") el.placeholder = "+49 ...";
+    }
+  });
+  document.getElementById("cartLabel").textContent = lang === "en" ? "Cart" : "Warenkorb";
+  document.querySelectorAll(".image-open").forEach((el, i) => el.setAttribute("aria-label", (lang === "en" ? "Product image: " : "Produktbild: ") + products[i]?.name));
+}
+document.getElementById("languageSelect").addEventListener("change", e => applyLanguage(e.target.value));
+const originalOpenCheckout = openCheckout;
+openCheckout = function() {
+  originalOpenCheckout();
+  const lang = document.getElementById("languageSelect").value;
+  if (!cart.length) return;
+  document.getElementById("checkoutSummary").innerHTML = '<div class="flex items-center justify-between"><span>'+cart.length+' '+(lang === "en" ? (cart.length === 1 ? "item" : "items") : "Artikel")+'</span><strong>'+money(total())+'</strong></div><p class="mt-2 text-xs text-neutral-500">'+cart.map(p => p.name).join(", ")+'</p>';
+};
+
+document.getElementById("year").textContent=new Date().getFullYear();
+applyLanguage("de");document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeLightbox();closeCheckout()}});
 </script></body></html>
