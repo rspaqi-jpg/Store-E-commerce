@@ -7,26 +7,40 @@ export const product = defineType({
   fields: [
     defineField({
       name: "name",
-      title: "Emri i produktit",
+      title: "Produktname",
       type: "string",
       validation: (rule) => rule.required().min(2).max(120),
     }),
     defineField({
+      name: "category",
+      title: "Kategorie",
+      type: "string",
+      options: {
+        list: [
+          { title: "Neuheiten", value: "neuheiten" },
+          { title: "Wohnen", value: "wohnen" },
+          { title: "Technik", value: "technik" },
+        ],
+        layout: "dropdown",
+      },
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: "price",
-      title: "Çmimi (EUR)",
+      title: "Preis (EUR)",
       type: "number",
       validation: (rule) => rule.required().positive(),
     }),
     defineField({
       name: "image",
-      title: "Imazhi",
+      title: "Produktbild",
       type: "image",
       options: { hotspot: true },
       validation: (rule) => rule.required(),
     }),
     defineField({
       name: "description",
-      title: "Përshkrimi",
+      title: "Beschreibung",
       type: "text",
       rows: 4,
       validation: (rule) => rule.required().min(5).max(1000),
@@ -36,13 +50,18 @@ export const product = defineType({
     select: {
       title: "name",
       media: "image",
-      subtitle: "price",
+      subtitle: "category",
     },
     prepare({ title, media, subtitle }) {
+      const labels: Record<string, string> = {
+        neuheiten: "Neuheiten",
+        wohnen: "Wohnen",
+        technik: "Technik",
+      };
       return {
         title,
         media,
-        subtitle: typeof subtitle === "number" ? subtitle.toFixed(2) + " €" : "Pa çmim",
+        subtitle: labels[subtitle] || "Kategorie auswählen",
       };
     },
   },
