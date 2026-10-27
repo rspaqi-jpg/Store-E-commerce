@@ -17,7 +17,7 @@
     "react-dom": "^19.2.0",
     "sanity": "^6.0.0",
     "styled-components": "^6.1.19",
-    "swr": "^2.3.6"
+    "swr": "2.2.5"
   },
   "devDependencies": {
     "@types/node": "^22.19.0",
