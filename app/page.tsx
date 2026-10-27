@@ -85,7 +85,6 @@ export default async function HomePage() {
             <a href="#wohnen">Wohnen</a>
             <a href="#technik">Technik</a>
           </nav>
-          <Link className="product-link" href="/storefront.html">Zum Shop ↗</Link>
         </div>
       </header>
 
@@ -147,7 +146,6 @@ export default async function HomePage() {
             <h2>Weniger Kalk. Mehr Wohlgefühl.</h2>
             <p>Von modernen Sanitärlösungen bis zu Duschfiltern mit Kalkschutz und smarter Technik: Entdecke ausgewählte Produkte für dein Zuhause.</p>
           </div>
-          <Link className="primary-button" href="/storefront.html">Zum vollständigen Shop ↗</Link>
         </section>
       </main>
 
