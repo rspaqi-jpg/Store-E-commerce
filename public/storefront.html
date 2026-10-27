@@ -48,7 +48,7 @@ function closeLightbox(){document.getElementById("lightbox").classList.add("hidd
 function openCheckout(){if(!cart.length)return;document.getElementById("checkoutSummary").innerHTML='<div class="flex items-center justify-between"><span>'+cart.length+' Artikel</span><strong>'+money(total())+'</strong></div><p class="mt-2 text-xs text-neutral-500">'+cart.map(p=>p.name).join(", ")+'</p>';document.getElementById("checkoutMessage").classList.add("hidden");document.getElementById("checkout").classList.remove("hidden");document.getElementById("checkout").classList.add("flex")}
 function closeCheckout(){document.getElementById("checkout").classList.add("hidden");document.getElementById("checkout").classList.remove("flex")}
 document.getElementById("lightboxClose").addEventListener("click",closeLightbox);document.getElementById("lightbox").addEventListener("click",e=>{if(e.target.id==="lightbox")closeLightbox()});document.getElementById("checkoutClose").addEventListener("click",closeCheckout);document.getElementById("cartOpen").addEventListener("click",()=>cart.length?openCheckout():alert(document.getElementById("languageSelect").value === "en" ? "Your cart is empty." : document.getElementById("languageSelect").value === "nl" ? "Je winkelwagen is nog leeg." : "Dein Warenkorb ist noch leer."));
-document.getElementById("checkoutForm").addEventListener("submit",e=>{e.preventDefault();const m=document.getElementById("checkoutMessage");const lang=document.getElementById("languageSelect").value;m.textContent=lang==="en"?"The storefront is ready. To accept real PayPal payments, a secure server with /api/paypal/create-order and /api/paypal/capture-order, plus your PayPal Client ID, must be configured. No payment was made.":lang==="nl"?"De winkel is klaar. Voor echte PayPal-betalingen moet een beveiligde server met /api/paypal/create-order en /api/paypal/capture-order worden ingesteld, samen met je PayPal Client-ID. Er is geen betaling uitgevoerd.":"Die Shop-Oberfläche ist bereit. Für echte PayPal-Zahlungen müssen noch ein sicherer Server mit /api/paypal/create-order und /api/paypal/capture-order sowie deine PayPal Client-ID eingerichtet werden. Es wurde keine Zahlung ausgelöst.";m.classList.remove("hidden")});
+document.getElementById("checkoutForm").addEventListener("submit",async e=>{e.preventDefault();const m=document.getElementById("checkoutMessage");const btn=document.querySelector('#checkoutForm button[type="submit"]');const lang=document.getElementById("languageSelect").value;btn.disabled=true;btn.textContent=lang==="en"?"Connecting to PayPal…":lang==="nl"?"Verbinden met PayPal…":"Verbinde mit PayPal…";m.classList.add("hidden");try{const response=await fetch("/api/paypal/create-order",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({items:cart.map(p=>({id:p.id,quantity:1}))})});const data=await response.json();if(!response.ok||!data.approvalUrl)throw new Error(data.error||"PayPal konnte die Bestellung nicht starten.");window.location.assign(data.approvalUrl)}catch(error){m.textContent=lang==="en"?"PayPal checkout could not start. Make sure the products are published in Sanity and PayPal credentials are configured in Vercel.":lang==="nl"?"PayPal afrekenen kon niet starten. Controleer of producten gepubliceerd zijn in Sanity en PayPal-gegevens in Vercel staan.":"PayPal konnte nicht gestartet werden. Prüfe, ob die Produkte in Sanity veröffentlicht und die PayPal-Zugangsdaten in Vercel eingetragen sind.";m.classList.remove("hidden");btn.disabled=false;btn.textContent=lang==="en"?"Continue to PayPal":lang==="nl"?"Verder naar PayPal":"Weiter zu PayPal"}});
 
 const translations = {
 nl: {
@@ -182,7 +182,45 @@ async function loadGoogleSheetProducts() {
     console.warn("Google Sheets product feed unavailable; showing static products.", error);
   }
 }
+
 loadGoogleSheetProducts();
+
+// Load the real catalogue from Sanity. Demo products are removed once the live catalogue responds.
+async function loadSanityStoreProducts() {
+  try {
+    const response = await fetch("/api/products", { cache: "no-store" });
+    if (!response.ok) return;
+    const liveProducts = await response.json();
+    if (!Array.isArray(liveProducts) || liveProducts.length === 0) return;
+    ["row1","row2","row3"].forEach(id => document.getElementById(id).replaceChildren());
+    products.splice(0, products.length, ...liveProducts.filter(p => p && p._id && typeof p.price === "number").map(p => ({
+      id: p._id, name: p.name || "Produkt", category: "Minimal Store",
+      price: p.price, old: null, img: p.imageUrl || "", imageUrl: p.imageUrl || "", tag: "Produkt"
+    })));
+    products.forEach((p, index) => {
+      const row = document.getElementById(["row1","row2","row3"][index % 3]);
+      const card = document.createElement("article");
+      card.className = "product-card min-w-[235px] max-w-[270px] flex-1 snap-start overflow-hidden rounded-3xl border border-black/5 bg-white";
+      const image = p.imageUrl ? p.imageUrl : "";
+      const imageButton = document.createElement("button");
+      imageButton.className = "image-open relative block w-full overflow-hidden bg-neutral-100 text-left";
+      imageButton.setAttribute("aria-label", "Produktbild: " + p.name);
+      const img = document.createElement("img");
+      img.className = "product-img h-60 w-full object-cover";
+      img.loading = "lazy"; img.src = image; img.alt = p.name;
+      imageButton.appendChild(img);
+      imageButton.addEventListener("click", () => { if(!image)return; document.getElementById("lightboxImg").src=image; document.getElementById("lightboxImg").alt=p.name; document.getElementById("lightbox").classList.remove("hidden"); document.getElementById("lightbox").classList.add("flex"); });
+      const body = document.createElement("div"); body.className = "p-4";
+      const category = document.createElement("p"); category.className = "text-xs text-neutral-500"; category.textContent = p.category;
+      const name = document.createElement("h3"); name.className = "mt-1 font-medium"; name.textContent = p.name;
+      const price = document.createElement("p"); price.className = "mt-3 font-semibold"; price.textContent = money(p.price);
+      const buy = document.createElement("button"); buy.className = "add-cart mt-4 w-full rounded-full bg-[#ffc439] px-4 py-3 text-sm font-semibold text-black transition hover:bg-[#f3b82e]"; buy.textContent = "Mit PayPal kaufen";
+      buy.addEventListener("click", () => { cart.push(p); updateCart(); openCheckout(); });
+      body.append(category,name,price,buy); card.append(imageButton,body); row.appendChild(card);
+    });
+  } catch (error) { console.warn("Sanity products could not load; keeping fallback catalogue.", error); }
+}
+loadSanityStoreProducts();
 
 document.getElementById("year").textContent=new Date().getFullYear();
 applyLanguage("de");document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeLightbox();closeCheckout()}});
