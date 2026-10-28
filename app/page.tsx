@@ -131,8 +131,7 @@ export default async function HomePage() {
                 ) : (
                   <div className="empty-state">
                     <h3>Produkte folgen in Kürze</h3>
-                    <p>Diese Kategorie ist vorbereitet. Sobald du Produkte in Sanity veröffentlichst und eine Kategorie auswählst, erscheinen sie hier automatisch.</p>
-                    <Link className="primary-button" href="/studio">Produkt im Admin Panel hinzufügen ↗</Link>
+                    <p>Diese Kategorie ist vorbereitet. Neue Produkte werden künftig direkt über unseren Chat-Workflow vorbereitet und anschließend in den Shop übernommen.</p>
                   </div>
                 )}
               </section>
