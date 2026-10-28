@@ -63,7 +63,7 @@ document.getElementById("checkoutForm").addEventListener("submit",async e=>{
   const data=await response.json();
   if(!response.ok||!data.orderId||!data.approvalUrl) throw new Error(data.error||"PayPal checkout could not start.");
   const approval=new URL(data.approvalUrl);
-  if(approval.protocol!=="https:"||!/(^|\\.)paypal\\.com$/i.test(approval.hostname)) throw new Error("PayPal returned an invalid approval address.");
+  if(approval.protocol!=="https:"||!/(^|\.)paypal\.com$/i.test(approval.hostname)) throw new Error("PayPal returned an invalid approval address.");
   window.location.href=approval.href;
  }catch(error){
   msg.textContent=error instanceof Error?error.message:"PayPal checkout could not start.";
