@@ -23,7 +23,7 @@
 <label class="grid gap-1 text-sm">E-Mail-Adresse<input name="email" type="email" required autocomplete="email" class="focus-ring rounded-xl border border-black/10 bg-white px-4 py-3" placeholder="du@example.com"></label>\n<label class="grid gap-1 text-sm">Vor- und Nachname<input name="name" required autocomplete="name" class="focus-ring rounded-xl border border-black/10 bg-white px-4 py-3" placeholder="Max Mustermann"></label>
 <label class="grid gap-1 text-sm">Straße und Hausnummer<input name="street" required autocomplete="street-address" class="focus-ring rounded-xl border border-black/10 bg-white px-4 py-3" placeholder="Musterstraße 12"></label>
 <div class="grid grid-cols-2 gap-3"><label class="grid gap-1 text-sm">Postleitzahl<input name="zip" required autocomplete="postal-code" class="focus-ring min-w-0 rounded-xl border border-black/10 bg-white px-4 py-3" placeholder="10115"></label><label class="grid gap-1 text-sm">Stadt<input name="city" required autocomplete="address-level2" class="focus-ring min-w-0 rounded-xl border border-black/10 bg-white px-4 py-3" placeholder="Berlin"></label></div>
-<label class="grid gap-1 text-sm">Telefonnummer<input name="phone" type="tel" required autocomplete="tel" class="focus-ring rounded-xl border border-black/10 bg-white px-4 py-3" placeholder="+49 ..."></label><label class="grid gap-1 text-sm">Land (z.B. Deutschland)<input name="country" type="text" required autocomplete="country-name" class="focus-ring rounded-xl border border-black/10 bg-white px-4 py-3" placeholder="Deutschland"></label><p class="text-xs leading-5 text-neutral-500">Ihre Daten werden sicher verschlüsselt übertragen.</p><p class="text-sm font-semibold text-neutral-800">Zahlungspflichtig bestellen</p><button type="submit" class="mt-2 rounded-full bg-[#ffc439] px-5 py-3.5 text-sm font-semibold text-black hover:bg-[#f3b82e]">Weiter zu PayPal</button><p id="checkoutMessage" class="hidden rounded-xl bg-amber-50 p-3 text-sm leading-5 text-amber-900"></p></form></div></div>
+<label class="grid gap-1 text-sm">Telefonnummer<input name="phone" type="tel" required autocomplete="tel" class="focus-ring rounded-xl border border-black/10 bg-white px-4 py-3" placeholder="+49 ..."></label><label class="grid gap-1 text-sm">Land (z.B. Deutschland)<input name="country" type="text" required autocomplete="country-name" class="focus-ring rounded-xl border border-black/10 bg-white px-4 py-3" placeholder="Deutschland"></label><p class="text-xs leading-5 text-neutral-500">Ihre Daten werden sicher verschlüsselt übertragen.</p><p class="text-sm font-semibold text-neutral-800">Zahlungspflichtig bestellen</p><button id="checkoutContinueButton" type="submit" class="mt-2 rounded-full bg-[#ffc439] px-5 py-3.5 text-sm font-semibold text-black hover:bg-[#f3b82e]">Weiter zu PayPal</button><div id="paypalButtonContainer" class="hidden mt-3 min-h-12"></div><p id="checkoutMessage" class="hidden rounded-xl bg-amber-50 p-3 text-sm leading-5 text-amber-900"></p></form></div></div>
 <script>
 const products=[
 {id:"1",name:"Filter-Duschkopf",category:"Bad",price:29.90,old:39.90,img:"photo-1620626011761-996317b8d101",tag:"Bad & Dusche"},
@@ -46,7 +46,78 @@ function closeLightbox(){document.getElementById("lightbox").classList.add("hidd
 function openCheckout(){if(!cart.length)return;document.getElementById("checkoutSummary").innerHTML='<div class="flex items-center justify-between"><span>'+cart.length+' Artikel</span><strong>'+money(total())+'</strong></div><div class="mt-3 space-y-2">'+cart.map(p=>'<div class="flex items-start justify-between gap-3 border-t border-black/5 pt-2"><span>'+String(p.name).replace(/</g,"&lt;").replace(/>/g,"&gt;")+'</span><strong class="shrink-0">'+money(Number(p.price))+'</strong></div>').join("")+'</div>';document.getElementById("checkoutMessage").classList.add("hidden");document.getElementById("checkout").classList.remove("hidden");document.getElementById("checkout").classList.add("flex")}
 function closeCheckout(){document.getElementById("checkout").classList.add("hidden");document.getElementById("checkout").classList.remove("flex")}
 document.getElementById("lightboxClose").addEventListener("click",closeLightbox);document.getElementById("lightbox").addEventListener("click",e=>{if(e.target.id==="lightbox")closeLightbox()});document.getElementById("checkoutClose").addEventListener("click",closeCheckout);document.getElementById("cartOpen").addEventListener("click",openCart);document.getElementById("cartClose").addEventListener("click",closeCart);document.getElementById("cartContinue").addEventListener("click",closeCart);document.getElementById("cartDrawer").addEventListener("click",e=>{if(e.target.id==="cartDrawer")closeCart()});document.getElementById("cartCheckout").addEventListener("click",()=>{if(!cart.length)return;closeCart();openCheckout()});
-document.getElementById("checkoutForm").addEventListener("submit",async e=>{e.preventDefault();const m=document.getElementById("checkoutMessage");const btn=document.querySelector('#checkoutForm button[type="submit"]');const lang=document.getElementById("languageSelect").value;btn.disabled=true;btn.textContent=lang==="en"?"Connecting to PayPal…":lang==="nl"?"Verbinden met PayPal…":"Verbinde mit PayPal…";m.classList.add("hidden");try{const response=await fetch("/api/paypal/create-order",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({items:cart.map(p=>({id:p.id,quantity:1})),customer:{email:String(new FormData(document.getElementById("checkoutForm")).get("email")||"").trim()}})});const data=await response.json();if(!response.ok||!data.approvalUrl)throw new Error(data.error||"PayPal konnte die Bestellung nicht starten.");window.location.assign(data.approvalUrl)}catch(error){m.textContent=error instanceof Error && error.message ? error.message : (lang==="en"?"PayPal checkout could not start. Please try again later.":lang==="nl"?"PayPal afrekenen kon niet starten. Probeer het later opnieuw.":"PayPal konnte nicht gestartet werden. Bitte versuche es later erneut.");m.classList.remove("hidden");btn.disabled=false;btn.textContent=lang==="en"?"Continue to PayPal":lang==="nl"?"Verder naar PayPal":"Weiter zu PayPal"}});
+document.getElementById("checkoutForm").addEventListener("submit",async e=>{
+  e.preventDefault();
+  const m=document.getElementById("checkoutMessage");
+  const btn=document.getElementById("checkoutContinueButton");
+  const paypalBox=document.getElementById("paypalButtonContainer");
+  const lang=document.getElementById("languageSelect").value;
+  const message=(text)=>{m.textContent=text;m.classList.remove("hidden")};
+  btn.disabled=true;
+  btn.textContent=lang==="en"?"Preparing PayPal…":lang==="nl"?"PayPal voorbereiden…":"PayPal wird vorbereitet…";
+  m.classList.add("hidden");
+  paypalBox.replaceChildren();
+  paypalBox.classList.add("hidden");
+  try {
+    const configResponse=await fetch("/api/paypal/client-config",{cache:"no-store"});
+    const config=await configResponse.json();
+    if(!configResponse.ok||!config.clientId) throw new Error(config.error||"PayPal ist noch nicht konfiguriert.");
+    if(!window.paypal) {
+      await new Promise((resolve,reject)=>{
+        const script=document.createElement("script");
+        script.src="https://www.paypal.com/sdk/js?client-id="+encodeURIComponent(config.clientId)+"&currency=EUR&intent=capture&disable-funding=card";
+        script.onload=resolve;
+        script.onerror=()=>reject(new Error("PayPal konnte nicht geladen werden. Bitte erneut versuchen."));
+        document.head.appendChild(script);
+      });
+    }
+    paypalBox.classList.remove("hidden");
+    btn.classList.add("hidden");
+    await window.paypal.Buttons({
+      fundingSource: window.paypal.FUNDING.PAYPAL,
+      style:{layout:"vertical",shape:"pill",label:"paypal",color:"gold",height:48},
+      createOrder:async()=>{
+        const response=await fetch("/api/paypal/create-order",{
+          method:"POST",
+          headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({
+            items:cart.map(p=>({id:p.id,quantity:1})),
+            customer:{email:String(new FormData(document.getElementById("checkoutForm")).get("email")||"").trim()}
+          })
+        });
+        const data=await response.json();
+        if(!response.ok||!data.orderId) throw new Error(data.error||"PayPal konnte die Bestellung nicht starten.");
+        return data.orderId;
+      },
+      onApprove:async(data)=>{
+        btn.textContent=lang==="en"?"Confirming payment…":lang==="nl"?"Betaling bevestigen…":"Zahlung wird bestätigt…";
+        btn.classList.remove("hidden");
+        paypalBox.classList.add("hidden");
+        const response=await fetch("/api/paypal/capture-order",{
+          method:"POST",
+          headers:{"Content-Type":"application/json"},
+          body:JSON.stringify({orderId:data.orderID})
+        });
+        const result=await response.json();
+        if(!response.ok||result.status!=="COMPLETED") throw new Error(result.error||"PayPal konnte die Zahlung nicht bestätigen.");
+        cart=[];
+        updateCart();
+        window.location.assign("/storefront.html?payment=success");
+      },
+      onCancel:()=>{message(lang==="en"?"Payment cancelled. You can try again.":lang==="nl"?"Betaling geannuleerd. Je kunt het opnieuw proberen.":"Zahlung abgebrochen. Du kannst es erneut versuchen.");},
+      onError:(error)=>{
+        console.error("PayPal wallet error",error);
+        message(lang==="en"?"PayPal checkout could not continue. Please try again.":lang==="nl"?"PayPal kon niet doorgaan. Probeer het opnieuw.":"PayPal konnte nicht fortfahren. Bitte versuche es erneut.");
+      }
+    }).render("#paypalButtonContainer");
+  } catch(error) {
+    message(error instanceof Error&&error.message?error.message:(lang==="en"?"PayPal checkout could not start.":lang==="nl"?"PayPal afrekenen kon niet starten.":"PayPal konnte nicht gestartet werden."));
+    btn.classList.remove("hidden");
+    paypalBox.classList.add("hidden");
+    btn.disabled=false;
+    btn.textContent=lang==="en"?"Continue to PayPal":lang==="nl"?"Verder naar PayPal":"Weiter zu PayPal";
+  }
+});
 
 const translations = {
 nl: {
