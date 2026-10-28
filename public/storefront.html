@@ -47,78 +47,31 @@ function openCheckout(){if(!cart.length)return;document.getElementById("checkout
 function closeCheckout(){document.getElementById("checkout").classList.add("hidden");document.getElementById("checkout").classList.remove("flex")}
 document.getElementById("lightboxClose").addEventListener("click",closeLightbox);document.getElementById("lightbox").addEventListener("click",e=>{if(e.target.id==="lightbox")closeLightbox()});document.getElementById("checkoutClose").addEventListener("click",closeCheckout);document.getElementById("cartOpen").addEventListener("click",openCart);document.getElementById("cartClose").addEventListener("click",closeCart);document.getElementById("cartContinue").addEventListener("click",closeCart);document.getElementById("cartDrawer").addEventListener("click",e=>{if(e.target.id==="cartDrawer")closeCart()});document.getElementById("cartCheckout").addEventListener("click",()=>{if(!cart.length)return;closeCart();openCheckout()});
 document.getElementById("checkoutForm").addEventListener("submit",async e=>{
-  e.preventDefault();
-  const m=document.getElementById("checkoutMessage");
-  const btn=document.getElementById("checkoutContinueButton");
-  const paypalBox=document.getElementById("paypalButtonContainer");
-  const lang=document.getElementById("languageSelect").value;
-  const message=(text)=>{m.textContent=text;m.classList.remove("hidden")};
-  btn.disabled=true;
-  btn.textContent=lang==="en"?"Preparing PayPal…":lang==="nl"?"PayPal voorbereiden…":"PayPal wird vorbereitet…";
-  m.classList.add("hidden");
-  paypalBox.replaceChildren();
-  paypalBox.classList.add("hidden");
-  try {
-    const configResponse=await fetch("/api/paypal/client-config",{cache:"no-store"});
-    const config=await configResponse.json();
-    if(!configResponse.ok||!config.clientId) throw new Error(config.error||"PayPal ist noch nicht konfiguriert.");
-    if(!window.paypal) {
-      await new Promise((resolve,reject)=>{
-        const script=document.createElement("script");
-        script.src="https://www.paypal.com/sdk/js?client-id="+encodeURIComponent(config.clientId)+"&currency=EUR&intent=capture&disable-funding=card";
-        script.onload=resolve;
-        script.onerror=()=>reject(new Error("PayPal konnte nicht geladen werden. Bitte erneut versuchen."));
-        document.head.appendChild(script);
-      });
-    }
-    paypalBox.classList.remove("hidden");
-    btn.classList.add("hidden");
-    await window.paypal.Buttons({
-      fundingSource: window.paypal.FUNDING.PAYPAL,
-      style:{layout:"vertical",shape:"pill",label:"paypal",color:"gold",height:48},
-      createOrder:async()=>{
-        const response=await fetch("/api/paypal/create-order",{
-          method:"POST",
-          headers:{"Content-Type":"application/json"},
-          body:JSON.stringify({
-            items:cart.map(p=>({id:p.id,quantity:1})),
-            customer:{email:String(new FormData(document.getElementById("checkoutForm")).get("email")||"").trim()}
-          })
-        });
-        const data=await response.json();
-        if(!response.ok||!data.orderId) throw new Error(data.error||"PayPal konnte die Bestellung nicht starten.");
-        return data.orderId;
-      },
-      onApprove:async(data)=>{
-        btn.textContent=lang==="en"?"Confirming payment…":lang==="nl"?"Betaling bevestigen…":"Zahlung wird bestätigt…";
-        btn.classList.remove("hidden");
-        paypalBox.classList.add("hidden");
-        const response=await fetch("/api/paypal/capture-order",{
-          method:"POST",
-          headers:{"Content-Type":"application/json"},
-          body:JSON.stringify({orderId:data.orderID})
-        });
-        const result=await response.json();
-        if(!response.ok||result.status!=="COMPLETED") throw new Error(result.error||"PayPal konnte die Zahlung nicht bestätigen.");
-        cart=[];
-        updateCart();
-        window.location.assign("/storefront.html?payment=success");
-      },
-      onCancel:()=>{message(lang==="en"?"Payment cancelled. You can try again.":lang==="nl"?"Betaling geannuleerd. Je kunt het opnieuw proberen.":"Zahlung abgebrochen. Du kannst es erneut versuchen.");},
-      onError:(error)=>{
-        console.error("PayPal wallet error",error);
-        message(lang==="en"?"PayPal checkout could not continue. Please try again.":lang==="nl"?"PayPal kon niet doorgaan. Probeer het opnieuw.":"PayPal konnte nicht fortfahren. Bitte versuche es erneut.");
-      }
-    }).render("#paypalButtonContainer");
-  } catch(error) {
-    message(error instanceof Error&&error.message?error.message:(lang==="en"?"PayPal checkout could not start.":lang==="nl"?"PayPal afrekenen kon niet starten.":"PayPal konnte nicht gestartet werden."));
-    btn.classList.remove("hidden");
-    paypalBox.classList.add("hidden");
-    btn.disabled=false;
-    btn.textContent=lang==="en"?"Continue to PayPal":lang==="nl"?"Verder naar PayPal":"Weiter zu PayPal";
-  }
+ e.preventDefault();
+ const form=document.getElementById("checkoutForm");
+ const msg=document.getElementById("checkoutMessage");
+ const btn=document.getElementById("checkoutContinueButton");
+ const lang=document.getElementById("languageSelect").value;
+ btn.disabled=true;
+ btn.textContent=lang==="en"?"Opening PayPal…":lang==="nl"?"PayPal openen…":"PayPal wird geöffnet…";
+ msg.classList.add("hidden");
+ try{
+  const response=await fetch("/api/paypal/create-order",{
+   method:"POST",headers:{"Content-Type":"application/json"},
+   body:JSON.stringify({items:cart.map(p=>({id:p.id,quantity:1})),customer:{email:String(new FormData(form).get("email")||"").trim()}})
+  });
+  const data=await response.json();
+  if(!response.ok||!data.orderId||!data.approvalUrl) throw new Error(data.error||"PayPal checkout could not start.");
+  const approval=new URL(data.approvalUrl);
+  if(approval.protocol!=="https:"||!/(^|\\.)paypal\\.com$/i.test(approval.hostname)) throw new Error("PayPal returned an invalid approval address.");
+  window.location.href=approval.href;
+ }catch(error){
+  msg.textContent=error instanceof Error?error.message:"PayPal checkout could not start.";
+  msg.classList.remove("hidden");
+  btn.disabled=false;
+  btn.textContent=lang==="en"?"Continue to PayPal":lang==="nl"?"Verder naar PayPal":"Weiter zu PayPal";
+ }
 });
-
 const translations = {
 nl: {
 "Warenkorb":"Winkelwagen","Neuheiten":"Nieuw","Wohnen":"Wonen","Technik":"Technologie","Sorgfältig ausgewählt":"Minder, maar beter","Gute Dinge.":"Goede dingen.","Einfach ausgewählt.":"Eenvoudig geselecteerd.","Entdecke ausgewählte Produkte für Bad, Wohnen und Alltag. Klare Informationen und transparente Preise helfen dir bei deiner Kaufentscheidung.":"Tijdloos design voor elke dag. Ontdek zorgvuldig geselecteerde favorieten voor thuis en onderweg.","Produkte entdecken":"Ontdek producten","Heinze Filter Auswahl":"Onze selectie","Qualität für deinen Alltag":"Voor een bewust ingericht huis","Sorgfältig ausgesucht":"Zorgvuldig geselecteerd","Beliebte Produkte":"Populaire producten","Ruhige Räume":"Rustige ruimtes","Wohnen & Alltag":"Wonen en dagelijks leven","Klar und praktisch":"Helder en praktisch","Technik & unterwegs":"Technologie en onderweg","Weniger suchen. Besser finden.":"Minder zoeken. Beter vinden.","Eine kleine Auswahl an Produkten, die Form und Funktion zusammenbringen.":"Een kleine selectie producten waarin vorm en functie samenkomen.","Alle Rechte vorbehalten.":"Alle rechten voorbehouden.","Kontakt · Versand · Rückgabe":"Contact · Verzending · Retourneren","Schließen ✕":"Sluiten ✕","Sicherer Checkout":"Veilig afrekenen","Deine Lieferadresse":"Je bezorgadres","Vor- und Nachname":"Voor- en achternaam","Straße und Hausnummer":"Straat en huisnummer","Postleitzahl":"Postcode","Stadt":"Plaats","Telefonnummer":"Telefoonnummer","Land (z.B. Deutschland)":"Land (bijv. Duitsland)","Ihre Daten werden sicher verschlüsselt übertragen.":"Je gegevens worden veilig versleuteld verzonden.","Zahlungspflichtig bestellen":"Bestelling met betalingsverplichting","Weiter zu PayPal":"Verder naar PayPal","Keramikbecher":"Keramische mok","Tischleuchte Forma":"Forma-tafellamp","Canvas-Tasche":"Canvas tas","Edelstahlflasche":"Roestvrijstalen drinkfles","Duftkerze No. 01":"Geurkaars nr. 01","Kabellose Kopfhörer":"Draadloze koptelefoon","Schreibtisch-Organizer":"Bureau-organizer","Sonnenbrille Studio":"Studio-zonnebril","Kompakter Lautsprecher":"Compacte luidspreker","Notizbuch Essential":"Essentieel notitieboek","Armbanduhr Minimal":"Minimalistisch horloge","Wasserkrug Glas":"Glazen waterkan","Bestseller":"Bestseller","Design":"Design","Alltag":"Dagelijks","Praktisch":"Praktisch","Neu":"Nieuw","Favorit":"Favoriet","Ordnung":"Orde","Sommer":"Zomer","Sound":"Geluid","Papier":"Papier","Zeitlos":"Tijdloos","Klar":"Helder","Unterwegs":"Onderweg","Artikel":"artikelen","Dein Warenkorb ist noch leer.":"Je winkelwagen is nog leeg.","Die Shop-Oberfläche ist bereit. Für echte PayPal-Zahlungen müssen noch ein sicherer Server mit /api/paypal/create-order und /api/paypal/capture-order sowie deine PayPal Client-ID eingerichtet werden. Es wurde keine Zahlung ausgelöst.":"De winkel is klaar. Voor echte PayPal-betalingen moet een beveiligde server met /api/paypal/create-order en /api/paypal/capture-order worden ingesteld, samen met je PayPal Client-ID. Er is geen betaling uitgevoerd.","Bild von ":"Afbeelding van "},
