@@ -95,13 +95,18 @@ export async function POST(request: Request) {
           items: paypalItems,
         },
       ],
-      application_context: {
-        brand_name: "Heinze Filter",
-        landing_page: "LOGIN",
-        user_action: "PAY_NOW",
-        return_url: origin + "/api/paypal/capture-order",
-        cancel_url: origin + "/storefront.html?payment=cancelled",
-        shipping_preference: "GET_FROM_FILE",
+      payment_source: {
+        paypal: {
+          experience_context: {
+            brand_name: "Heinze Filter",
+            landing_page: "LOGIN",
+            user_action: "PAY_NOW",
+            payment_method_preference: "IMMEDIATE_PAYMENT_REQUIRED",
+            return_url: origin + "/api/paypal/capture-order",
+            cancel_url: origin + "/storefront.html?payment=cancelled",
+            shipping_preference: "GET_FROM_FILE",
+          },
+        },
       },
     };
 
