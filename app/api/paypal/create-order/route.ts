@@ -152,9 +152,13 @@ export async function POST(request: Request) {
       );
     }
 
-    const approvalUrl = data.links?.find((link) => link.rel === "approve")?.href;
+    const approvalUrl = data.links?.find((link) => link.rel === "payer-action" || link.rel === "approve")?.href;
     if (!data.id || !approvalUrl) {
-      return NextResponse.json({ error: "PayPal approval link missing" }, { status: 502 });
+      console.error("PayPal order is missing a customer approval link", {
+        orderId: data.id,
+        links: data.links?.map((link) => ({ rel: link.rel, hrefPresent: Boolean(link.href) })),
+      });
+      return NextResponse.json({ error: "PayPal did not return a customer approval link" }, { status: 502 });
     }
 
     return NextResponse.json({ orderId: data.id, approvalUrl });
