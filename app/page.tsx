@@ -93,7 +93,7 @@ export default async function HomePage() {
           <div>
             <p className="eyebrow">HEINZE FILTER · BAD &amp; SMART LIVING</p>
             <h1>Mehr Komfort.<br />Weniger Kalk.</h1>
-            <p>Entdecke moderne Sanitärprodukte, innovative Duschfilter gegen Kalkablagerungen und intelligente Smart-Home-Lösungen – für ein besseres Gefühl in deinem Zuhause.</p>
+            <p>Entdecke sorgfältig ausgewählte Produkte für Bad und Zuhause – mit klaren Produktinformationen, transparenten Preisen und einer unkomplizierten Bestellung.</p>
             <a className="primary-button" href="#neuheiten">Produkte entdecken ↘</a>
           </div>
           <img
@@ -131,7 +131,7 @@ export default async function HomePage() {
                 ) : (
                   <div className="empty-state">
                     <h3>Produkte folgen in Kürze</h3>
-                    <p>Diese Kategorie ist vorbereitet. Neue Produkte werden künftig direkt über unseren Chat-Workflow vorbereitet und anschließend in den Shop übernommen.</p>
+                    <p>Aktuell sind in dieser Kategorie keine Produkte verfügbar. Entdecke unsere Auswahl in den anderen Kategorien.</p>
                   </div>
                 )}
               </section>
@@ -143,7 +143,7 @@ export default async function HomePage() {
           <div>
             <p className="eyebrow">Heinze Filter · Sanitär &amp; Smart Home</p>
             <h2>Weniger Kalk. Mehr Wohlgefühl.</h2>
-            <p>Von modernen Sanitärlösungen bis zu Duschfiltern mit Kalkschutz und smarter Technik: Entdecke ausgewählte Produkte für dein Zuhause.</p>
+            <p>Wir legen Wert auf verständliche Produktinformationen, transparente Preise und einen einfachen Bestellablauf. Wähle dein Produkt aus und gehe direkt zum Einkauf.</p>
           </div>
         </section>
       </main>
