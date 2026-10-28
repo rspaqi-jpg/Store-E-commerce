@@ -97,7 +97,7 @@ openCheckout = function() {
   originalOpenCheckout();
   const lang = document.getElementById("languageSelect").value;
   if (!cart.length) return;
-  document.getElementById("checkoutSummary").innerHTML = '<div class="flex items-center justify-between"><span>'+cart.length+' '+(lang === "en" ? (cart.length === 1 ? "item" : "items") : lang === "nl" ? (cart.length === 1 ? "artikel" : "artikelen") : "Artikel")+'</span><strong>'+money(total())+'</strong></div><p class="mt-2 text-xs text-neutral-500">'+cart.map(p => lang === "en" ? (translations.en[p.name] || p.name) : p.name).join(", ")+'</p>';
+  document.getElementById("checkoutSummary").innerHTML = '<div class="flex items-center justify-between"><span>'+cart.length+' '+(lang === "en" ? (cart.length === 1 ? "item" : "items") : lang === "nl" ? (cart.length === 1 ? "artikel" : "artikelen") : "Artikel")+'</span><strong>'+money(total())+'</strong></div><div class="mt-3 space-y-2">'+cart.map(p => '<div class="flex items-start justify-between gap-3 border-t border-black/5 pt-2"><span class="text-neutral-700">'+String(lang === "en" ? (translations.en[p.name] || p.name) : p.name).replace(/</g,"&lt;").replace(/>/g,"&gt;")+'</span><strong class="shrink-0">'+money(Number(p.price))+'</strong></div>').join("")+'</div>';
 };
 
 
@@ -180,6 +180,7 @@ async function loadGoogleSheetProducts() {
 }
 loadGoogleSheetProducts();
 
+if(new URLSearchParams(location.search).get("payment")==="success"){cart=[];updateCart();const success=document.createElement("div");success.className="mx-auto my-4 max-w-7xl rounded-xl bg-emerald-50 p-4 text-sm text-emerald-900";success.textContent="PayPal-Zahlung erfolgreich. Vielen Dank für deine Bestellung!";document.querySelector("main").prepend(success);}
 document.getElementById("year").textContent=new Date().getFullYear();
 applyLanguage("de");document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeLightbox();closeCheckout()}});
 </script></body></html>
