@@ -176,8 +176,8 @@ async function loadGoogleSheetProducts() {
 
 loadGoogleSheetProducts();
 
-// Load the real catalogue from Sanity. Demo products are removed once the live catalogue responds.
-async function loadSanityStoreProducts() {
+// Load the local product catalogue. Static products remain available if the API is unavailable.
+async function loadLocalStoreProducts() {
   try {
     const response = await fetch("/api/products", { cache: "no-store" });
     if (!response.ok) return;
@@ -209,9 +209,9 @@ async function loadSanityStoreProducts() {
       buy.addEventListener("click", () => { cart.push(p); updateCart(); openCheckout(); });
       body.append(category,name,price,buy); card.append(imageButton,body); row.appendChild(card);
     });
-  } catch (error) { console.warn("Sanity products could not load; keeping fallback catalogue.", error); }
+  } catch (error) { console.warn("Local product catalogue could not load; keeping fallback catalogue.", error); }
 }
-loadSanityStoreProducts();
+loadLocalStoreProducts();
 
 document.getElementById("year").textContent=new Date().getFullYear();
 applyLanguage("de");document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeLightbox();closeCheckout()}});
