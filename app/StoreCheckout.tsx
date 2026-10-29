@@ -1,7 +1,7 @@
 "use client";
 
 import Script from "next/script";
-import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
 type Product = {
   _id: string;
@@ -219,7 +219,7 @@ export function StoreCheckoutProvider({ children }: { children: ReactNode }) {
   );
 }
 
-const inputStyle: React.CSSProperties = {
+const inputStyle: CSSProperties = {
   width: "100%",
   minWidth: 0,
   marginTop: 3,
@@ -230,4 +230,4 @@ const inputStyle: React.CSSProperties = {
   font: "inherit",
   outlineOffset: 2,
 };
-const labelStyle: React.CSSProperties = { display: "grid", gap: 5, fontSize: 13 };
+const labelStyle: CSSProperties = { display: "grid", gap: 5, fontSize: 13 };
