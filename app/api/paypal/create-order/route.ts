@@ -7,6 +7,7 @@ const products = [
   { id: "1", name: "Filter-Duschkopf", price: 29.90 },
   { id: "2", name: "LED-Nachtlicht mit Bewegungssensor", price: 19.90 },
   { id: "3", name: "Organizer für das Badezimmer", price: 24.90 },
+  { id: "4", name: "Duschkopf mit Filter & Temperaturanzeige", price: 25.99 },
 ];
 
 function countryCode(value: string) {
