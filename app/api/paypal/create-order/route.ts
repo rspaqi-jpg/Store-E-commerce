@@ -29,7 +29,8 @@ function countryCode(value: string) {
 }
 
 function paypalBaseUrl() {
-  return process.env.PAYPAL_ENV === "live"
+  const environment = (process.env.PAYPAL_ENV || "sandbox").trim().toLowerCase();
+  return ["live", "production", "prod"].includes(environment)
     ? "https://api-m.paypal.com"
     : "https://api-m.sandbox.paypal.com";
 }
@@ -184,8 +185,12 @@ export async function POST(request: Request) {
           description: detail.description,
         })),
       });
+      const detail = data.details
+        ?.map((entry) => [entry.issue, entry.description].filter(Boolean).join(": "))
+        .filter(Boolean)
+        .join("; ");
       return NextResponse.json(
-        { error: "PayPal could not start checkout. Please try again or contact support." },
+        { error: detail ? `PayPal rejected the order: ${detail}` : `PayPal rejected the order (HTTP ${response.status}). Please verify the Live credentials and order details.` },
         { status: 502 },
       );
     }
