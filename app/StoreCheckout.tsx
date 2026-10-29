@@ -93,25 +93,35 @@ export function StoreCheckoutProvider({ children }: { children: ReactNode }) {
       createOrder: async () => {
         setBusy(true);
         setMessage("");
-        const response = await fetch("/api/paypal/create-order", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            items: [{ id: product._id, quantity: 1 }],
-            customer: {
-              email: customer.email,
-              name: customer.name,
-              street: customer.street,
-              zip: customer.zip,
-              city: customer.city,
-              phone: customer.phone,
-              country: customer.country,
-            },
-          }),
-        });
-        const data = await response.json();
-        if (!response.ok || !data.orderId) throw new Error(data.error || "PayPal konnte die Bestellung nicht starten.");
-        return data.orderId as string;
+        try {
+          const response = await fetch("/api/paypal/create-order", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              items: [{ id: product._id, quantity: 1 }],
+              customer: {
+                email: customer.email,
+                name: customer.name,
+                street: customer.street,
+                zip: customer.zip,
+                city: customer.city,
+                phone: customer.phone,
+                country: customer.country,
+              },
+            }),
+          });
+          const data = await response.json();
+          if (!response.ok || !data.orderId) {
+            const error = new Error(data.error || `PayPal could not start checkout (HTTP ${response.status}).`);
+            setMessage(error.message);
+            throw error;
+          }
+          return data.orderId as string;
+        } catch (error) {
+          setBusy(false);
+          if (error instanceof Error) setMessage(error.message);
+          throw error;
+        }
       },
       onApprove: async ({ orderID }) => {
         const response = await fetch("/api/paypal/capture-order", {
@@ -128,7 +138,8 @@ export function StoreCheckoutProvider({ children }: { children: ReactNode }) {
       onCancel: () => setMessage("Die PayPal-Zahlung wurde abgebrochen. Du kannst es erneut versuchen."),
       onError: (error) => {
         console.error("PayPal Buttons error", error);
-        setMessage("PayPal konnte nicht gestartet werden. Bitte prüfe die Live-Konfiguration und versuche es erneut.");
+        setBusy(false);
+        setMessage((current) => current || "PayPal konnte nicht gestartet werden. Öffne die Entwicklerkonsole oder prüfe die Vercel Runtime Logs für Details.");
       },
     });
     instance.render("#paypal-button-container").catch((error: unknown) => {
