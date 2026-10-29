@@ -4,7 +4,8 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 function paypalBaseUrl() {
-  return process.env.PAYPAL_ENV === "live"
+  const environment = (process.env.PAYPAL_ENV || "sandbox").trim().toLowerCase();
+  return ["live", "production", "prod"].includes(environment)
     ? "https://api-m.paypal.com"
     : "https://api-m.sandbox.paypal.com";
 }
@@ -22,7 +23,10 @@ async function getAccessToken() {
     body: "grant_type=client_credentials",
     cache: "no-store",
   });
-  if (!response.ok) throw new Error("Could not authenticate with PayPal");
+  if (!response.ok) {
+    console.error("PayPal capture token request failed", { status: response.status });
+    throw new Error("PayPal Live authentication failed. Check PAYPAL_CLIENT_ID and PAYPAL_CLIENT_SECRET match the Live app.");
+  }
   const data = (await response.json()) as { access_token?: string };
   if (!data.access_token) throw new Error("PayPal access token missing");
   return data.access_token;
