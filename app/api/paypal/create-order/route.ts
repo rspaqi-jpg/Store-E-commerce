@@ -9,6 +9,25 @@ const products = [
   { id: "3", name: "Organizer für das Badezimmer", price: 24.90 },
 ];
 
+function countryCode(value: string) {
+  const countries: Record<string, string> = {
+    de: "DE", deutschland: "DE", germany: "DE",
+    at: "AT", österreich: "AT", osterreich: "AT", austria: "AT",
+    ch: "CH", schweiz: "CH", switzerland: "CH",
+    nl: "NL", niederlande: "NL", netherlands: "NL",
+    be: "BE", belgien: "BE", belgium: "BE",
+    lu: "LU", luxemburg: "LU", luxembourg: "LU",
+    fr: "FR", frankreich: "FR", france: "FR",
+    dk: "DK", dänemark: "DK", danemark: "DK", denmark: "DK",
+    pl: "PL", polen: "PL", poland: "PL",
+    cz: "CZ", tschechien: "CZ", czechia: "CZ",
+    it: "IT", italien: "IT", italy: "IT",
+    es: "ES", spanien: "ES", spain: "ES",
+  };
+  const normalized = value.trim().toLowerCase();
+  return countries[normalized] || (/^[a-z]{2}$/i.test(normalized) ? normalized.toUpperCase() : "");
+}
+
 function paypalBaseUrl() {
   return process.env.PAYPAL_ENV === "live"
     ? "https://api-m.paypal.com"
@@ -47,12 +66,22 @@ export async function POST(request: Request) {
   try {
     const body = (await request.json()) as {
       items?: { id?: string | number; quantity?: number }[];
-      customer?: { email?: string };
+      customer?: { email?: string; name?: string; street?: string; zip?: string; city?: string; phone?: string; country?: string };
     };
 
     const email = String(body.customer?.email || "").trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return NextResponse.json({ error: "Please enter a valid email address" }, { status: 400 });
+    }
+    const shipping = {
+      name: String(body.customer?.name || "").trim(),
+      street: String(body.customer?.street || "").trim(),
+      zip: String(body.customer?.zip || "").trim(),
+      city: String(body.customer?.city || "").trim(),
+      country: countryCode(String(body.customer?.country || "")),
+    };
+    if (!shipping.name || !shipping.street || !shipping.zip || !shipping.city || !shipping.country) {
+      return NextResponse.json({ error: "Please enter a complete delivery address and a valid country (e.g. Deutschland)." }, { status: 400 });
     }
 
     if (!Array.isArray(body.items) || body.items.length === 0 || body.items.length > 50) {
@@ -85,6 +114,15 @@ export async function POST(request: Request) {
       intent: "CAPTURE",
       purchase_units: [
         {
+          shipping: {
+            name: { full_name: shipping.name },
+            address: {
+              address_line_1: shipping.street,
+              admin_area_2: shipping.city,
+              postal_code: shipping.zip,
+              country_code: shipping.country,
+            },
+          },
           amount: {
             currency_code: "EUR",
             value: amount,
@@ -104,7 +142,7 @@ export async function POST(request: Request) {
             payment_method_preference: "IMMEDIATE_PAYMENT_REQUIRED",
             return_url: origin + "/api/paypal/capture-order",
             cancel_url: origin + "/storefront.html?payment=cancelled",
-            shipping_preference: "GET_FROM_FILE",
+            shipping_preference: "SET_PROVIDED_ADDRESS",
           },
         },
       },
