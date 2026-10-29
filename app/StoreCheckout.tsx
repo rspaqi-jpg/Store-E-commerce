@@ -51,7 +51,7 @@ export function AddToCartButton({ product }: { product: Product }) {
 }
 
 export function StoreCheckoutProvider({ children }: { children: ReactNode }) {
-  const clientId = process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID;
+  const [clientId, setClientId] = useState(process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "");
   const [product, setProduct] = useState<Product | null>(null);
   const [customer, setCustomer] = useState<Customer | null>(null);
   const [sdkReady, setSdkReady] = useState(false);
@@ -69,6 +69,21 @@ export function StoreCheckoutProvider({ children }: { children: ReactNode }) {
     setBusy(false);
     mountedButtons.current = false;
   };
+
+  useEffect(() => {
+    if (clientId) return;
+    let cancelled = false;
+    fetch("/api/paypal/config", { cache: "no-store" })
+      .then(async (response) => {
+        const data = await response.json();
+        if (!response.ok || !data.clientId) throw new Error(data.error || "PayPal Client ID fehlt.");
+        if (!cancelled) setClientId(String(data.clientId));
+      })
+      .catch(() => {
+        if (!cancelled) setMessage("PayPal Client ID fehlt in den Vercel Production Environment Variables.");
+      });
+    return () => { cancelled = true; };
+  }, [clientId]);
 
   useEffect(() => {
     if (!product || !customer || !sdkReady || !window.paypal || !buttonsRef.current || mountedButtons.current) return;
