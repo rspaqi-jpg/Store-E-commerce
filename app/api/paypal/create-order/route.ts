@@ -16,6 +16,9 @@ const products = [
   { id: "10", name: "Kompakter Aktivkohle-Wasserfilter für den Wasserhahn", price: 34.99 },
   { id: "11", name: "Selbstreinigender Turbo-Duschkopf", price: 24.99 },
   { id: "12", name: "Flexibler Abflussreiniger für Bad & Küche", price: 14.99 },
+  { id: "17", name: "Digitaler Küchenwasserhahn mit Temperaturanzeige", price: 99.90 },
+  { id: "18", name: "Premium Küchenarmatur mit ausziehbarer Brause", price: 149.90 },
+  { id: "19", name: "Premium Regendusche Komplettset Schwarz", price: 249.90 },
 ];
 
 function countryCode(value: string) {
