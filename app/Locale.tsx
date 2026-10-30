@@ -55,6 +55,14 @@ const translations: Record<Language, Record<string, string>> = {
     "Smarte LED-Lampe E27":"Smart E27 LED bulb","Energiesparende LED-Lampe mit einstellbarer Helligkeit und komfortabler Smart-Home-Steuerung.":"Energy-saving LED bulb with adjustable brightness and convenient smart-home control.",
     "Flexibler Reinigungshelfer zum Entfernen von Haaren und Ablagerungen in Waschbecken, Duschen und Bodenabläufen.":"Flexible cleaning tool for removing hair and buildup from sinks, showers and floor drains.",
     "Ersatz-Duschfilter für Handbrausen":"Replacement shower filter"
+    "Heinze Filter Startseite":"Heinze Filter homepage","Hauptnavigation":"Main navigation","HEINZE FILTER / BAD & SANITÄR":"HEINZE FILTER / BATHROOM & SANITARY",
+    "LIMITED OFFER · BIS ZU 20 % RABATT":"LIMITED OFFER · UP TO 20% OFF","BAD · DUSCHE · KÜCHE":"BATHROOM · SHOWER · KITCHEN",
+    "Modernes Badezimmer mit eleganten Sanitärarmaturen":"Modern bathroom with elegant fixtures","Produktsuche":"Product search","Produktkategorien":"Product categories",
+    "Rabattangebote":"Special offers","Rechtliche Informationen":"Legal information","Leipziger Platz 12, 10117 Berlin, Deutschland":"Leipziger Platz 12, 10117 Berlin, Germany",
+    "PayPal Client ID fehlt.":"PayPal Client ID is missing.","PayPal Client ID fehlt in den Vercel Production Environment Variables.":"PayPal Client ID is missing from Vercel production environment variables.",
+    "Die Zahlung konnte nicht bestätigt werden.":"The payment could not be confirmed.","PayPal konnte nicht gestartet werden. Öffne die Entwicklerkonsole oder prüfe die Vercel Runtime Logs für Details.":"PayPal could not be started. Open the developer console or check the Vercel runtime logs for details.",
+    "Die PayPal-Schaltfläche konnte nicht geladen werden.":"The PayPal button could not be loaded.","Checkout schließen":"Close checkout","NEXT_PUBLIC_PAYPAL_CLIENT_ID fehlt in den Vercel Production Environment Variables.":"NEXT_PUBLIC_PAYPAL_CLIENT_ID is missing from Vercel production environment variables.",
+    "PayPal Live ist noch nicht konfiguriert: NEXT_PUBLIC_PAYPAL_CLIENT_ID fehlt.":"PayPal Live is not configured yet: NEXT_PUBLIC_PAYPAL_CLIENT_ID is missing."
   },
   nl: {
     "Neuheiten":"Nieuw","Wohnen":"Wonen","Technik":"Technologie","Weitere Produkte":"Meer producten",
@@ -105,6 +113,14 @@ const translations: Record<Language, Record<string, string>> = {
     "Smarte LED-Lampe E27":"Slimme E27-ledlamp","Energiesparende LED-Lampe mit einstellbarer Helligkeit und komfortabler Smart-Home-Steuerung.":"Energiezuinige ledlamp met instelbare helderheid en handige smart-home-bediening.",
     "Flexibler Reinigungshelfer zum Entfernen von Haaren und Ablagerungen in Waschbecken, Duschen und Bodenabläufen.":"Flexibel hulpmiddel om haren en vuil uit wastafels, douches en vloerafvoeren te verwijderen.",
     "Ersatz-Duschfilter für Handbrausen":"Vervangingsfilter voor douchekop"
+    "Heinze Filter Startseite":"Heinze Filter-startpagina","Hauptnavigation":"Hoofdnavigatie","HEINZE FILTER / BAD & SANITÄR":"HEINZE FILTER / BADKAMER & SANITAIR",
+    "LIMITED OFFER · BIS ZU 20 % RABATT":"AANBIEDING · TOT 20% KORTING","BAD · DUSCHE · KÜCHE":"BADKAMER · DOUCHE · KEUKEN",
+    "Modernes Badezimmer mit eleganten Sanitärarmaturen":"Moderne badkamer met elegante kranen","Produktsuche":"Product zoeken","Produktkategorien":"Productcategorieën",
+    "Rabattangebote":"Aanbiedingen","Rechtliche Informationen":"Juridische informatie","Leipziger Platz 12, 10117 Berlin, Deutschland":"Leipziger Platz 12, 10117 Berlijn, Duitsland",
+    "PayPal Client ID fehlt.":"PayPal Client-ID ontbreekt.","PayPal Client ID fehlt in den Vercel Production Environment Variables.":"PayPal Client-ID ontbreekt in de productieomgevingsvariabelen van Vercel.",
+    "Die Zahlung konnte nicht bestätigt werden.":"De betaling kon niet worden bevestigd.","PayPal konnte nicht gestartet werden. Öffne die Entwicklerkonsole oder prüfe die Vercel Runtime Logs für Details.":"PayPal kon niet worden gestart. Open de ontwikkelaarsconsole of controleer de Vercel-runtime-logboeken.",
+    "Die PayPal-Schaltfläche konnte nicht geladen werden.":"De PayPal-knop kon niet worden geladen.","Checkout schließen":"Afrekenen sluiten","NEXT_PUBLIC_PAYPAL_CLIENT_ID fehlt in den Vercel Production Environment Variables.":"NEXT_PUBLIC_PAYPAL_CLIENT_ID ontbreekt in de productieomgevingsvariabelen van Vercel.",
+    "PayPal Live ist noch nicht konfiguriert: NEXT_PUBLIC_PAYPAL_CLIENT_ID fehlt.":"PayPal Live is nog niet ingesteld: NEXT_PUBLIC_PAYPAL_CLIENT_ID ontbreekt."
   }
 };
 
