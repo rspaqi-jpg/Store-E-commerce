@@ -137,7 +137,12 @@ export function useLanguage(){
 }
 export function LanguageSwitcher(){
   const {language,setLanguage}=useLanguage();
-  return <select aria-label="Choose language" title="Choose language" value={language} onChange={event=>setLanguage(event.target.value as Language)} style={{border:"1px solid var(--line)",borderRadius:999,padding:"8px 11px",background:"#fff",color:"inherit",font:"inherit",fontSize:18,cursor:"pointer",width:76}}>
-    <option value="de">🇩🇪</option><option value="en">🇬🇧</option><option value="nl">🇳🇱</option>
-  </select>;
+  const flags:Record<Language,ReactNode>={
+    de:<svg viewBox="0 0 30 20" role="img" aria-label="Deutsch" style={{display:"block",width:26,height:18,borderRadius:3,boxShadow:"0 0 0 1px rgba(0,0,0,.15)"}}><rect width="30" height="20" fill="#FFCE00"/><rect width="30" height="13.33" fill="#DD0000"/><rect width="30" height="6.67" fill="#000"/></svg>,
+    en:<svg viewBox="0 0 60 30" role="img" aria-label="English" style={{display:"block",width:26,height:18,borderRadius:3,boxShadow:"0 0 0 1px rgba(0,0,0,.15)"}}><rect width="60" height="30" fill="#012169"/><path d="M0 0 L60 30 M60 0 L0 30" stroke="#fff" strokeWidth="6"/><path d="M0 0 L60 30 M60 0 L0 30" stroke="#C8102E" strokeWidth="2.5"/><path d="M30 0 V30 M0 15 H60" stroke="#fff" strokeWidth="10"/><path d="M30 0 V30 M0 15 H60" stroke="#C8102E" strokeWidth="5"/></svg>,
+    nl:<svg viewBox="0 0 30 20" role="img" aria-label="Nederlands" style={{display:"block",width:26,height:18,borderRadius:3,boxShadow:"0 0 0 1px rgba(0,0,0,.15)"}}><rect width="30" height="20" fill="#21468B"/><rect width="30" height="13.33" fill="#fff"/><rect width="30" height="6.67" fill="#AE1C28"/></svg>
+  };
+  return <div role="group" aria-label="Choose language" style={{display:"flex",alignItems:"center",gap:6,border:"1px solid var(--line)",borderRadius:999,padding:"5px 7px",background:"#fff"}}>
+    {(["de","en","nl"] as Language[]).map(code=><button key={code} type="button" onClick={()=>setLanguage(code)} aria-label={code==="de"?"Deutsch":code==="en"?"English":"Nederlands"} aria-pressed={language===code} title={code==="de"?"Deutsch":code==="en"?"English":"Nederlands"} style={{display:"grid",placeItems:"center",padding:4,border:language===code?"2px solid #b7a16d":"2px solid transparent",borderRadius:6,background:language===code?"#f8f4e9":"transparent",cursor:"pointer"}}>{flags[code]}</button>)}
+  </div>;
 }
