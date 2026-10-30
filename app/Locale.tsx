@@ -110,8 +110,7 @@ const translations: Record<Language, Record<string, string>> = {
 const LanguageContext = createContext<{language:Language;setLanguage:(language:Language)=>void}>({language:"de",setLanguage:()=>{}});
 export function LanguageProvider({children}:{children:ReactNode}) {
   const [language,setLanguageState]=useState<Language>("de");
-  useEffect(()=>{const saved=window.localStorage.getItem("heinze-language");if(saved==="en"||saved==="nl"||saved==="de")setLanguageState(saved)},[]);
-  const setLanguage=(next:Language)=>{setLanguageState(next);window.localStorage.setItem("heinze-language",next)};
+  const setLanguage=(next:Language)=>{setLanguageState(next)};
   return <LanguageContext.Provider value={{language,setLanguage}}>{children}</LanguageContext.Provider>;
 }
 export function useLanguage(){
