@@ -1,6 +1,7 @@
 "use client";
 
 import Script from "next/script";
+import { useLanguage } from "./Locale";
 import { createContext, useContext, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 
 type Product = {
@@ -132,10 +133,10 @@ export function StoreCheckoutProvider({ children }: { children: ReactNode }) {
         const data = await response.json();
         if (!response.ok || data.status !== "COMPLETED") throw new Error(data.error || "Die Zahlung konnte nicht bestätigt werden.");
         setSuccess(true);
-        setMessage("Zahlung erfolgreich. Vielen Dank für deine Bestellung!");
+        setMessage(t("Zahlung erfolgreich. Vielen Dank für deine Bestellung!"));
         setCustomer(null);
       },
-      onCancel: () => setMessage("Die PayPal-Zahlung wurde abgebrochen. Du kannst es erneut versuchen."),
+      onCancel: () => setMessage(t("Die PayPal-Zahlung wurde abgebrochen. Du kannst es erneut versuchen.")),
       onError: (error) => {
         console.error("PayPal Buttons error", error);
         setBusy(false);
@@ -181,8 +182,8 @@ export function StoreCheckoutProvider({ children }: { children: ReactNode }) {
           <section style={{ width: "min(100%, 540px)", maxHeight: "92vh", overflowY: "auto", borderRadius: 24, padding: 26, background: "#fdfdfb", boxShadow: "0 24px 80px rgba(0,0,0,.25)" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "start", gap: 16 }}>
               <div>
-                <p className="eyebrow">Sicherer Checkout</p>
-                <h2 id="checkout-title" style={{ margin: "8px 0 0", fontSize: 26, letterSpacing: "-.04em" }}>Deine Lieferadresse</h2>
+                <p className="eyebrow">{t("Sicherer Checkout")}</p>
+                <h2 id="checkout-title" style={{ margin: "8px 0 0", fontSize: 26, letterSpacing: "-.04em" }}>{t("Deine Lieferadresse")}</h2>
               </div>
               <button type="button" onClick={close} aria-label="Checkout schließen" style={{ border: "1px solid var(--line)", borderRadius: 999, padding: "7px 12px", background: "transparent", cursor: "pointer" }}>✕</button>
             </div>
@@ -208,9 +209,9 @@ export function StoreCheckoutProvider({ children }: { children: ReactNode }) {
                 style={{ display: "grid", gap: 12 }}
               >
                 {[
-                  { name: "email", label: "E-Mail-Adresse", type: "email", auto: "email", placeholder: "du@example.com" },
-                  { name: "name", label: "Vor- und Nachname", type: "text", auto: "name", placeholder: "Max Mustermann" },
-                  { name: "street", label: "Straße und Hausnummer", type: "text", auto: "street-address", placeholder: "Musterstraße 12" },
+                  { name: "email", label: "{t("E-Mail-Adresse")}", type: "email", auto: "email", placeholder: "du@example.com" },
+                  { name: "name", label: "{t("Vor- und Nachname")}", type: "text", auto: "name", placeholder: "Max Mustermann" },
+                  { name: "street", label: "{t("Straße und Hausnummer")}", type: "text", auto: "street-address", placeholder: "Musterstraße 12" },
                 ].map((field) => (
                   <label key={field.name} style={{ display: "grid", gap: 5, fontSize: 13 }}>
                     {field.label}
@@ -218,25 +219,25 @@ export function StoreCheckoutProvider({ children }: { children: ReactNode }) {
                   </label>
                 ))}
                 <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
-                  <label style={labelStyle}>Postleitzahl<input name="zip" autoComplete="postal-code" required placeholder="10115" style={inputStyle} /></label>
-                  <label style={labelStyle}>Stadt<input name="city" autoComplete="address-level2" required placeholder="Berlin" style={inputStyle} /></label>
+                  <label style={labelStyle}>{t("Postleitzahl")}<input name="zip" autoComplete="postal-code" required placeholder="10115" style={inputStyle} /></label>
+                  <label style={labelStyle}>{t("Stadt")}<input name="city" autoComplete="address-level2" required placeholder="Berlin" style={inputStyle} /></label>
                 </div>
-                <label style={labelStyle}>Telefonnummer<input name="phone" type="tel" autoComplete="tel" required placeholder="+49 ..." style={inputStyle} /></label>
-                <label style={labelStyle}>Land<input name="country" autoComplete="country-name" required placeholder="Deutschland" style={inputStyle} /></label>
-                <button type="submit" className="primary-button" style={{ border: 0, cursor: "pointer", marginTop: 4 }}>Weiter zu PayPal</button>
+                <label style={labelStyle}>{t("Telefonnummer")}<input name="phone" type="tel" autoComplete="tel" required placeholder="+49 ..." style={inputStyle} /></label>
+                <label style={labelStyle}>{t("Land")}<input name="country" autoComplete="country-name" required placeholder="Deutschland" style={inputStyle} /></label>
+                <button type="submit" className="primary-button" style={{ border: 0, cursor: "pointer", marginTop: 4 }}>{t("Weiter zu PayPal")}</button>
                 {!clientId ? <p role="alert" style={{ color: "#9a3412", fontSize: 13 }}>NEXT_PUBLIC_PAYPAL_CLIENT_ID fehlt in den Vercel Production Environment Variables.</p> : null}
               </form>
             ) : null}
             {customer && !success ? (
               <div style={{ marginTop: 16 }}>
-                <p style={{ fontSize: 13, color: "#686868", lineHeight: 1.6 }}>Prüfe die Daten und schließe die Zahlung sicher über PayPal ab.</p>
+                <p style={{ fontSize: 13, color: "#686868", lineHeight: 1.6 }}>{t("Prüfe die Daten und schließe die Zahlung sicher über PayPal ab.")}</p>
                 <div id="paypal-button-container" ref={buttonsRef} style={{ minHeight: 48, marginTop: 14 }} />
-                {busy ? <p style={{ fontSize: 12, color: "#686868" }}>PayPal wird geöffnet…</p> : null}
-                <button type="button" onClick={() => { setCustomer(null); mountedButtons.current = false; setMessage(""); }} style={{ marginTop: 8, border: 0, background: "transparent", textDecoration: "underline", cursor: "pointer", fontSize: 12 }}>Lieferdaten bearbeiten</button>
+                {busy ? <p style={{ fontSize: 12, color: "#686868" }}>{t("PayPal wird geöffnet…")}</p> : null}
+                <button type="button" onClick={() => { setCustomer(null); mountedButtons.current = false; setMessage(""); }} style={{ marginTop: 8, border: 0, background: "transparent", textDecoration: "underline", cursor: "pointer", fontSize: 12 }}>{t("Lieferdaten bearbeiten")}</button>
               </div>
             ) : null}
             {message ? <p role="status" style={{ marginTop: 14, borderRadius: 12, padding: 12, background: success ? "#ecfdf5" : "#fff7ed", color: success ? "#065f46" : "#9a3412", fontSize: 13 }}>{message}</p> : null}
-            {success ? <button type="button" className="primary-button" onClick={close}>Schließen</button> : null}
+            {success ? <button type="button" className="primary-button" onClick={close}>{t("Schließen")}</button> : null}
             {!clientId && customer ? <p role="alert" style={{ marginTop: 12, color: "#9a3412", fontSize: 13 }}>PayPal Live ist noch nicht konfiguriert: NEXT_PUBLIC_PAYPAL_CLIENT_ID fehlt.</p> : null}
           </section>
         </div>
