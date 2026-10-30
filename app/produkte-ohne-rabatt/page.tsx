@@ -5,7 +5,7 @@ const products = [
   { _id: "1", name: "Filter-Duschkopf", price: 29.90, description: "Moderner Duschkopf mit austauschbarem Filter.", imageUrl: "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=800&q=80" },
   { _id: "2", name: "LED-Nachtlicht mit Bewegungssensor", price: 19.90, description: "Kompaktes LED-Licht für Flur und Badezimmer.", imageUrl: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=80" },
   { _id: "3", name: "Organizer für das Badezimmer", price: 24.90, description: "Praktische Aufbewahrung für Bad und Dusche.", imageUrl: "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=800&q=80" },
-  { _id: "7", name: "Hochdruck-Wasserpistole für Auto & Garten", price: 19.00, description: "Verstellbare Wasserstrahl-Düse für die Autowäsche, Terrasse und Garten. Einfach am Gartenschlauch anschließen und den Wasserstrahl passend einstellen.", imageUrl: "https://oss-cf.cjdropshipping.com/product/2026/05/05/06/a5e07f18-c771-43ea-a694-59732b471b09.jpg" },
+  { _id: "7", name: "Hochdruck-Wasserpistole für Auto & Garten", price: 18.99, description: "Verstellbare Wasserstrahl-Düse für die Autowäsche, Terrasse und Garten. Einfach am Gartenschlauch anschließen und den Wasserstrahl passend einstellen.", imageUrl: "https://oss-cf.cjdropshipping.com/product/2026/05/05/06/a5e07f18-c771-43ea-a694-59732b471b09.jpg" },
 ];
 
 const euro = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" });
