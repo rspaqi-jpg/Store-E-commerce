@@ -1,5 +1,7 @@
+"use client";
 import Link from "next/link";
 import { AddToCartButton, StoreCheckoutProvider } from "../StoreCheckout";
+import { LanguageSwitcher, useLanguage } from "../Locale";
 
 const products = [
   { _id: "1", name: "Filter-Duschkopf", price: 29.90, description: "Moderner Duschkopf mit austauschbarem Filter.", imageUrl: "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=800&q=80" },
@@ -10,19 +12,19 @@ const products = [
 
 const euro = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" });
 
-export default function RegularPricePage() {
+export default function RegularPricePage() {\n  const { t } = useLanguage();
   return (
     <StoreCheckoutProvider>
       <header className="site-header">
         <div className="header-inner">
           <Link className="brand" href="/"><span style={{ color: "#172d35", fontWeight: 800 }}>HEINZE</span><span style={{ color: "#5a9b9b", fontWeight: 500 }}> FILTER</span></Link>
-          <nav className="nav-links" aria-label="Hauptnavigation"><Link href="/">Angebote</Link><Link href="/produkte-ohne-rabatt">Weitere Produkte</Link></nav>
+          <nav className="nav-links" aria-label="Hauptnavigation"><Link href="/">{t("Angebote")}</Link><Link href="/produkte-ohne-rabatt">{t("Weitere Produkte")}</Link><LanguageSwitcher/></nav>
         </div>
       </header>
       <main className="container">
         <section className="section">
           <div className="section-heading">
-            <div><p className="eyebrow">Heinze Filter · reguläre Preise</p><h1>Weitere Produkte</h1><p>Entdecke weitere praktische Produkte für Bad und Zuhause.</p></div>
+            <div><p className="eyebrow">{t("Heinze Filter · reguläre Preise")}</p><h1>{t("Weitere Produkte")}</h1><p>{t("Entdecke weitere praktische Produkte für Bad und Zuhause.")}</p></div>
             <p>{products.length} Produkte</p>
           </div>
           <div className="product-grid">
@@ -31,8 +33,8 @@ export default function RegularPricePage() {
                 <div className="product-image-wrap"><img className="product-image" src={product.imageUrl} alt={product.name} loading="lazy" /></div>
                 <div className="product-content">
                   <span className="product-category">Heinze Filter</span>
-                  <h2>{product.name}</h2>
-                  <p className="product-description">{product.description}</p>
+                  <h2>{t(product.name)}</h2>
+                  <p className="product-description">{t(product.description)}</p>
                   <div className="product-bottom"><span className="product-price">{euro.format(product.price)}</span><AddToCartButton product={product} /></div>
                 </div>
               </article>
@@ -40,7 +42,7 @@ export default function RegularPricePage() {
           </div>
         </section>
       </main>
-      <footer className="site-footer"><div className="container footer-inner"><span>© {new Date().getFullYear()} Heinze Filter. Alle Rechte vorbehalten.</span><Link href="/">Zurück zur Startseite</Link></div></footer>
+      <footer className="site-footer"><div className="container footer-inner"><span>© {new Date().getFullYear()} Heinze Filter. Alle Rechte vorbehalten.</span><Link href="/">{t("Zurück zur Startseite")}</Link></div></footer>
     </StoreCheckoutProvider>
   );
 }
