@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Widerruf & Rückgabe | Heinze Filter</title>
+<meta name="description" content="Bestellung widerrufen oder Artikel bei Heinze Filter zurücksenden.">
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f6f8f7;color:#172d35;font:16px/1.6 Arial,sans-serif}header,footer{background:#fff;padding:20px max(20px,calc((100% - 860px)/2));border-bottom:1px solid #dce5e3}footer{border-top:1px solid #dce5e3;border-bottom:0;color:#53666a;font-size:14px}.brand{font-weight:800;color:#172d35;text-decoration:none;letter-spacing:.04em}.brand span{color:#5a9b9b;font-weight:500}main{width:min(760px,calc(100% - 32px));margin:44px auto 64px;background:#fff;border:1px solid #dce5e3;border-radius:20px;padding:clamp(22px,5vw,42px);box-shadow:0 12px 40px #172d350c}.eyebrow{color:#5a9b9b;font-size:12px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}h1{font-size:clamp(28px,5vw,40px);line-height:1.15;margin:8px 0 12px}p{color:#53666a}.choice{display:flex;gap:12px;align-items:flex-start;border:1px solid #dce5e3;border-radius:14px;padding:16px;margin:12px 0;cursor:pointer}.choice:has(input:checked){border-color:#5a9b9b;background:#f4f9f8}.choice input{margin-top:5px;accent-color:#246d70}.choice strong{display:block;color:#172d35}.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:24px}.field{display:grid;gap:6px}.field.full{grid-column:1/-1}label{font-size:14px;font-weight:700}input,textarea{width:100%;padding:12px;border:1px solid #cbd7d5;border-radius:10px;font:inherit;background:#fff}button,.btn{border:0;border-radius:10px;background:#172d35;color:#fff;padding:13px 18px;font-weight:700;font-size:15px;cursor:pointer;text-decoration:none;display:inline-block}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px}.secondary{background:#edf3f2;color:#172d35}.hint{font-size:13px}.back{color:#246d70;text-decoration:none;font-weight:700;display:inline-block;margin-top:22px}dialog{width:min(480px,calc(100% - 28px));border:0;border-radius:18px;padding:26px;box-shadow:0 20px 70px #0004}dialog::backdrop{background:#10232999;backdrop-filter:blur(3px)}dialog h2{margin-top:0}dialog textarea{min-height:110px;margin:10px 0}.dialog-actions{display:flex;gap:10px;justify-content:flex-end;flex-wrap:wrap}.notice{font-size:13px;background:#f4f8f7;padding:12px;border-radius:10px;margin-top:18px}@media(max-width:560px){.fields{grid-template-columns:1fr}.field.full{grid-column:auto}}
+</style>
+</head>
+<body>
+<header><a class="brand" href="/">HEINZE <span>FILTER</span></a></header>
+<main>
+<p class="eyebrow">Heinze Filter · Kundenservice</p>
+<h1>Widerruf &amp; Rückgabe</h1>
+<p>Du möchtest deine Bestellung widerrufen oder einen Artikel zurücksenden? Wähle unten die passende Möglichkeit.</p>
+<form id="returnForm">
+<label>Was möchtest du tun?</label>
+<label class="choice"><input type="radio" name="requestType" value="Widerruf / Bestellung stornieren" required><span><strong>Bestellung widerrufen</strong><span class="hint">Du möchtest deine Bestellung stornieren. Eine Begründung ist nicht erforderlich.</span></span></label>
+<label class="choice"><input type="radio" name="requestType" value="Artikel zurücksenden" required><span><strong>Artikel zurücksenden</strong><span class="hint">Du hast die Ware erhalten und möchtest sie zurückgeben. Eine Begründung ist nicht erforderlich.</span></span></label>
+<div class="fields">
+<div class="field"><label for="first">Vorname *</label><input id="first" name="first" autocomplete="given-name" required></div>
+<div class="field"><label for="last">Nachname *</label><input id="last" name="last" autocomplete="family-name" required></div>
+<div class="field full"><label for="email">E-Mail-Adresse, mit der du bei PayPal bezahlt hast *</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+<div class="field full"><label for="order">Bestellnummer (falls vorhanden)</label><input id="order" name="order" placeholder="z. B. Bestellnummer aus deiner Bestätigung"></div>
+</div>
+<p class="hint">* Pflichtfelder. Du musst keinen Grund für den Widerruf oder die Rückgabe angeben.</p>
+<div class="actions"><button type="submit">Anfrage vorbereiten</button><a class="btn secondary" href="/">Zurück zum Shop</a></div>
+<p class="notice">Beim Absenden wird dein E-Mail-Programm geöffnet, damit du die Anfrage an unseren Kundenservice senden kannst. Die Anfrage wird erst durch das Senden der E-Mail übermittelt.</p>
+</form>
+<a class="back" href="/impressum.html">← Zurück zum Impressum</a>
+</main>
+<footer>© Heinze Filter. Alle Rechte vorbehalten.</footer>
+<dialog id="reasonDialog">
+<h2>Warum möchtest du den Artikel zurücksenden?</h2>
+<p>Deine Antwort hilft uns, unseren Shop zu verbessern. Diese Angabe ist freiwillig.</p>
+<textarea id="reason" placeholder="Optional: Deine Rückmeldung"></textarea>
+<div class="dialog-actions"><button type="button" class="secondary" id="skipReason">Überspringen</button><button type="button" id="sendWithReason">Weiter</button></div>
+</dialog>
+<script>
+const form=document.getElementById('returnForm');
+const dialog=document.getElementById('reasonDialog');
+let selectedType='';
+function sendRequest(reason){
+ const data=new FormData(form);
+ const first=String(data.get('first')||'').trim();
+ const last=String(data.get('last')||'').trim();
+ const email=String(data.get('email')||'').trim();
+ const order=String(data.get('order')||'').trim();
+ const subject=encodeURIComponent('Widerruf / Rückgabe – Heinze Filter');
+ const body=encodeURIComponent('Anfrage: '+selectedType+'\nVorname: '+first+'\nNachname: '+last+'\nPayPal-E-Mail: '+email+'\nBestellnummer: '+(order||'Nicht angegeben')+'\nGrund (freiwillig): '+(reason||'Keine Angabe'));
+ window.location.href='mailto:heinzefilter.info@gmail.com?subject='+subject+'&body='+body;
+}
+form.addEventListener('submit',event=>{
+ event.preventDefault();
+ if(!form.reportValidity())return;
+ selectedType=String(new FormData(form).get('requestType')||'');
+ if(selectedType==='Artikel zurücksenden'){document.getElementById('reason').value='';dialog.showModal();}
+ else sendRequest('');
+});
+document.getElementById('skipReason').addEventListener('click',()=>{dialog.close();sendRequest('');});
+document.getElementById('sendWithReason').addEventListener('click',()=>{const reason=document.getElementById('reason').value.trim();dialog.close();sendRequest(reason);});
+</script>
+</body></html>
