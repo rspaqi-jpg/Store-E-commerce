@@ -49,3 +49,4 @@ button, a { -webkit-tap-highlight-color: transparent; }
 .footer-links a { text-decoration: underline; text-underline-offset: 4px; }
 @media (max-width: 900px) { .product-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } .hero { gap: 22px; } .hero-image { height: 290px; } }
 @media (max-width: 600px) { .header-inner, .container { width: min(100% - 28px, 1160px); } .nav-links { display: none; } .hero { grid-template-columns: 1fr; padding: 38px 0; } .hero-image { height: 230px; } .product-grid { gap: 10px; } .product-content { padding: 12px; } .product-content h3 { font-size: 13px; } .product-description { font-size: 11px; } .product-bottom { align-items: start; flex-direction: column; } .shop-banner { align-items: start; flex-direction: column; padding: 25px; } .footer-inner { align-items: start; flex-direction: column; } }
+\n@media (max-width: 600px) { .header-inner > select { display: block; margin-left: auto; } }\n
