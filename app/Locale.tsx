@@ -31,6 +31,16 @@ const translations: Record<Language, Record<string, string>> = {
     "Hochdruck-Wasserpistole für Auto & Garten":"High-pressure water gun for car & garden",
     "Verstellbare Wasserstrahl-Düse für die Autowäsche, Terrasse und Garten. Einfach am Gartenschlauch anschließen und den Wasserstrahl passend einstellen.":"Adjustable water jet nozzle for washing cars, patios and gardens. Simply connect it to a garden hose and adjust the spray.",
     "Duschkopf mit Filter & Temperaturanzeige":"Shower head with filter & temperature display",
+    "Automatischer Schaumseifenspender mit Display":"Automatic foaming soap dispenser with display",
+    "USB-aufladbarer Sensor-Seifenspender für eine hygienische und komfortable Handwäsche.":"USB-rechargeable sensor soap dispenser for hygienic and convenient hand washing.",
+    "Intelligenter Wasserhahn-Sensor":"Smart faucet sensor",
+    "Berührungsloser Sensor-Aufsatz für den Wasserhahn – praktisch beim Händewaschen und zum Wassersparen.":"Touch-free faucet sensor attachment – practical for hand washing and helping save water.",
+    "Kompakter Aktivkohle-Wasserfilter für den Wasserhahn":"Compact activated carbon faucet water filter",
+    "Kompakter Auftisch-Wasserfilter mit Aktivkohle-Filterelement und Anschlusszubehör für den Küchenwasserhahn.":"Compact countertop water filter with activated carbon filter element and fittings for a kitchen faucet.",
+    "Selbstreinigender Turbo-Duschkopf":"Self-cleaning turbo shower head",
+    "Duschkopf mit mehreren Strahlarten, leicht zu reinigenden Silikondüsen und praktischer Wasserstopp-Taste.":"Shower head with multiple spray modes, easy-clean silicone nozzles and a convenient water-stop button.",
+    "Flexibler Abflussreiniger für Bad & Küche":"Flexible drain cleaner for bathroom & kitchen",
+    "Flexibler Reinigungshelfer zum Entfernen von Haaren und Ablagerungen in Waschbecken, Duschen und Bodenabläufen.":"Flexible cleaning tool for removing hair and buildup from sinks, showers and floor drains.",
     "Ersatz-Duschfilter für Handbrausen":"Replacement shower filter","Multifunktionaler Wasserhahn-Aufsatz":"Multifunctional faucet attachment","Duschkopf mit Filter & Temperaturanzeige":"Shower head with filter & temperature display"
   },
   nl: {
@@ -59,6 +69,16 @@ const translations: Record<Language, Record<string, string>> = {
     "Hochdruck-Wasserpistole für Auto & Garten":"Hogedrukspuit voor auto en tuin",
     "Verstellbare Wasserstrahl-Düse für die Autowäsche, Terrasse und Garten. Einfach am Gartenschlauch anschließen und den Wasserstrahl passend einstellen.":"Verstelbare waterstraal voor het wassen van auto's, terras en tuin. Sluit eenvoudig aan op de tuinslang en stel de straal naar wens in.",
     "Duschkopf mit Filter & Temperaturanzeige":"Douchekop met filter en temperatuurweergave",
+    "Automatischer Schaumseifenspender mit Display":"Automatische schuimzeepdispenser met display",
+    "USB-aufladbarer Sensor-Seifenspender für eine hygienische und komfortable Handwäsche.":"Oplaadbare zeepdispenser met sensor voor hygiënisch en comfortabel handen wassen.",
+    "Intelligenter Wasserhahn-Sensor":"Slimme kraansensor",
+    "Berührungsloser Sensor-Aufsatz für den Wasserhahn – praktisch beim Händewaschen und zum Wassersparen.":"Contactloze sensoropzet voor de kraan – handig bij handen wassen en om water te besparen.",
+    "Kompakter Aktivkohle-Wasserfilter für den Wasserhahn":"Compacte actieve-koolstoffilter voor de kraan",
+    "Kompakter Auftisch-Wasserfilter mit Aktivkohle-Filterelement und Anschlusszubehör für den Küchenwasserhahn.":"Compact tafelmodel waterfilter met actieve-koolstoffilter en aansluitaccessoires voor de keukenkraan.",
+    "Selbstreinigender Turbo-Duschkopf":"Zelfreinigende turbo-douchekop",
+    "Duschkopf mit mehreren Strahlarten, leicht zu reinigenden Silikondüsen und praktischer Wasserstopp-Taste.":"Douchekop met meerdere straalstanden, eenvoudig te reinigen siliconen sproeigaatjes en handige waterstopknop.",
+    "Flexibler Abflussreiniger für Bad & Küche":"Flexibele afvoerreiniger voor badkamer en keuken",
+    "Flexibler Reinigungshelfer zum Entfernen von Haaren und Ablagerungen in Waschbecken, Duschen und Bodenabläufen.":"Flexibel hulpmiddel om haren en vuil uit wastafels, douches en vloerafvoeren te verwijderen.",
     "Ersatz-Duschfilter für Handbrausen":"Vervangingsfilter voor douchekop","Multifunktionaler Wasserhahn-Aufsatz":"Multifunctioneel kraanopzetstuk","Duschkopf mit Filter & Temperaturanzeige":"Douchekop met filter en temperatuurweergave"
   }
 };
