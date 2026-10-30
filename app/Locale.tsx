@@ -8,13 +8,13 @@ const translations: Record<Language, Record<string, string>> = {
   de: {
     "ÜBER HEINZE FILTER":"ÜBER HEINZE FILTER",
     "Über unser Unternehmen":"Über unser Unternehmen",
-    "Die Lieferung kann in Ausnahmefällen bis zu 6 Werktage dauern. In den meisten Fällen trifft Ihre Bestellung jedoch innerhalb von etwa 2 bis 4 Werktagen ein.":"Die Lieferung kann in Ausnahmefällen bis zu 6 Werktage dauern. In den meisten Fällen trifft Ihre Bestellung jedoch innerhalb von etwa 2 bis 4 Werktagen ein.",
+    "Die Lieferung erfolgt in der Regel innerhalb von 2 bis 4 Werktagen. An Feiertagen oder in Ausnahmefällen kann sie gelegentlich 5 bis 7 Werktage dauern.":"Die Lieferung erfolgt in der Regel innerhalb von 2 bis 4 Werktagen. An Feiertagen oder in Ausnahmefällen kann sie gelegentlich 5 bis 7 Werktage dauern.",
     "Bei Heinze Filter legen wir Wert auf sorgfältig ausgewählte Produkte, verlässliche Informationen und transparente Kommunikation. Unser Anspruch ist es, Ihnen Qualität zu bieten und Sie während des gesamten Bestellablaufs ehrlich und klar zu informieren.":"Bei Heinze Filter legen wir Wert auf sorgfältig ausgewählte Produkte, verlässliche Informationen und transparente Kommunikation. Unser Anspruch ist es, Ihnen Qualität zu bieten und Sie während des gesamten Bestellablaufs ehrlich und klar zu informieren."
   },
   en: {
     "ÜBER HEINZE FILTER":"ABOUT HEINZE FILTER",
     "Über unser Unternehmen":"About our business",
-    "Die Lieferung kann in Ausnahmefällen bis zu 6 Werktage dauern. In den meisten Fällen trifft Ihre Bestellung jedoch innerhalb von etwa 2 bis 4 Werktagen ein.":"In exceptional cases, delivery may take up to 6 business days. In most cases, however, your order arrives within approximately 2 to 4 business days.",
+    "Die Lieferung erfolgt in der Regel innerhalb von 2 bis 4 Werktagen. An Feiertagen oder in Ausnahmefällen kann sie gelegentlich 5 bis 7 Werktage dauern.":"Delivery usually takes 2 to 4 business days. During public holidays or in exceptional circumstances, it may occasionally take 5 to 7 business days.",
     "Bei Heinze Filter legen wir Wert auf sorgfältig ausgewählte Produkte, verlässliche Informationen und transparente Kommunikation. Unser Anspruch ist es, Ihnen Qualität zu bieten und Sie während des gesamten Bestellablaufs ehrlich und klar zu informieren.":"At Heinze Filter, we focus on carefully selected products, reliable information and transparent communication. Our aim is to offer quality and keep you clearly and honestly informed throughout the ordering process."
   
     "Neuheiten":"New arrivals","Wohnen":"Home","Technik":"Technology","Weitere Produkte":"More products",
@@ -77,7 +77,7 @@ const translations: Record<Language, Record<string, string>> = {
   nl: {
     "ÜBER HEINZE FILTER":"OVER HEINZE FILTER",
     "Über unser Unternehmen":"Over ons bedrijf",
-    "Die Lieferung kann in Ausnahmefällen bis zu 6 Werktage dauern. In den meisten Fällen trifft Ihre Bestellung jedoch innerhalb von etwa 2 bis 4 Werktagen ein.":"In uitzonderlijke gevallen kan de levering tot 6 werkdagen duren. In de meeste gevallen ontvangt u uw bestelling echter binnen ongeveer 2 tot 4 werkdagen.",
+    "Die Lieferung erfolgt in der Regel innerhalb von 2 bis 4 Werktagen. An Feiertagen oder in Ausnahmefällen kann sie gelegentlich 5 bis 7 Werktage dauern.":"De levering duurt doorgaans 2 tot 4 werkdagen. Tijdens feestdagen of in uitzonderlijke gevallen kan dit soms 5 tot 7 werkdagen duren.",
     "Bei Heinze Filter legen wir Wert auf sorgfältig ausgewählte Produkte, verlässliche Informationen und transparente Kommunikation. Unser Anspruch ist es, Ihnen Qualität zu bieten und Sie während des gesamten Bestellablaufs ehrlich und klar zu informieren.":"Bij Heinze Filter hechten we waarde aan zorgvuldig geselecteerde producten, betrouwbare informatie en transparante communicatie. We streven ernaar kwaliteit te bieden en u tijdens het hele bestelproces eerlijk en duidelijk te informeren."
   
     "Neuheiten":"Nieuw","Wohnen":"Wonen","Technik":"Technologie","Weitere Produkte":"Meer producten",
