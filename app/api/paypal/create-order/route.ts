@@ -10,6 +10,7 @@ const products = [
   { id: "4", name: "Duschkopf mit Filter & Temperaturanzeige", price: 25.99 },
   { id: "5", name: "Ersatz-Duschfilter für Handbrausen", price: 18.00 },
   { id: "6", name: "Multifunktionaler Wasserhahn-Aufsatz", price: 13.99 },
+  { id: "7", name: "Hochdruck-Wasserpistole für Auto & Garten", price: 19.00 },
 ];
 
 function countryCode(value: string) {
