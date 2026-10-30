@@ -9,25 +9,25 @@
 header,footer{background:#fff;border-bottom:1px solid #dce5e3;padding:20px max(22px,calc((100% - 1180px)/2))}
 footer{border-top:1px solid #dce5e3;border-bottom:0;color:#53666a;font-size:.9rem}
 a{color:#246d70}.brand{font-weight:800;text-decoration:none;letter-spacing:.04em}.brand span{color:#5a9b9b;font-weight:500}
-main{width:min(1180px,calc(100% - 36px));margin:42px auto 64px}
+main{width:min(1080px,calc(100% - 36px));margin:28px auto 42px}
 .eyebrow{color:#5a9b9b;font-size:.78rem;font-weight:700;letter-spacing:.13em;text-transform:uppercase}
-h1{font-size:clamp(2rem,5vw,3rem);line-height:1.15;margin:.3rem 0 1.5rem}
-h2{font-size:1.25rem;line-height:1.3;margin:0 0 12px}.muted{color:#627277}
-.intro{margin-bottom:24px}
-.columns{display:grid;grid-template-columns:minmax(260px,.72fr) minmax(0,1.28fr);gap:24px;align-items:start}
-.panel{background:#fff;border:1px solid #dce5e3;border-radius:18px;padding:clamp(22px,3vw,34px);box-shadow:0 8px 28px rgba(23,45,53,.04)}
-.company p{margin:8px 0 16px}.company h3{margin:24px 0 6px;font-size:1rem}
-.map{width:100%;height:230px;border:0;border-radius:12px;margin-top:12px}
-form{display:grid;gap:12px}label{display:grid;gap:5px;font-size:.9rem;font-weight:600}
-input,select,textarea{width:100%;border:1px solid #ccd8d6;border-radius:10px;padding:12px 13px;font:inherit;background:#fff;color:#172d35}
+h1{font-size:clamp(1.65rem,3vw,2.15rem);line-height:1.2;margin:.2rem 0 1rem}
+h2{font-size:1.08rem;line-height:1.3;margin:0 0 8px}.muted{color:#627277}
+.intro{margin-bottom:16px;padding:18px 22px}.intro p{margin:5px 0;font-size:.94rem}
+.columns{display:grid;grid-template-columns:minmax(230px,.68fr) minmax(0,1.32fr);gap:16px;align-items:start}
+.panel{background:#fff;border:1px solid #dce5e3;border-radius:18px;padding:20px 22px;box-shadow:0 5px 18px rgba(23,45,53,.035)}
+.company p{margin:5px 0 10px;font-size:.9rem}.company h3{margin:14px 0 4px;font-size:.92rem}
+.map{width:100%;height:165px;border:0;border-radius:12px;margin-top:12px}
+form{display:grid;gap:9px}label{display:grid;gap:5px;font-size:.9rem;font-weight:600}
+input,select,textarea{width:100%;border:1px solid #ccd8d6;border-radius:10px;padding:9px 11px;font:inherit;background:#fff;color:#172d35}
 input:focus,select:focus,textarea:focus{outline:2px solid #79aaaa;outline-offset:1px}
-button{border:0;border-radius:10px;padding:13px 16px;background:#172d35;color:#fff;font-weight:700;font-size:1rem;cursor:pointer}
+button{border:0;border-radius:9px;padding:10px 14px;background:#172d35;color:#fff;font-weight:700;font-size:1rem;cursor:pointer}
 button:hover{background:#28545b}.choice{display:flex;gap:10px;align-items:flex-start;font-weight:400}.choice input{width:auto;margin-top:5px}
 .note{font-size:.82rem;color:#66777b;margin:0}
 .modal{display:none;position:fixed;inset:0;background:rgba(10,25,29,.58);z-index:20;align-items:center;justify-content:center;padding:18px}
 .modal.open{display:flex}.dialog{width:min(100%,480px);background:#fff;border-radius:18px;padding:26px;box-shadow:0 20px 70px #0003}
 .dialog-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:18px}.secondary{background:#e9efee;color:#172d35}
-.back{display:inline-block;margin-top:24px;text-decoration:none;font-weight:700}
+.back{display:inline-block;margin-top:16px;text-decoration:none;font-weight:700}
 @media(max-width:760px){.columns{grid-template-columns:1fr}main{margin-top:26px}.map{height:220px}}
 </style>
 </head>
@@ -71,7 +71,7 @@ button:hover{background:#28545b}.choice{display:flex;gap:10px;align-items:flex-s
 </form>
 </aside>
 </div>
-<a class="back" href="/">← Zurück zu Heinze Filter</a>
+<p class="note" style="margin-top:16px">Vielen Dank für dein Vertrauen. Bei Fragen zu deiner Bestellung hilft dir unser Kundenservice gerne weiter.</p>\n<a class="back" href="/">← Zurück zu Heinze Filter</a>
 </main>
 <footer>© Heinze Filter. Alle Rechte vorbehalten.</footer>
 <div class="modal" id="reasonModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
