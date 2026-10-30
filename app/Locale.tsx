@@ -109,7 +109,7 @@ const translations: Record<Language, Record<string, string>> = {
 
 const LanguageContext = createContext<{language:Language;setLanguage:(language:Language)=>void}>({language:"de",setLanguage:()=>{}});
 export function LanguageProvider({children}:{children:ReactNode}) {
-  const [language,setLanguageState]=useState<Language>("en");
+  const [language,setLanguageState]=useState<Language>("de");
   useEffect(()=>{const saved=window.localStorage.getItem("heinze-language");if(saved==="en"||saved==="nl"||saved==="de")setLanguageState(saved)},[]);
   const setLanguage=(next:Language)=>{setLanguageState(next);window.localStorage.setItem("heinze-language",next)};
   return <LanguageContext.Provider value={{language,setLanguage}}>{children}</LanguageContext.Provider>;
@@ -122,6 +122,6 @@ export function useLanguage(){
 export function LanguageSwitcher(){
   const {language,setLanguage}=useLanguage();
   return <select aria-label="Select language" value={language} onChange={event=>setLanguage(event.target.value as Language)} style={{border:"1px solid var(--line)",borderRadius:999,padding:"8px 11px",background:"#fff",color:"inherit",font:"inherit",fontSize:12,cursor:"pointer"}}>
-    <option value="en">🇬🇧 English</option><option value="nl">🇳🇱 Nederlands</option><option value="de">🇩🇪 Deutsch</option>
+    <option value="de">🇩🇪 Deutsch</option><option value="en">🇬🇧 English</option><option value="nl">🇳🇱 Nederlands</option>
   </select>;
 }
