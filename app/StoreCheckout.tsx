@@ -53,6 +53,7 @@ export function AddToCartButton({ product }: { product: Product }) {
 }
 
 export function StoreCheckoutProvider({ children }: { children: ReactNode }) {
+  const { t } = useLanguage();
   const [clientId, setClientId] = useState(process.env.NEXT_PUBLIC_PAYPAL_CLIENT_ID || "");
   const [product, setProduct] = useState<Product | null>(null);
   const [customer, setCustomer] = useState<Customer | null>(null);
