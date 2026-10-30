@@ -54,7 +54,7 @@ const translations: Record<Language, Record<string, string>> = {
     "Kompakter USB-Tischventilator":"Compact USB desk fan","Kompakter Ventilator für Schreibtisch und Zuhause mit mehreren Geschwindigkeitsstufen.":"Compact fan for your desk or home with multiple speed settings.",
     "Smarte LED-Lampe E27":"Smart E27 LED bulb","Energiesparende LED-Lampe mit einstellbarer Helligkeit und komfortabler Smart-Home-Steuerung.":"Energy-saving LED bulb with adjustable brightness and convenient smart-home control.",
     "Flexibler Reinigungshelfer zum Entfernen von Haaren und Ablagerungen in Waschbecken, Duschen und Bodenabläufen.":"Flexible cleaning tool for removing hair and buildup from sinks, showers and floor drains.",
-    "Ersatz-Duschfilter für Handbrausen":"Replacement shower filter"
+    "Ersatz-Duschfilter für Handbrausen":"Replacement shower filter",
     "Heinze Filter Startseite":"Heinze Filter homepage","Hauptnavigation":"Main navigation","HEINZE FILTER / BAD & SANITÄR":"HEINZE FILTER / BATHROOM & SANITARY",
     "LIMITED OFFER · BIS ZU 20 % RABATT":"LIMITED OFFER · UP TO 20% OFF","BAD · DUSCHE · KÜCHE":"BATHROOM · SHOWER · KITCHEN",
     "Modernes Badezimmer mit eleganten Sanitärarmaturen":"Modern bathroom with elegant fixtures","Produktsuche":"Product search","Produktkategorien":"Product categories",
@@ -112,7 +112,7 @@ const translations: Record<Language, Record<string, string>> = {
     "Kompakter USB-Tischventilator":"Compacte USB-bureauventilator","Kompakter Ventilator für Schreibtisch und Zuhause mit mehreren Geschwindigkeitsstufen.":"Compacte ventilator voor bureau en huis met meerdere snelheidsstanden.",
     "Smarte LED-Lampe E27":"Slimme E27-ledlamp","Energiesparende LED-Lampe mit einstellbarer Helligkeit und komfortabler Smart-Home-Steuerung.":"Energiezuinige ledlamp met instelbare helderheid en handige smart-home-bediening.",
     "Flexibler Reinigungshelfer zum Entfernen von Haaren und Ablagerungen in Waschbecken, Duschen und Bodenabläufen.":"Flexibel hulpmiddel om haren en vuil uit wastafels, douches en vloerafvoeren te verwijderen.",
-    "Ersatz-Duschfilter für Handbrausen":"Vervangingsfilter voor douchekop"
+    "Ersatz-Duschfilter für Handbrausen":"Vervangingsfilter voor douchekop",
     "Heinze Filter Startseite":"Heinze Filter-startpagina","Hauptnavigation":"Hoofdnavigatie","HEINZE FILTER / BAD & SANITÄR":"HEINZE FILTER / BADKAMER & SANITAIR",
     "LIMITED OFFER · BIS ZU 20 % RABATT":"AANBIEDING · TOT 20% KORTING","BAD · DUSCHE · KÜCHE":"BADKAMER · DOUCHE · KEUKEN",
     "Modernes Badezimmer mit eleganten Sanitärarmaturen":"Moderne badkamer met elegante kranen","Produktsuche":"Product zoeken","Produktkategorien":"Productcategorieën",
