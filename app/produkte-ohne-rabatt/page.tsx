@@ -18,7 +18,7 @@ export default function RegularPricePage() {\n  const { t } = useLanguage();
       <header className="site-header">
         <div className="header-inner">
           <Link className="brand" href="/"><span style={{ color: "#172d35", fontWeight: 800 }}>HEINZE</span><span style={{ color: "#5a9b9b", fontWeight: 500 }}> FILTER</span></Link>
-          <nav className="nav-links" aria-label="Hauptnavigation"><Link href="/">{t("Angebote")}</Link><Link href="/produkte-ohne-rabatt">{t("Weitere Produkte")}</Link><LanguageSwitcher/></nav>
+          <nav className="nav-links" aria-label="Hauptnavigation"><Link href="/">{t("Angebote")}</Link><Link href="/produkte-ohne-rabatt">{t("Weitere Produkte")}</Link></nav><LanguageSwitcher/>
         </div>
       </header>
       <main className="container">
