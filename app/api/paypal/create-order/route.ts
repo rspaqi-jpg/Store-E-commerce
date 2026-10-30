@@ -11,6 +11,11 @@ const products = [
   { id: "5", name: "Ersatz-Duschfilter für Handbrausen", price: 18.00 },
   { id: "6", name: "Multifunktionaler Wasserhahn-Aufsatz", price: 13.99 },
   { id: "7", name: "Hochdruck-Wasserpistole für Auto & Garten", price: 18.99 },
+  { id: "8", name: "Automatischer Schaumseifenspender mit Display", price: 34.99 },
+  { id: "9", name: "Intelligenter Wasserhahn-Sensor", price: 29.99 },
+  { id: "10", name: "Kompakter Aktivkohle-Wasserfilter für den Wasserhahn", price: 34.99 },
+  { id: "11", name: "Selbstreinigender Turbo-Duschkopf", price: 24.99 },
+  { id: "12", name: "Flexibler Abflussreiniger für Bad & Küche", price: 14.99 },
 ];
 
 function countryCode(value: string) {
