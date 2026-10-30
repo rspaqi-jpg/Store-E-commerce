@@ -2,6 +2,7 @@
 import Link from "next/link";
 import { AddToCartButton, StoreCheckoutProvider } from "../StoreCheckout";
 import { LanguageSwitcher, useLanguage } from "../Locale";
+import { useMemo, useState } from "react";
 
 const products = [
   { _id: "1", name: "Filter-Duschkopf", price: 29.90, description: "Moderner Duschkopf mit austauschbarem Filter.", imageUrl: "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=800&q=80" },
@@ -18,6 +19,22 @@ const products = [
   { _id: "18", name: "Smarte LED-Lampe E27", price: 14.99, description: "Energiesparende LED-Lampe mit einstellbarer Helligkeit und komfortabler Smart-Home-Steuerung.", imageUrl: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=80" },
 ];
 
+const extraTerms:Record<string,string>={
+"1":"duschbrause duscharmatur kalkfilter wasserfilter shower head shower filter",
+"2":"nachtlicht nacht lampe bewegungsmelder sensor flur bad orientierungslicht",
+"3":"bad organizer ablage aufbewahrung duschregal shampoo seife badezimmer",
+"7":"hochdruckreiniger wasserpistole schlauch düse auto waschen autowäsche garten terrasse reinigung wasserstrahl",
+"8":"seifenspender schaumseife sensor automatisch berührungslos hände waschen soap dispenser",
+"9":"wasserhahn sensor armatur aufsatz berührungslos wasser sparen küche",
+"10":"wasserfilter aktivkohle trinkwasser filter küchenarmatur wasserhahn schadstoffe",
+"11":"duschkopf duschbrause turbo selbstreinigend silikondüsen wasserstopp strahlarten",
+"12":"abflussreiniger rohrreiniger haarentferner verstopfung waschbecken dusche küche abfluss",
+"16":"thermometer hygrometer temperatur luftfeuchtigkeit raumklima messgerät",
+"17":"ventilator usb tischventilator schreibtisch wind kühlung sommer",
+"18":"glühbirne lampe led e27 smart licht dimmbar beleuchtung"};
+function norm(s:string){return s.toLocaleLowerCase("de").normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").replace(/ß/g,"ss").replace(/[^a-z0-9 ]/g," ").replace(/\\s+/g," ").trim()}
+function distance(a:string,b:string){const row=Array.from({length:b.length+1},(_,i)=>i);for(let i=1;i<=a.length;i++){let prev=row[0];row[0]=i;for(let j=1;j<=b.length;j++){const old=row[j];row[j]=Math.min(row[j]+1,row[j-1]+1,prev+(a[i-1]===b[j-1]?0:1));prev=old;}}return row[b.length]}
+function matches(product:(typeof products)[number],query:string){const q=norm(query);if(!q)return true;const hay=norm([product.name,product.description,extraTerms[product._id]||""].join(" "));if(hay.includes(q))return true;return q.split(" ").some(token=>hay.split(" ").some(word=>word.startsWith(token)||(token.length>=4&&distance(token,word)<=1)));}
 const euro = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" });
 
 export default function RegularPricePage() {
@@ -36,7 +53,7 @@ export default function RegularPricePage() {
             <div><p className="eyebrow">{t("Heinze Filter · reguläre Preise")}</p><h1>{t("Weitere Produkte")}</h1><p>{t("Entdecke weitere praktische Produkte für Bad und Zuhause.")}</p></div>
             <p>{products.length} Produkte</p>
           </div>
-          <div className="product-grid">
+          <section className="product-search" aria-label="Produktsuche"><div className="search-copy"><p className="eyebrow">{t("PRODUKTSUCHE")}</p><h2>{t("Was suchst du?")}</h2><p>{t("Suche nach Produktnamen, Eigenschaften oder dem gewünschten Einsatz. Auch ähnliche Schreibweisen werden erkannt.")}</p></div><div className="search-field"><span aria-hidden="true">⌕</span><input value={query} onChange={(e)=>setQuery(e.target.value)} placeholder={t("z. B. Duschfilter, Wasserhahn, Nachtlicht …")} aria-label={t("Produkte suchen")}/>{query?<button type="button" onClick={()=>setQuery("")}>{t("Löschen")}</button>:null}</div>{query?<><p className="search-count">{searchResults.length} {t("passende Produkte gefunden")}</p><div className="product-grid">{searchResults.map((product)=><article className="product-card" key={product._id}><div className="product-image-wrap"><img className="product-image" src={product.imageUrl} alt={product.name} loading="lazy"/></div><div className="product-content"><span className="product-category">Heinze Filter</span><h2>{t(product.name)}</h2><p className="product-description">{t(product.description)}</p><div className="product-bottom"><span className="product-price">{euro.format(product.price)}</span><AddToCartButton product={product}/></div></div></article>)}</div>{!searchResults.length?<p className="search-empty">{t("Kein genaues Ergebnis. Probiere einen anderen Begriff oder beschreibe, wofür du das Produkt brauchst.")}</p>:null}</>:null}</section><div className="product-grid">
             {products.map((product) => (
               <article className="product-card" key={product._id}>
                 <div className="product-image-wrap"><img className="product-image" src={product.imageUrl} alt={product.name} loading="lazy" /></div>
