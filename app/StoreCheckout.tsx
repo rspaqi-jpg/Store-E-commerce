@@ -46,7 +46,7 @@ export function AddToCartButton({ product }: { product: Product }) {
       onClick={() => checkout?.buy(product)}
       style={{ background: "#ffc439", borderColor: "#ffc439", cursor: "pointer" }}
     >
-      Mit PayPal kaufen
+      {t("Mit PayPal kaufen")}
     </button>
   );
 }
@@ -209,12 +209,12 @@ export function StoreCheckoutProvider({ children }: { children: ReactNode }) {
                 style={{ display: "grid", gap: 12 }}
               >
                 {[
-                  { name: "email", label: "{t("E-Mail-Adresse")}", type: "email", auto: "email", placeholder: "du@example.com" },
-                  { name: "name", label: "{t("Vor- und Nachname")}", type: "text", auto: "name", placeholder: "Max Mustermann" },
-                  { name: "street", label: "{t("Straße und Hausnummer")}", type: "text", auto: "street-address", placeholder: "Musterstraße 12" },
+                  { name: "email", label: "E-Mail-Adresse", type: "email", auto: "email", placeholder: "du@example.com" },
+                  { name: "name", label: "Vor- und Nachname", type: "text", auto: "name", placeholder: "Max Mustermann" },
+                  { name: "street", label: "Straße und Hausnummer", type: "text", auto: "street-address", placeholder: "Musterstraße 12" },
                 ].map((field) => (
                   <label key={field.name} style={{ display: "grid", gap: 5, fontSize: 13 }}>
-                    {field.label}
+                    {t(field.label)}
                     <input name={field.name} type={field.type} autoComplete={field.auto} placeholder={field.placeholder} required style={inputStyle} />
                   </label>
                 ))}
