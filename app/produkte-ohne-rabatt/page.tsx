@@ -20,7 +20,8 @@ const products = [
 
 const euro = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" });
 
-export default function RegularPricePage() {\n  const { t } = useLanguage();
+export default function RegularPricePage() {
+  const { t } = useLanguage();
   return (
     <StoreCheckoutProvider>
       <header className="site-header">
