@@ -38,6 +38,7 @@ declare global {
 const CheckoutContext = createContext<{ buy: (product: Product) => void } | null>(null);
 
 export function AddToCartButton({ product }: { product: Product }) {
+  const { t } = useLanguage();
   const checkout = useContext(CheckoutContext);
   return (
     <button
