@@ -14,8 +14,7 @@ const products = [
   { _id: "10", name: "Kompakter Aktivkohle-Wasserfilter für den Wasserhahn", price: 34.99, description: "Kompakter Auftisch-Wasserfilter mit Aktivkohle-Filterelement und Anschlusszubehör für den Küchenwasserhahn.", imageUrl: "https://oss-cf.cjdropshipping.com/product/2025/04/20/07/c9280880-47dc-427a-b0c9-76046bdf7938.jpg" },
   { _id: "11", name: "Selbstreinigender Turbo-Duschkopf", price: 24.99, description: "Duschkopf mit mehreren Strahlarten, leicht zu reinigenden Silikondüsen und praktischer Wasserstopp-Taste.", imageUrl: "https://cc-west-usa.oss-accelerate.aliyuncs.com/e40da196-1db1-46b0-a15f-96f8cf827d6e.jpg" },
   { _id: "12", name: "Flexibler Abflussreiniger für Bad & Küche", price: 14.99, description: "Flexibler Reinigungshelfer zum Entfernen von Haaren und Ablagerungen in Waschbecken, Duschen und Bodenabläufen.", imageUrl: "https://oss-cf.cjdropshipping.com/product/2024/12/21/03/00661fc7-b7cb-4476-9869-5e5117652d22_trans.jpeg" },
-  { _id: "16", name: "Digitales Thermometer & Hygrometer", price: 16.99, description: "Misst Raumtemperatur und Luftfeuchtigkeit auf einen Blick – praktisch für Wohn- und Schlafzimmer.", imageUrl: "https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=800&q=80" },
-  { _id: "17", name: "Kompakter USB-Tischventilator", price: 22.99, description: "Kompakter Ventilator für Schreibtisch und Zuhause mit mehreren Geschwindigkeitsstufen.", imageUrl: "https://images.unsplash.com/photo-1563861826100-9cb868fdbe1c?auto=format&fit=crop&w=800&q=80" },
+
   { _id: "18", name: "Smarte LED-Lampe E27", price: 14.99, description: "Energiesparende LED-Lampe mit einstellbarer Helligkeit und komfortabler Smart-Home-Steuerung.", imageUrl: "https://images.unsplash.com/photo-1507473885765-e6ed057f782c?auto=format&fit=crop&w=800&q=80" },
 ];
 
@@ -29,8 +28,6 @@ const extraTerms:Record<string,string>={
 "10":"wasserfilter aktivkohle trinkwasser filter küchenarmatur wasserhahn schadstoffe",
 "11":"duschkopf duschbrause turbo selbstreinigend silikondüsen wasserstopp strahlarten",
 "12":"abflussreiniger rohrreiniger haarentferner verstopfung waschbecken dusche küche abfluss",
-"16":"thermometer hygrometer temperatur luftfeuchtigkeit raumklima messgerät",
-"17":"ventilator usb tischventilator schreibtisch wind kühlung sommer",
 "18":"glühbirne lampe led e27 smart licht dimmbar beleuchtung"};
 function norm(s:string){return s.toLocaleLowerCase("de").normalize("NFD").replace(/[\\u0300-\\u036f]/g,"").replace(/ß/g,"ss").replace(/[^a-z0-9 ]/g," ").replace(/\\s+/g," ").trim()}
 function distance(a:string,b:string){const row=Array.from({length:b.length+1},(_,i)=>i);for(let i=1;i<=a.length;i++){let prev=row[0];row[0]=i;for(let j=1;j<=b.length;j++){const old=row[j];row[j]=Math.min(row[j]+1,row[j-1]+1,prev+(a[i-1]===b[j-1]?0:1));prev=old;}}return row[b.length]}
