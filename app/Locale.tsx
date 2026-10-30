@@ -15,8 +15,7 @@ const translations: Record<Language, Record<string, string>> = {
     "ÜBER HEINZE FILTER":"ABOUT HEINZE FILTER",
     "Über unser Unternehmen":"About our business",
     "Die Lieferung erfolgt in der Regel innerhalb von 2 bis 4 Werktagen. An Feiertagen oder in Ausnahmefällen kann sie gelegentlich 5 bis 7 Werktage dauern.":"Delivery usually takes 2 to 4 business days. During public holidays or in exceptional circumstances, it may occasionally take 5 to 7 business days.",
-    "Bei Heinze Filter legen wir Wert auf sorgfältig ausgewählte Produkte, verlässliche Informationen und transparente Kommunikation. Unser Anspruch ist es, Ihnen Qualität zu bieten und Sie während des gesamten Bestellablaufs ehrlich und klar zu informieren.":"At Heinze Filter, we focus on carefully selected products, reliable information and transparent communication. Our aim is to offer quality and keep you clearly and honestly informed throughout the ordering process."
-  
+    "Bei Heinze Filter legen wir Wert auf sorgfältig ausgewählte Produkte, verlässliche Informationen und transparente Kommunikation. Unser Anspruch ist es, Ihnen Qualität zu bieten und Sie während des gesamten Bestellablaufs ehrlich und klar zu informieren.":"At Heinze Filter, we focus on carefully selected products, reliable information and transparent communication. Our aim is to offer quality and keep you clearly and honestly informed throughout the ordering process.",
     "Neuheiten":"New arrivals","Wohnen":"Home","Technik":"Technology","Weitere Produkte":"More products",
     "Produkte entdecken ↘":"Explore products ↘","Mehr Komfort.":"More comfort.","Weniger Kalk.":"Less limescale.",
     "Entdecke sorgfältig ausgewählte Produkte für Bad und Zuhause – mit klaren Produktinformationen, transparenten Preisen und einer unkomplizierten Bestellung.":"Discover carefully selected products for your bathroom and home, with clear product information, transparent prices and easy ordering.",
