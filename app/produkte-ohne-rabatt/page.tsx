@@ -16,13 +16,13 @@ export default function RegularPricePage() {
       <header className="site-header">
         <div className="header-inner">
           <Link className="brand" href="/"><span style={{ color: "#172d35", fontWeight: 800 }}>HEINZE</span><span style={{ color: "#5a9b9b", fontWeight: 500 }}> FILTER</span></Link>
-          <nav className="nav-links" aria-label="Hauptnavigation"><Link href="/">Angebote</Link><Link href="/produkte-ohne-rabatt">Produkte ohne Rabatt</Link></nav>
+          <nav className="nav-links" aria-label="Hauptnavigation"><Link href="/">Angebote</Link><Link href="/produkte-ohne-rabatt">Weitere Produkte</Link></nav>
         </div>
       </header>
       <main className="container">
         <section className="section">
           <div className="section-heading">
-            <div><p className="eyebrow">Heinze Filter · reguläre Preise</p><h1>Produkte ohne Rabatt</h1><p>Diese Produkte werden zum regulären Preis angeboten – ohne durchgestrichene Preise und ohne Rabatt-Badge.</p></div>
+            <div><p className="eyebrow">Heinze Filter · reguläre Preise</p><h1>Weitere Produkte</h1><p>Entdecke weitere praktische Produkte für Bad und Zuhause.</p></div>
             <p>{products.length} Produkte</p>
           </div>
           <div className="product-grid">
