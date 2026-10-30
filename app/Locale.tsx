@@ -157,8 +157,8 @@ export function useLanguage(){
 }
 export function LanguageSwitcher(){
   const {language,setLanguage}=useLanguage();
-  return <select aria-label="Select language" value={language} onChange={event=>setLanguage(event.target.value as Language)} style={{border:"1px solid var(--line)",borderRadius:999,padding:"8px 11px",background:"#fff",color:"inherit",font:"inherit",fontSize:12,cursor:"pointer"}}>
-    <option value="de">🇩🇪 Deutsch</option><option value="en">🇬🇧 English</option><option value="nl">🇳🇱 Nederlands</option>
+  return <select aria-label="Sprache wählen" title="Sprache wählen" value={language} onChange={event=>setLanguage(event.target.value as Language)} style={{border:"1px solid var(--line)",borderRadius:999,padding:"8px 11px",background:"#fff",color:"inherit",font:"inherit",fontSize:18,cursor:"pointer",width:76}}>
+    <option value="de">🇩🇪</option><option value="en">🇬🇧</option><option value="nl">🇳🇱</option>
   </select>;
 }
     "Duschen & Duschsysteme":"Douches en douchesystemen",
