@@ -39,6 +39,8 @@ const euro = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR"
 
 export default function RegularPricePage() {
   const { t } = useLanguage();
+  const [query, setQuery] = useState("");
+  const searchResults = useMemo(() => products.filter((product) => matches(product, query)), [query]);
   return (
     <StoreCheckoutProvider>
       <header className="site-header">
@@ -60,7 +62,6 @@ export default function RegularPricePage() {
                 <div className="product-content">
                   <span className="product-category">Heinze Filter</span>
                   <h2>{t(product.name)}</h2>
-                  <p className="product-description">{t(product.description)}</p>
                   <div className="product-bottom"><span className="product-price">{euro.format(product.price)}</span><AddToCartButton product={product} /></div>
                 </div>
               </article>
