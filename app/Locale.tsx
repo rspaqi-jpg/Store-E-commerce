@@ -5,8 +5,18 @@ import { createContext, useContext, useState, type ReactNode } from "react";
 export type Language = "de" | "en" | "nl";
 
 const translations: Record<Language, Record<string, string>> = {
-  de: {},
+  de: {
+    "ÜBER HEINZE FILTER":"ÜBER HEINZE FILTER",
+    "Über unser Unternehmen":"Über unser Unternehmen",
+    "Aufgrund der aktuell hohen Nachfrage kann sich die Lieferung Ihrer Bestellung um etwa 3 bis 6 Werktage verzögern. Wir bitten um Ihr Verständnis.":"Aufgrund der aktuell hohen Nachfrage kann sich die Lieferung Ihrer Bestellung um etwa 3 bis 6 Werktage verzögern. Wir bitten um Ihr Verständnis.",
+    "Bei Heinze Filter legen wir Wert auf sorgfältig ausgewählte Produkte, verlässliche Informationen und transparente Kommunikation. Unser Anspruch ist es, Ihnen Qualität zu bieten und Sie während des gesamten Bestellablaufs ehrlich und klar zu informieren.":"Bei Heinze Filter legen wir Wert auf sorgfältig ausgewählte Produkte, verlässliche Informationen und transparente Kommunikation. Unser Anspruch ist es, Ihnen Qualität zu bieten und Sie während des gesamten Bestellablaufs ehrlich und klar zu informieren."
+  },
   en: {
+    "ÜBER HEINZE FILTER":"ABOUT HEINZE FILTER",
+    "Über unser Unternehmen":"About our business",
+    "Aufgrund der aktuell hohen Nachfrage kann sich die Lieferung Ihrer Bestellung um etwa 3 bis 6 Werktage verzögern. Wir bitten um Ihr Verständnis.":"Due to currently high demand, delivery of your order may take approximately 3 to 6 business days. Thank you for your understanding.",
+    "Bei Heinze Filter legen wir Wert auf sorgfältig ausgewählte Produkte, verlässliche Informationen und transparente Kommunikation. Unser Anspruch ist es, Ihnen Qualität zu bieten und Sie während des gesamten Bestellablaufs ehrlich und klar zu informieren.":"At Heinze Filter, we focus on carefully selected products, reliable information and transparent communication. Our aim is to offer quality and keep you clearly and honestly informed throughout the ordering process."
+  
     "Neuheiten":"New arrivals","Wohnen":"Home","Technik":"Technology","Weitere Produkte":"More products",
     "Produkte entdecken ↘":"Explore products ↘","Mehr Komfort.":"More comfort.","Weniger Kalk.":"Less limescale.",
     "Entdecke sorgfältig ausgewählte Produkte für Bad und Zuhause – mit klaren Produktinformationen, transparenten Preisen und einer unkomplizierten Bestellung.":"Discover carefully selected products for your bathroom and home, with clear product information, transparent prices and easy ordering.",
@@ -65,6 +75,11 @@ const translations: Record<Language, Record<string, string>> = {
     "PayPal Live ist noch nicht konfiguriert: NEXT_PUBLIC_PAYPAL_CLIENT_ID fehlt.":"PayPal Live is not configured yet: NEXT_PUBLIC_PAYPAL_CLIENT_ID is missing."
   },
   nl: {
+    "ÜBER HEINZE FILTER":"OVER HEINZE FILTER",
+    "Über unser Unternehmen":"Over ons bedrijf",
+    "Aufgrund der aktuell hohen Nachfrage kann sich die Lieferung Ihrer Bestellung um etwa 3 bis 6 Werktage verzögern. Wir bitten um Ihr Verständnis.":"Door de momenteel grote vraag kan de levering van uw bestelling ongeveer 3 tot 6 werkdagen duren. Bedankt voor uw begrip.",
+    "Bei Heinze Filter legen wir Wert auf sorgfältig ausgewählte Produkte, verlässliche Informationen und transparente Kommunikation. Unser Anspruch ist es, Ihnen Qualität zu bieten und Sie während des gesamten Bestellablaufs ehrlich und klar zu informieren.":"Bij Heinze Filter hechten we waarde aan zorgvuldig geselecteerde producten, betrouwbare informatie en transparante communicatie. We streven ernaar kwaliteit te bieden en u tijdens het hele bestelproces eerlijk en duidelijk te informeren."
+  
     "Neuheiten":"Nieuw","Wohnen":"Wonen","Technik":"Technologie","Weitere Produkte":"Meer producten",
     "Produkte entdecken ↘":"Bekijk producten ↘","Mehr Komfort.":"Meer comfort.","Weniger Kalk.":"Minder kalkaanslag.",
     "Entdecke sorgfältig ausgewählte Produkte für Bad und Zuhause – mit klaren Produktinformationen, transparenten Preisen und einer unkomplizierten Bestellung.":"Ontdek zorgvuldig geselecteerde producten voor badkamer en huis, met duidelijke productinformatie, transparante prijzen en eenvoudig bestellen.",
