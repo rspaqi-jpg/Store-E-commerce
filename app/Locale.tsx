@@ -14,7 +14,7 @@ const translations: Record<Language, Record<string, string>> = {
     "Intelligent ausgestattet":"Smart essentials","Ausgewählte Produkte für Bad und Dusche.":"Selected products for your bathroom and shower.",
     "Praktische Lösungen für dein Zuhause.":"Practical solutions for your home.","Nützliche Technik für den Alltag.":"Useful everyday technology.",
     "Weniger Kalk. Mehr Wohlgefühl.":"Less limescale. More comfort.","Klare Produktinformationen, transparente Preise und ein einfacher Bestellablauf.":"Clear product information, transparent prices and a simple ordering process.",
-    "Angebote":"Offers","reguläre Preise":"regular prices","Weitere Produkte":"More products",
+    "Angebote":"Offers","reguläre Preise":"regular prices","Weitere Produkte":"More products","Entdecke weitere praktische Produkte für Bad und Zuhause.":"Discover more practical products for your bathroom and home.",
     "Diese Produkte werden zum regulären Preis angeboten – ohne durchgestrichene Preise und ohne Rabatt-Badge.":"These products are offered at their regular price, without crossed-out prices or discount badges.",
     "Zurück zur Startseite":"Back to home","Heinze Filter · reguläre Preise":"Heinze Filter · regular prices",
     "Mit PayPal kaufen":"Buy with PayPal","Sicherer Checkout":"Secure checkout","Deine Lieferadresse":"Your delivery address",
@@ -31,7 +31,7 @@ const translations: Record<Language, Record<string, string>> = {
     "Hochdruck-Wasserpistole für Auto & Garten":"High-pressure water gun for car & garden",
     "Verstellbare Wasserstrahl-Düse für die Autowäsche, Terrasse und Garten. Einfach am Gartenschlauch anschließen und den Wasserstrahl passend einstellen.":"Adjustable water jet nozzle for washing cars, patios and gardens. Simply connect it to a garden hose and adjust the spray.",
     "Duschkopf mit Filter & Temperaturanzeige":"Shower head with filter & temperature display",
-    "Ersatz-Duschfilter für Handbrausen":"Replacement shower filter","Multifunktionaler Wasserhahn-Aufsatz":"Multifunctional faucet attachment"
+    "Ersatz-Duschfilter für Handbrausen":"Replacement shower filter","Multifunktionaler Wasserhahn-Aufsatz":"Multifunctional faucet attachment","Duschkopf mit Filter & Temperaturanzeige":"Shower head with filter & temperature display"
   },
   nl: {
     "Neuheiten":"Nieuw","Wohnen":"Wonen","Technik":"Technologie","Weitere Produkte":"Meer producten",
@@ -42,7 +42,7 @@ const translations: Record<Language, Record<string, string>> = {
     "Intelligent ausgestattet":"Slimme essentials","Ausgewählte Produkte für Bad und Dusche.":"Geselecteerde producten voor badkamer en douche.",
     "Praktische Lösungen für dein Zuhause.":"Praktische oplossingen voor je huis.","Nützliche Technik für den Alltag.":"Handige technologie voor elke dag.",
     "Weniger Kalk. Mehr Wohlgefühl.":"Minder kalkaanslag. Meer comfort.","Klare Produktinformationen, transparente Preise und ein einfacher Bestellablauf.":"Duidelijke productinformatie, transparante prijzen en eenvoudig bestellen.",
-    "Angebote":"Aanbiedingen","reguläre Preise":"normale prijzen","Weitere Produkte":"Meer producten",
+    "Angebote":"Aanbiedingen","reguläre Preise":"normale prijzen","Weitere Produkte":"Meer producten","Entdecke weitere praktische Produkte für Bad und Zuhause.":"Ontdek meer praktische producten voor badkamer en huis.",
     "Diese Produkte werden zum regulären Preis angeboten – ohne durchgestrichene Preise und ohne Rabatt-Badge.":"Deze producten worden aangeboden voor de normale prijs, zonder doorgestreepte prijzen of kortingslabel.",
     "Zurück zur Startseite":"Terug naar home","Heinze Filter · reguläre Preise":"Heinze Filter · normale prijzen",
     "Mit PayPal kaufen":"Kopen met PayPal","Sicherer Checkout":"Veilig afrekenen","Deine Lieferadresse":"Je bezorgadres",
@@ -59,7 +59,7 @@ const translations: Record<Language, Record<string, string>> = {
     "Hochdruck-Wasserpistole für Auto & Garten":"Hogedrukspuit voor auto en tuin",
     "Verstellbare Wasserstrahl-Düse für die Autowäsche, Terrasse und Garten. Einfach am Gartenschlauch anschließen und den Wasserstrahl passend einstellen.":"Verstelbare waterstraal voor het wassen van auto's, terras en tuin. Sluit eenvoudig aan op de tuinslang en stel de straal naar wens in.",
     "Duschkopf mit Filter & Temperaturanzeige":"Douchekop met filter en temperatuurweergave",
-    "Ersatz-Duschfilter für Handbrausen":"Vervangingsfilter voor douchekop","Multifunktionaler Wasserhahn-Aufsatz":"Multifunctioneel kraanopzetstuk"
+    "Ersatz-Duschfilter für Handbrausen":"Vervangingsfilter voor douchekop","Multifunktionaler Wasserhahn-Aufsatz":"Multifunctioneel kraanopzetstuk","Duschkopf mit Filter & Temperaturanzeige":"Douchekop met filter en temperatuurweergave"
   }
 };
 
