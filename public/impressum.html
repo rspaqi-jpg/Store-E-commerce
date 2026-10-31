@@ -32,21 +32,21 @@ button:hover{background:#28545b}.choice{display:flex;gap:10px;align-items:flex-s
 </style>
 </head>
 <body>
-<header><a class="brand" href="/">HEINZE <span>FILTER</span></a></header>
+<header style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap"><a class="brand" href="/">HEINZE <span>FILTER</span></a><label style="display:flex;align-items:center;gap:8px;font-size:.85rem;font-weight:700">Sprache / Language / Taal<select id="impressumLanguage" aria-label="Sprache / Language" style="width:auto;padding:7px 10px;border-radius:999px"><option value="de">🇩🇪 Deutsch</option><option value="en">🇬🇧 English</option><option value="nl">🇳🇱 Nederlands</option></select></label></header>
 <main>
-<p class="eyebrow">Unternehmen & Kundenservice</p>
-<h1>Impressum</h1>
+<p class="eyebrow" data-i18n="eyebrow">Unternehmen & Kundenservice</p>
+<h1 data-i18n="title">Impressum</h1>
 <section class="panel intro">
-<p class="eyebrow">ÜBER HEINZE FILTER</p>
-<h2>Über unser Unternehmen</h2>
-<p>Hinter Heinze Filter stehen Erfahrung, Engagement und der Anspruch, unseren Kunden mehr als nur Produkte zu bieten. Wir sind überzeugt, dass ein guter Einkauf auf Vertrauen, Qualität und Zuverlässigkeit basiert.</p>
-<p>Dank unserer langjährigen Erfahrung in der Branche wissen wir, worauf es ankommt. Deshalb legen wir großen Wert auf eine sorgfältige Produktauswahl, ehrliche Informationen und einen professionellen Umgang mit unseren Kunden.</p>
-<p>Ihre Zufriedenheit und Sicherheit stehen für uns an erster Stelle. Wir möchten, dass Sie sich vom ersten Besuch in unserem Shop bis zum Erhalt Ihrer Bestellung gut aufgehoben fühlen. Vertrauen entsteht nicht durch Worte allein, sondern durch Verantwortung, Qualität und zuverlässigen Service.</p>
-<p><strong>Heinze Filter – Erfahrung, auf die Sie bauen können. Vertrauen, das bleibt.</strong></p>
-<h2 style="margin-top:18px">Lieferzeit</h2>
-<p>Ihre Bestellung wird in der Regel innerhalb von <strong>2 bis 4 Werktagen</strong> geliefert.</p>
-<p>An Feiertagen oder in Ausnahmefällen kann die Lieferzeit gelegentlich <strong>5 bis 7 Werktage</strong> betragen.</p>
-<p>Wir bemühen uns, jede Bestellung schnell, sorgfältig und zuverlässig zu Ihnen zu bringen.</p>
+<p class="eyebrow" data-i18n="aboutEyebrow">ÜBER HEINZE FILTER</p>
+<h2 data-i18n="aboutTitle">Über unser Unternehmen</h2>
+<p data-i18n="company1">Hinter Heinze Filter stehen Erfahrung, Engagement und der Anspruch, unseren Kunden mehr als nur Produkte zu bieten. Wir sind überzeugt, dass ein guter Einkauf auf Vertrauen, Qualität und Zuverlässigkeit basiert.</p>
+<p data-i18n="company2">Dank unserer langjährigen Erfahrung in der Branche wissen wir, worauf es ankommt. Deshalb legen wir großen Wert auf eine sorgfältige Produktauswahl, ehrliche Informationen und einen professionellen Umgang mit unseren Kunden.</p>
+<p data-i18n="company3">Ihre Zufriedenheit und Sicherheit stehen für uns an erster Stelle. Wir möchten, dass Sie sich vom ersten Besuch in unserem Shop bis zum Erhalt Ihrer Bestellung gut aufgehoben fühlen. Vertrauen entsteht nicht durch Worte allein, sondern durch Verantwortung, Qualität und zuverlässigen Service.</p>
+<p><strong data-i18n="slogan">Heinze Filter – Erfahrung, auf die Sie bauen können. Vertrauen, das bleibt.</strong></p>
+<h2 style="margin-top:18px" data-i18n="deliveryTitle">Lieferzeit</h2>
+<p data-i18n="delivery1">Ihre Bestellung wird in der Regel innerhalb von 2 bis 4 Werktagen geliefert.</p>
+<p data-i18n="delivery2">An Feiertagen oder in Ausnahmefällen kann die Lieferzeit gelegentlich 5 bis 7 Werktage betragen.</p>
+<p data-i18n="delivery3">Wir bemühen uns, jede Bestellung schnell, sorgfältig und zuverlässig zu Ihnen zu bringen.</p>
 </section>
 <div class="columns">
 <section class="panel company">
@@ -108,6 +108,34 @@ form.addEventListener('submit',e=>{e.preventDefault();if(!form.reportValidity())
 document.getElementById('skipReason').addEventListener('click',()=>{reason.value='';note.value='';modal.classList.remove('open');if(pending){pending=false;sendRequest();}});
 document.getElementById('confirmReason').addEventListener('click',()=>{modal.classList.remove('open');if(pending){pending=false;sendRequest();}});
 modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('open');});
+</script>
+<script>
+
+const languageSelect=document.getElementById("impressumLanguage");
+const translations={
+en:{
+eyebrow:"Company & Customer Service",title:"Legal Notice",aboutEyebrow:"ABOUT HEINZE FILTER",aboutTitle:"About our company",
+company1:"Heinze Filter is built on experience, commitment and the ambition to offer our customers more than just products. We believe a good shopping experience is based on trust, quality and reliability.",
+company2:"Thanks to our many years of experience in the industry, we understand what matters. That is why we place great importance on carefully selected products, honest information and professional customer service.",
+company3:"Your satisfaction and security come first. We want you to feel supported from your first visit to our shop until your order arrives. Trust is built not only through words, but through responsibility, quality and dependable service.",
+slogan:"Heinze Filter – Experience you can rely on. Trust that lasts.",deliveryTitle:"Delivery time",
+delivery1:"Your order is usually delivered within 2 to 4 business days.",delivery2:"During public holidays or in exceptional circumstances, delivery may occasionally take 5 to 7 business days.",delivery3:"We do our best to deliver every order to you quickly, carefully and reliably."
+},
+nl:{
+eyebrow:"Bedrijf & Klantenservice",title:"Colofon",aboutEyebrow:"OVER HEINZE FILTER",aboutTitle:"Over ons bedrijf",
+company1:"Heinze Filter staat voor ervaring, betrokkenheid en de ambitie om onze klanten meer te bieden dan alleen producten. Wij geloven dat goed winkelen gebaseerd is op vertrouwen, kwaliteit en betrouwbaarheid.",
+company2:"Dankzij onze jarenlange ervaring in de branche weten we wat belangrijk is. Daarom hechten we veel waarde aan zorgvuldig geselecteerde producten, eerlijke informatie en professionele klantenservice.",
+company3:"Uw tevredenheid en veiligheid staan voorop. We willen dat u zich vanaf uw eerste bezoek aan onze winkel tot de ontvangst van uw bestelling goed geholpen voelt. Vertrouwen ontstaat niet alleen door woorden, maar door verantwoordelijkheid, kwaliteit en betrouwbare service.",
+slogan:"Heinze Filter – Ervaring waarop u kunt vertrouwen. Vertrouwen dat blijft.",deliveryTitle:"Levertijd",
+delivery1:"Uw bestelling wordt doorgaans binnen 2 tot 4 werkdagen geleverd.",delivery2:"Tijdens feestdagen of in uitzonderlijke gevallen kan de levertijd soms 5 tot 7 werkdagen bedragen.",delivery3:"We doen ons best om elke bestelling snel, zorgvuldig en betrouwbaar bij u te bezorgen."
+}};
+function setImpressumLanguage(code){
+document.documentElement.lang=code;
+document.querySelectorAll("[data-i18n]").forEach(el=>{const key=el.getAttribute("data-i18n");if(code==="de"){const de={eyebrow:"Unternehmen & Kundenservice",title:"Impressum",aboutEyebrow:"ÜBER HEINZE FILTER",aboutTitle:"Über unser Unternehmen",company1:"Hinter Heinze Filter stehen Erfahrung, Engagement und der Anspruch, unseren Kunden mehr als nur Produkte zu bieten. Wir sind überzeugt, dass ein guter Einkauf auf Vertrauen, Qualität und Zuverlässigkeit basiert.",company2:"Dank unserer langjährigen Erfahrung in der Branche wissen wir, worauf es ankommt. Deshalb legen wir großen Wert auf eine sorgfältige Produktauswahl, ehrliche Informationen und einen professionellen Umgang mit unseren Kunden.",company3:"Ihre Zufriedenheit und Sicherheit stehen für uns an erster Stelle. Wir möchten, dass Sie sich vom ersten Besuch in unserem Shop bis zum Erhalt Ihrer Bestellung gut aufgehoben fühlen. Vertrauen entsteht nicht durch Worte allein, sondern durch Verantwortung, Qualität und zuverlässigen Service.",slogan:"Heinze Filter – Erfahrung, auf die Sie bauen können. Vertrauen, das bleibt.",deliveryTitle:"Lieferzeit",delivery1:"Ihre Bestellung wird in der Regel innerhalb von 2 bis 4 Werktagen geliefert.",delivery2:"An Feiertagen oder in Ausnahmefällen kann die Lieferzeit gelegentlich 5 bis 7 Werktage betragen.",delivery3:"Wir bemühen uns, jede Bestellung schnell, sorgfältig und zuverlässig zu Ihnen zu bringen."};el.textContent=de[key]||el.textContent;}else{el.textContent=translations[code][key]||el.textContent;}});}
+try{const saved=localStorage.getItem("heinze-filter-language");if(saved==="de"||saved==="en"||saved==="nl")languageSelect.value=saved;}catch{}
+setImpressumLanguage(languageSelect.value);
+languageSelect.addEventListener("change",()=>{setImpressumLanguage(languageSelect.value);try{localStorage.setItem("heinze-filter-language",languageSelect.value);}catch{}});
+
 </script>
 </body>
 </html>
