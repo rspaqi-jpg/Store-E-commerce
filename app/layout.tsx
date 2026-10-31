@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { LanguageProvider } from "./Locale";
+import { LanguageProvider, LanguageSwitcher } from "./Locale";
 
 export const metadata: Metadata = {
   title: "Minimal Store — Zeitlos. Einfach. Gut.",
@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="de">
-      <body><LanguageProvider>{children}</LanguageProvider></body>
+      <body><LanguageProvider><div style={{display:"flex",justifyContent:"flex-end",padding:"8px max(18px,calc((100% - 1180px)/2))",background:"#fff",borderBottom:"1px solid #dce5e3"}}><LanguageSwitcher/></div>{children}</LanguageProvider></body>
     </html>
   );
 }
