@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 
 export type Language = "de" | "en" | "nl";
 
@@ -140,7 +140,8 @@ const translations: Record<Language, Record<string, string>> = {
 const LanguageContext = createContext<{language:Language;setLanguage:(language:Language)=>void}>({language:"de",setLanguage:()=>{}});
 export function LanguageProvider({children}:{children:ReactNode}) {
   const [language,setLanguageState]=useState<Language>("de");
-  const setLanguage=(next:Language)=>setLanguageState(next);
+  useEffect(()=>{try{const saved=localStorage.getItem("heinze-filter-language");if(saved==="de"||saved==="en"||saved==="nl")setLanguageState(saved);}catch{}},[]);
+  const setLanguage=(next:Language)=>{setLanguageState(next);try{localStorage.setItem("heinze-filter-language",next);}catch{}};
   return <LanguageContext.Provider value={{language,setLanguage}}>{children}</LanguageContext.Provider>;
 }
 export function useLanguage(){
