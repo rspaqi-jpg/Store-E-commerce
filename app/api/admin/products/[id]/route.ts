@@ -15,7 +15,7 @@ function validProduct(value: any) {
     typeof value.price === "number" && Number.isFinite(value.price) && value.price >= 0 &&
     (value.old_price === null || (typeof value.old_price === "number" && Number.isFinite(value.old_price) && value.old_price >= 0)) &&
     (value.destination === "discount" || value.destination === "regular") &&
-    (categories[value.destination] as readonly string[]).includes(value.category) &&
+    (categories[value.destination as "discount" | "regular"] as readonly string[]).includes(value.category) &&
     typeof value.image_url === "string" && value.image_url.startsWith("https://");
 }
 
