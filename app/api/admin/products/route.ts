@@ -16,7 +16,8 @@ function validProduct(value: any) {
   if (value.old_price !== null && value.old_price !== undefined &&
       (typeof value.old_price !== "number" || !Number.isFinite(value.old_price) || value.old_price < 0)) return false;
   if (value.destination !== "discount" && value.destination !== "regular") return false;
-  if (!(categories[value.destination] as readonly string[]).includes(value.category)) return false;
+  const destination: "discount" | "regular" = value.destination;
+  if (!(categories[destination] as readonly string[]).includes(value.category)) return false;
   if (typeof value.image_url !== "string" || !value.image_url.startsWith("https://")) return false;
   return true;
 }
