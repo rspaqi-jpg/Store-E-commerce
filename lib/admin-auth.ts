@@ -26,11 +26,11 @@ export function supabaseAdminConfig() {
 
 export async function supabaseRequest(path: string, init: RequestInit = {}) {
   const { url, key } = supabaseAdminConfig();
-  const response = await fetch(\`\${url}/rest/v1/\${path}\`, {
+  const response = await fetch(url + "/rest/v1/" + path, {
     ...init,
     headers: {
       apikey: key,
-      Authorization: \`Bearer \${key}\`,
+      Authorization: "Bearer " + key,
       "Content-Type": "application/json",
       ...(init.headers || {}),
     },
