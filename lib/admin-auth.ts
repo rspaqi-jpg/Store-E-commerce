@@ -7,7 +7,7 @@ export function isAdminRequest(request: NextRequest) {
   const token = request.cookies.get(COOKIE_NAME)?.value;
   if (!token) return false;
   const [expiresAt, suppliedSignature] = token.split(".");
-  if (!expiresAt || !suppliedSignature || !/^\\d+$/.test(expiresAt)) return false;
+  if (!expiresAt || !suppliedSignature || !/^\d+$/.test(expiresAt)) return false;
   if (Number(expiresAt) < Math.floor(Date.now() / 1000)) return false;
   const secret = process.env.ADMIN_SESSION_SECRET;
   if (!secret) return false;
@@ -18,7 +18,7 @@ export function isAdminRequest(request: NextRequest) {
 }
 
 export function supabaseAdminConfig() {
-  const url = process.env.SUPABASE_URL?.replace(/\\/$/, "");
+  const url = process.env.SUPABASE_URL?.replace(/\/$/, "");
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) throw new Error("Supabase ist noch nicht vollständig konfiguriert.");
   return { url, key };
@@ -26,11 +26,11 @@ export function supabaseAdminConfig() {
 
 export async function supabaseRequest(path: string, init: RequestInit = {}) {
   const { url, key } = supabaseAdminConfig();
-  const response = await fetch(`${url}/rest/v1/${path}`, {
+  const response = await fetch(\`\${url}/rest/v1/\${path}\`, {
     ...init,
     headers: {
       apikey: key,
-      Authorization: `Bearer ${key}`,
+      Authorization: \`Bearer \${key}\`,
       "Content-Type": "application/json",
       ...(init.headers || {}),
     },
