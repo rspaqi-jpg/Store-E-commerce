@@ -6,7 +6,9 @@ import { LiveVisitors } from "./LiveVisitors";
 import { useMemo, useState } from "react";
 type Product={_id:string;name:string;category:"dusche"|"armaturen"|"badzubehoer"|"spiegel";price:number;oldPrice?:number;description:string;imageUrl:string;secondImageUrl?:string};
 const products:Product[]=[
-{_id:"5",name:"Duschfilter mit Handbrause – Komplettset",category:"dusche",price:30.00,description:"Komplettset mit gefilterter Handbrause, Duschschlauch und Wandhalterung. Mit mehreren Strahlarten und Ersatzfilter-Optionen. Bitte vor dem Versand die gewählte Set-Variante prüfen.",imageUrl:"https://oss-cf.cjdropshipping.com/product/2026/04/19/07/097592b8-7705-4da8-94f1-480b4037e8c8_trans.jpeg"},
+{_id:"5",name:"Duschfilter mit Handbrause – Komplettset",category:"dusche",price:29.99,description:"Gefilterte Handbrause mit mehreren Strahlarten. Je nach gewählter Set-Variante mit Duschschlauch, Wandhalterung und Ersatzfiltern. Lieferumfang vor Bestellung prüfen.",imageUrl:"https://oss-cf.cjdropshipping.com/product/2026/04/19/07/097592b8-7705-4da8-94f1-480b4037e8c8_trans.jpeg"},
+{_id:"20",name:"Duschkopf mit Doppelfilter aus Edelstahl",category:"dusche",price:24.99,description:"Moderner Handbrause-Duschkopf mit Filterelement. Laut Anbieter mit KDF- und ZMC-Filterelement; Lieferumfang gemäß gewählter Variante.",imageUrl:"https://oss-cf.cjdropshipping.com/product/2025/11/30/11/402b0b05-7174-48d9-99a8-7f772ba77431.jpg"},
+{_id:"21",name:"Duschkopf mit Druckverstärkung und Filter",category:"dusche",price:19.99,description:"Handbrause mit mehreren Wasserstrahl-Modi und Filteroptionen. Bitte vor Bestellung die passende Variante und den tatsächlichen Lieferumfang prüfen.",imageUrl:"https://oss-cf.cjdropshipping.com/product/2024/07/19/08/abe34f3b-5d7e-454d-a1e8-9b44170fac07_trans.jpeg"},
 {_id:"6",name:"Multifunktionaler Wasserhahn-Aufsatz",category:"armaturen",price:13.99,oldPrice:15.99,description:"3 Wasserstrahl-Modi: Rainfall, Sweep und Stream. Mit Umschalttaste und 360°-Drehung – zum Waschen von Obst, Spülen und Reinigen der Spüle.",imageUrl:"https://oss-cf.cjdropshipping.com/product/2023/10/23/06/80526658-9bef-4286-961d-b1637f7f4fdd.jpg"},
 {_id:"17",name:"Digitaler Küchenwasserhahn mit Temperaturanzeige",category:"armaturen",price:99.90,oldPrice:124.90,description:"Moderner ausziehbarer Wasserhahn mit digitaler Wassertemperaturanzeige, 360°-Drehung und Keramikkartusche. Vor dem Kauf Anschlussmaße prüfen.",imageUrl:"https://cf.cjdropshipping.com/58688b3d-cf48-4cd6-ad3f-781b8fb60077_trans.jpeg"},
 {_id:"18",name:"Premium Küchenarmatur mit ausziehbarer Brause",category:"armaturen",price:149.90,oldPrice:189.90,description:"Schwarze Küchenarmatur aus Edelstahl SUS 304 mit ausziehbarer Brause und drei Modi: Wasserstrahl, Sprühstrahl und Pause.",imageUrl:"https://cf.cjdropshipping.com/10132ce4-90da-4e16-b933-ff9e3c6658a3.JPG"},
@@ -17,7 +19,9 @@ const searchTerms:Record<string,string>={
 "1":"filter duschkopf duschbrause handbrause shower head duschfilter kalkfilter wasserfilter gefiltertes wasser bad dusche",
 "3":"badezimmer organizer bad organizer duschablage aufbewahrung duschregal shampoo seife badzubehör ordnung",
 "4":"duschkopf mit filter temperaturanzeige thermometer handbrause duschbrause wasser temperatur kalk shower head temperature display",
-"5":"ersatzfilter filterkartusche duschfilter filtereinsatz austauschfilter duschkopf refill replacement shower filter",
+"5":"ersatzfilter filterkartusche duschfilter filtereinsatz austauschfilter duschkopf refill replacement shower filter komplettset handbrause schlauch wandhalterung",
+"20":"duschkopf doppelfilter edelstahl kdf zmc filter handbrause shower head dual filter",
+"21":"duschkopf druckverstärkung filter handbrause wasserstrahl shower head pressure boost",
 "6":"wasserhahn aufsatz armatur sprühkopf wasserstrahl küche spüle obst waschen 360 grad drehbar strahlarten faucet aerator",
 "17":"digitaler küchenwasserhahn temperaturanzeige ausziehbar armatur wasserhahn waschbecken küche",
 "18":"premium küchenarmatur ausziehbare brause edelstahl schwarz küche waschbecken armatur",
