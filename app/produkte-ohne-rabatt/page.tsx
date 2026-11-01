@@ -4,7 +4,8 @@ import { AddToCartButton, StoreCheckoutProvider } from "../StoreCheckout";
 import { LanguageSwitcher, useLanguage } from "../Locale";
 import { useEffect, useMemo, useState } from "react";
 
-type StoreProduct = { _id: string; category: string; name: string; price: number; description: string; imageUrl: string; destination?: "discount" | "regular" };\nconst products: StoreProduct[] = [
+type StoreProduct = { _id: string; category: string; name: string; price: number; description: string; imageUrl: string; destination?: "discount" | "regular" };
+const products: StoreProduct[] = [
   { _id: "1", category: "dusche", name: "Filter-Duschkopf", price: 29.90, description: "Moderner Duschkopf mit austauschbarem Filter.", imageUrl: "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=800&q=80" },
 
   { _id: "3", category: "badzubehoer", name: "Organizer für das Badezimmer", price: 24.90, description: "Praktische Aufbewahrung für Bad und Dusche.", imageUrl: "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=800&q=80" },
