@@ -39,7 +39,17 @@ const euro = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR"
 export default function RegularPricePage() {
   const { t } = useLanguage();
   const [query, setQuery] = useState("");
-  const searchResults = useMemo(() => products.filter((product) => matches(product, query)), [query]);
+  const [dynamicProducts, setDynamicProducts] = useState<StoreProduct[]>([]);
+  useEffect(() => {
+    let active = true;
+    fetch("/api/products", { cache: "no-store" })
+      .then((response) => response.ok ? response.json() : [])
+      .then((data) => { if (active && Array.isArray(data)) setDynamicProducts(data.filter((product: StoreProduct) => product.destination === "regular")); })
+      .catch(() => {});
+    return () => { active = false; };
+  }, []);
+  const allProducts = [...products, ...dynamicProducts];
+  const searchResults = useMemo(() => allProducts.filter((product) => matches(product, query)), [query, dynamicProducts]);
   return (
     <StoreCheckoutProvider>
       <header className="site-header">
