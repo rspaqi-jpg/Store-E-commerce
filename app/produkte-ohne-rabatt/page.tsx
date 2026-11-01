@@ -5,17 +5,19 @@ import { LanguageSwitcher, useLanguage } from "../Locale";
 import { useMemo, useState } from "react";
 
 const products = [
-  { _id: "1", name: "Filter-Duschkopf", price: 29.90, description: "Moderner Duschkopf mit austauschbarem Filter.", imageUrl: "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=800&q=80" },
+  { _id: "1", category: "dusche", name: "Filter-Duschkopf", price: 29.90, description: "Moderner Duschkopf mit austauschbarem Filter.", imageUrl: "https://images.unsplash.com/photo-1620626011761-996317b8d101?auto=format&fit=crop&w=800&q=80" },
 
-  { _id: "3", name: "Organizer für das Badezimmer", price: 24.90, description: "Praktische Aufbewahrung für Bad und Dusche.", imageUrl: "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=800&q=80" },
+  { _id: "3", category: "badzubehoer", name: "Organizer für das Badezimmer", price: 24.90, description: "Praktische Aufbewahrung für Bad und Dusche.", imageUrl: "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?auto=format&fit=crop&w=800&q=80" },
 
-  { _id: "8", name: "Automatischer Schaumseifenspender mit Display", price: 34.99, description: "USB-aufladbarer Sensor-Seifenspender für eine hygienische und komfortable Handwäsche.", imageUrl: "https://oss-cf.cjdropshipping.com/product/2025/01/15/09/785cfa88-7c53-43ed-85b8-afb48e82d48f_trans.jpeg" },
-  { _id: "9", name: "Intelligenter Wasserhahn-Sensor", price: 29.99, description: "Berührungsloser Sensor-Aufsatz für den Wasserhahn – praktisch beim Händewaschen und zum Wassersparen.", imageUrl: "https://cc-west-usa.oss-accelerate.aliyuncs.com/quick/product/ba10bd5a-64fa-48ba-8abf-8fafd1a8f19f.jpg" },
-  { _id: "10", name: "Kompakter Aktivkohle-Wasserfilter für den Wasserhahn", price: 34.99, description: "Kompakter Auftisch-Wasserfilter mit Aktivkohle-Filterelement und Anschlusszubehör für den Küchenwasserhahn.", imageUrl: "https://oss-cf.cjdropshipping.com/product/2025/04/20/07/c9280880-47dc-427a-b0c9-76046bdf7938.jpg" },
-  { _id: "11", name: "Selbstreinigender Turbo-Duschkopf", price: 24.99, description: "Duschkopf mit mehreren Strahlarten, leicht zu reinigenden Silikondüsen und praktischer Wasserstopp-Taste.", imageUrl: "https://cc-west-usa.oss-accelerate.aliyuncs.com/e40da196-1db1-46b0-a15f-96f8cf827d6e.jpg" },
-  { _id: "12", name: "Flexibler Abflussreiniger für Bad & Küche", price: 14.99, description: "Flexibler Reinigungshelfer zum Entfernen von Haaren und Ablagerungen in Waschbecken, Duschen und Bodenabläufen.", imageUrl: "https://oss-cf.cjdropshipping.com/product/2024/12/21/03/00661fc7-b7cb-4476-9869-5e5117652d22_trans.jpeg" },
+  { _id: "8", category: "technik", name: "Automatischer Schaumseifenspender mit Display", price: 34.99, description: "USB-aufladbarer Sensor-Seifenspender für eine hygienische und komfortable Handwäsche.", imageUrl: "https://oss-cf.cjdropshipping.com/product/2025/01/15/09/785cfa88-7c53-43ed-85b8-afb48e82d48f_trans.jpeg" },
+  { _id: "9", category: "technik", name: "Intelligenter Wasserhahn-Sensor", price: 29.99, description: "Berührungsloser Sensor-Aufsatz für den Wasserhahn – praktisch beim Händewaschen und zum Wassersparen.", imageUrl: "https://cc-west-usa.oss-accelerate.aliyuncs.com/quick/product/ba10bd5a-64fa-48ba-8abf-8fafd1a8f19f.jpg" },
+  { _id: "10", category: "armaturen", name: "Kompakter Aktivkohle-Wasserfilter für den Wasserhahn", price: 34.99, description: "Kompakter Auftisch-Wasserfilter mit Aktivkohle-Filterelement und Anschlusszubehör für den Küchenwasserhahn.", imageUrl: "https://oss-cf.cjdropshipping.com/product/2025/04/20/07/c9280880-47dc-427a-b0c9-76046bdf7938.jpg" },
+  { _id: "11", category: "dusche", name: "Selbstreinigender Turbo-Duschkopf", price: 24.99, description: "Duschkopf mit mehreren Strahlarten, leicht zu reinigenden Silikondüsen und praktischer Wasserstopp-Taste.", imageUrl: "https://cc-west-usa.oss-accelerate.aliyuncs.com/e40da196-1db1-46b0-a15f-96f8cf827d6e.jpg" },
+  { _id: "12", category: "badzubehoer", name: "Flexibler Abflussreiniger für Bad & Küche", price: 14.99, description: "Flexibler Reinigungshelfer zum Entfernen von Haaren und Ablagerungen in Waschbecken, Duschen und Bodenabläufen.", imageUrl: "https://oss-cf.cjdropshipping.com/product/2024/12/21/03/00661fc7-b7cb-4476-9869-5e5117652d22_trans.jpeg" },
 
 ];
+
+const categories=[{id:"dusche",title:"Duschen & Duschsysteme"},{id:"armaturen",title:"Waschbecken & Armaturen"},{id:"technik",title:"Technik"},{id:"badzubehoer",title:"Badzubehör"}];
 
 const extraTerms:Record<string,string>={
 "1":"duschbrause duscharmatur kalkfilter wasserfilter shower head shower filter",
@@ -40,7 +42,7 @@ export default function RegularPricePage() {
       <header className="site-header">
         <div className="header-inner">
           <Link className="brand" href="/"><span style={{ color: "#172d35", fontWeight: 800 }}>HEINZE</span><span style={{ color: "#5a9b9b", fontWeight: 500 }}> FILTER</span></Link>
-          <nav className="nav-links" aria-label="Hauptnavigation"><Link href="/">{t("Angebote")}</Link><Link href="/produkte-ohne-rabatt">{t("Weitere Produkte")}</Link></nav><LanguageSwitcher/>
+          <nav className="nav-links" aria-label="Hauptnavigation">{categories.map((category)=><a key={category.id} href={`#${category.id}`}>{t(category.title)}</a>)}</nav><LanguageSwitcher/>
         </div>
       </header>
       <main className="container">
@@ -49,18 +51,7 @@ export default function RegularPricePage() {
             <div><p className="eyebrow">{t("Heinze Filter · reguläre Preise")}</p><h1>{t("Weitere Produkte")}</h1><p>{t("Entdecke weitere praktische Produkte für Bad und Zuhause.")}</p></div>
             <p>{products.length} Produkte</p>
           </div>
-          <section className="product-search" aria-label="Produktsuche"><div className="search-copy"><p className="eyebrow">{t("PRODUKTSUCHE")}</p><h2>{t("Was suchst du?")}</h2><p>{t("Suche nach Produktnamen, Eigenschaften oder dem gewünschten Einsatz. Auch ähnliche Schreibweisen werden erkannt.")}</p></div><div className="search-field"><span aria-hidden="true">⌕</span><input value={query} onChange={(e)=>setQuery(e.target.value)} placeholder={t("z. B. Duschfilter, Wasserhahn, Nachtlicht …")} aria-label={t("Produkte suchen")}/>{query?<button type="button" onClick={()=>setQuery("")}>{t("Löschen")}</button>:null}</div>{query?<><p className="search-count">{searchResults.length} {t("passende Produkte gefunden")}</p><div className="product-grid">{searchResults.map((product)=><article className="product-card" key={product._id}><div className="product-image-wrap"><img className="product-image" src={product.imageUrl} alt={product.name} loading="lazy"/></div><div className="product-content"><span className="product-category">Heinze Filter</span><h2>{t(product.name)}</h2><div className="product-bottom"><span className="product-price">{euro.format(product.price)}</span><AddToCartButton product={product}/></div></div></article>)}</div>{!searchResults.length?<p className="search-empty">{t("Kein genaues Ergebnis. Probiere einen anderen Begriff oder beschreibe, wofür du das Produkt brauchst.")}</p>:null}</>:null}</section><div className="product-grid">
-            {products.map((product) => (
-              <article className="product-card" key={product._id}>
-                <div className="product-image-wrap"><img className="product-image" src={product.imageUrl} alt={product.name} loading="lazy" /></div>
-                <div className="product-content">
-                  <span className="product-category">Heinze Filter</span>
-                  <h2>{t(product.name)}</h2>
-                  <div className="product-bottom"><span className="product-price">{euro.format(product.price)}</span><AddToCartButton product={product} /></div>
-                </div>
-              </article>
-            ))}
-          </div>
+          <section className="product-search" aria-label="Produktsuche"><div className="search-copy"><p className="eyebrow">{t("PRODUKTSUCHE")}</p><h2>{t("Was suchst du?")}</h2><p>{t("Suche nach Produktnamen, Eigenschaften oder dem gewünschten Einsatz. Auch ähnliche Schreibweisen werden erkannt.")}</p></div><div className="search-field"><span aria-hidden="true">⌕</span><input value={query} onChange={(e)=>setQuery(e.target.value)} placeholder={t("z. B. Duschfilter, Wasserhahn, Nachtlicht …")} aria-label={t("Produkte suchen")}/>{query?<button type="button" onClick={()=>setQuery("")}>{t("Löschen")}</button>:null}</div>{query?<><p className="search-count">{searchResults.length} {t("passende Produkte gefunden")}</p><div className="product-grid">{searchResults.map((product)=><article className="product-card" key={product._id}><div className="product-image-wrap"><img className="product-image" src={product.imageUrl} alt={product.name} loading="lazy"/></div><div className="product-content"><span className="product-category">Heinze Filter</span><h2>{t(product.name)}</h2><div className="product-bottom"><span className="product-price">{euro.format(product.price)}</span><AddToCartButton product={product}/></div></div></article>)}</div>{!searchResults.length?<p className="search-empty">{t("Kein genaues Ergebnis. Probiere einen anderen Begriff oder beschreibe, wofür du das Produkt brauchst.")}</p>:null}</>:null}</section>{categories.map((category)=><section id={category.id} className="section" key={category.id}><div className="section-heading"><div><h2>{t(category.title)}</h2></div></div><div className="product-grid">{products.filter((product)=>product.category===category.id).map((product)=><article className="product-card" key={product._id}><div className="product-image-wrap"><img className="product-image" src={product.imageUrl} alt={product.name} loading="lazy"/></div><div className="product-content"><span className="product-category">Heinze Filter</span><h2>{t(product.name)}</h2><div className="product-bottom"><span className="product-price">{euro.format(product.price)}</span><AddToCartButton product={product}/></div></div></article>)}</div></section>)}
         </section>
       </main>
       <footer className="site-footer"><div className="container footer-inner"><span>© {new Date().getFullYear()} Heinze Filter. Alle Rechte vorbehalten.</span><Link href="/">{t("Zurück zur Startseite")}</Link></div></footer>
