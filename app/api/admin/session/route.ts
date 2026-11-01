@@ -35,21 +35,27 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const configuredPassword = process.env.ADMIN_PASSWORD;
-  if (!configuredPassword || !process.env.ADMIN_SESSION_SECRET) {
+  const configuredUsername = process.env.ADMIN_USERNAME;
+  if (!configuredPassword || !configuredUsername || !process.env.ADMIN_SESSION_SECRET) {
     return NextResponse.json({ error: "Admin-Zugang ist noch nicht konfiguriert." }, { status: 503 });
   }
 
   let suppliedPassword = "";
+  let suppliedUsername = "";
   try {
     const body = await request.json();
     suppliedPassword = typeof body.password === "string" ? body.password : "";
+    suppliedUsername = typeof body.username === "string" ? body.username : "";
   } catch {
     return NextResponse.json({ error: "Ungültige Anfrage." }, { status: 400 });
   }
 
+  const suppliedUser = Buffer.from(suppliedUsername);
+  const expectedUser = Buffer.from(configuredUsername);
+  const usernameMatches = suppliedUser.length === expectedUser.length && timingSafeEqual(suppliedUser, expectedUser);
   const supplied = Buffer.from(suppliedPassword);
   const expected = Buffer.from(configuredPassword);
-  if (supplied.length !== expected.length || !timingSafeEqual(supplied, expected)) {
+  if (!usernameMatches || supplied.length !== expected.length || !timingSafeEqual(supplied, expected)) {
     return NextResponse.json({ error: "Falsches Passwort." }, { status: 401 });
   }
 
