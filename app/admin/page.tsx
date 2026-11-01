@@ -3,6 +3,7 @@
 import { FormEvent, useEffect, useState } from "react";
 
 export default function AdminPage() {
+  const [username, setUsername] = useState("admin");
   const [password, setPassword] = useState("");
   const [checking, setChecking] = useState(true);
   const [authenticated, setAuthenticated] = useState(false);
@@ -31,7 +32,7 @@ export default function AdminPage() {
       const response = await fetch("/api/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({ username, password }),
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Anmeldung fehlgeschlagen.");
@@ -63,6 +64,8 @@ export default function AdminPage() {
         ) : (
           <form onSubmit={login}>
             <p style={{ margin: "0 0 20px", color: "#607078", lineHeight: 1.5 }}>Melde dich an, um den privaten Verwaltungsbereich zu öffnen.</p>
+            <label htmlFor="admin-username" style={{ display: "block", marginBottom: 8, fontSize: 13, fontWeight: 700 }}>Benutzername</label>
+            <input id="admin-username" type="text" autoComplete="username" value={username} onChange={(event) => setUsername(event.target.value)} required style={{ boxSizing: "border-box", width: "100%", padding: 14, border: "1px solid #ccd6da", borderRadius: 10, fontSize: 16, marginBottom: 14 }} />
             <label htmlFor="admin-password" style={{ display: "block", marginBottom: 8, fontSize: 13, fontWeight: 700 }}>Passwort</label>
             <input id="admin-password" type="password" autoComplete="current-password" value={password} onChange={(event) => setPassword(event.target.value)} required style={{ boxSizing: "border-box", width: "100%", padding: 14, border: "1px solid #ccd6da", borderRadius: 10, fontSize: 16, marginBottom: 14 }} />
             <button disabled={busy} type="submit" style={{ width: "100%", padding: 14, border: 0, borderRadius: 10, background: "#173b63", color: "#fff", fontWeight: 700, cursor: busy ? "wait" : "pointer" }}>{busy ? "Anmeldung …" : "Anmelden"}</button>
