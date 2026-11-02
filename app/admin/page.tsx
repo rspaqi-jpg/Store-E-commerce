@@ -42,7 +42,6 @@ const emptyForm = {
 const euro = new Intl.NumberFormat("de-DE", { style: "currency", currency: "EUR" });
 
 export default function AdminPage() {
-  const [username, setUsername] = useState("admin");
   const [password, setPassword] = useState("");
   const [checking, setChecking] = useState(true);
   const [authenticated, setAuthenticated] = useState(false);
@@ -89,7 +88,7 @@ export default function AdminPage() {
       const response = await fetch("/api/admin/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
+        body: JSON.stringify({ password }),
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Anmeldung fehlgeschlagen.");
@@ -219,9 +218,7 @@ export default function AdminPage() {
           <section style={{ width: "min(440px, 100%)", padding: 30, borderRadius: 18, background: "#fff", boxShadow: "0 18px 55px rgba(20,47,56,.08)" }}>
             <h2 style={{ marginTop: 0 }}>Administrator-Login</h2>
             <form onSubmit={login}>
-              <label htmlFor="admin-username" style={labelStyle}>Benutzername</label>
-              <input id="admin-username" type="text" autoComplete="username" value={username} onChange={(event) => setUsername(event.target.value)} required style={{ ...inputStyle, marginBottom: 15 }} />
-              <label htmlFor="admin-password" style={labelStyle}>Passwort</label>
+              <label htmlFor="admin-password" style={labelStyle}>Admin-Passwort</label>
               <input id="admin-password" type="password" autoComplete="current-password" value={password} onChange={(event) => setPassword(event.target.value)} required style={{ ...inputStyle, marginBottom: 15 }} />
               <button disabled={busy} type="submit" style={{ width: "100%", padding: 14, border: 0, borderRadius: 9, background: "#173b63", color: "#fff", fontWeight: 700, cursor: busy ? "wait" : "pointer" }}>{busy ? "Anmeldung …" : "Anmelden"}</button>
             </form>
