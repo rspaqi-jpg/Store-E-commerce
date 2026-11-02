@@ -5,15 +5,7 @@ import { useLanguage } from "./Locale";
 import { LiveVisitors } from "./LiveVisitors";
 import { useEffect, useMemo, useState } from "react";
 type Product={_id:string;name:string;category:string;price:number;oldPrice?:number;description:string;imageUrl:string;secondImageUrl?:string;destination?:"discount"|"regular"};
-const products:Product[]=[
-{_id:"5",name:"Duschfilter mit Handbrause – Komplettset",category:"dusche",price:29.99,description:"Gefilterte Handbrause mit mehreren Strahlarten. Je nach gewählter Set-Variante mit Duschschlauch, Wandhalterung und Ersatzfiltern. Lieferumfang vor Bestellung prüfen.",imageUrl:"https://oss-cf.cjdropshipping.com/product/2026/04/19/07/097592b8-7705-4da8-94f1-480b4037e8c8_trans.jpeg"},
-{_id:"20",name:"Duschkopf mit Doppelfilter aus Edelstahl",category:"dusche",price:24.99,description:"Moderner Handbrause-Duschkopf mit Filterelement. Laut Anbieter mit KDF- und ZMC-Filterelement; Lieferumfang gemäß gewählter Variante.",imageUrl:"https://oss-cf.cjdropshipping.com/product/2025/11/30/11/402b0b05-7174-48d9-99a8-7f772ba77431.jpg"},
-{_id:"21",name:"Duschkopf mit Druckverstärkung und Filter",category:"dusche",price:19.99,description:"Handbrause mit mehreren Wasserstrahl-Modi und Filteroptionen. Bitte vor Bestellung die passende Variante und den tatsächlichen Lieferumfang prüfen.",imageUrl:"https://oss-cf.cjdropshipping.com/product/2024/07/19/08/abe34f3b-5d7e-454d-a1e8-9b44170fac07_trans.jpeg"},
-{_id:"6",name:"Multifunktionaler Wasserhahn-Aufsatz",category:"armaturen",price:13.99,oldPrice:15.99,description:"3 Wasserstrahl-Modi: Rainfall, Sweep und Stream. Mit Umschalttaste und 360°-Drehung – zum Waschen von Obst, Spülen und Reinigen der Spüle.",imageUrl:"https://oss-cf.cjdropshipping.com/product/2023/10/23/06/80526658-9bef-4286-961d-b1637f7f4fdd.jpg"},
-{_id:"17",name:"Digitaler Küchenwasserhahn mit Temperaturanzeige",category:"armaturen",price:99.90,oldPrice:124.90,description:"Moderner ausziehbarer Wasserhahn mit digitaler Wassertemperaturanzeige, 360°-Drehung und Keramikkartusche. Vor dem Kauf Anschlussmaße prüfen.",imageUrl:"https://cf.cjdropshipping.com/58688b3d-cf48-4cd6-ad3f-781b8fb60077_trans.jpeg"},
-{_id:"18",name:"Premium Küchenarmatur mit ausziehbarer Brause",category:"armaturen",price:149.90,oldPrice:189.90,description:"Schwarze Küchenarmatur aus Edelstahl SUS 304 mit ausziehbarer Brause und drei Modi: Wasserstrahl, Sprühstrahl und Pause.",imageUrl:"https://cf.cjdropshipping.com/10132ce4-90da-4e16-b933-ff9e3c6658a3.JPG"},
-{_id:"19",name:"Premium Regendusche Komplettset Schwarz",category:"dusche",price:249.90,oldPrice:299.90,description:"Komplettes Wand-Duschsystem in Mattschwarz mit 10-Zoll-Regenduschkopf aus Edelstahl, Handbrause, Messing-Mischventil, Brausearm und Schlauch. Anschlussmaße und Installation vor Bestellung prüfen.",imageUrl:"https://cf.cjdropshipping.com/17309376/1854364317181546496.jpg"}
-];
+const products:Product[]=[];
 
 const searchTerms:Record<string,string>={
 "1":"filter duschkopf duschbrause handbrause shower head duschfilter kalkfilter wasserfilter gefiltertes wasser bad dusche",
