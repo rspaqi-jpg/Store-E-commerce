@@ -1,25 +1,8 @@
 import { NextResponse } from "next/server";
+import { supabaseRequest } from "@/lib/admin-auth";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
-
-const products = [
-  { id: "1", name: "Filter-Duschkopf", price: 29.90 },
-  { id: "2", name: "LED-Nachtlicht mit Bewegungssensor", price: 19.90 },
-  { id: "3", name: "Organizer für das Badezimmer", price: 24.90 },
-  { id: "4", name: "Duschkopf mit Filter & Temperaturanzeige", price: 25.99 },
-  { id: "5", name: "Ersatz-Duschfilter für Handbrausen", price: 18.00 },
-  { id: "6", name: "Multifunktionaler Wasserhahn-Aufsatz", price: 13.99 },
-  { id: "7", name: "Hochdruck-Wasserpistole für Auto & Garten", price: 18.99 },
-  { id: "8", name: "Automatischer Schaumseifenspender mit Display", price: 34.99 },
-  { id: "9", name: "Intelligenter Wasserhahn-Sensor", price: 29.99 },
-  { id: "10", name: "Kompakter Aktivkohle-Wasserfilter für den Wasserhahn", price: 34.99 },
-  { id: "11", name: "Selbstreinigender Turbo-Duschkopf", price: 24.99 },
-  { id: "12", name: "Flexibler Abflussreiniger für Bad & Küche", price: 14.99 },
-  { id: "17", name: "Digitaler Küchenwasserhahn mit Temperaturanzeige", price: 99.90 },
-  { id: "18", name: "Premium Küchenarmatur mit ausziehbarer Brause", price: 149.90 },
-  { id: "19", name: "Premium Regendusche Komplettset Schwarz", price: 249.90 },
-];
 
 function countryCode(value: string) {
   const countries: Record<string, string> = {
@@ -101,19 +84,28 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Invalid cart" }, { status: 400 });
     }
 
+    const requestedIds = [...new Set(body.items.map((item) => String(item.id || "")))];
+    if (requestedIds.some((id) => !/^[0-9a-f-]{36}$/i.test(id))) {
+      return NextResponse.json({ error: "One or more products are unavailable" }, { status: 400 });
+    }
+    const idFilter = requestedIds.map((id) => encodeURIComponent(id)).join(",");
+    const availableProducts = await supabaseRequest(
+      `products?select=id,name,price&active=eq.true&id=in.(${idFilter})`
+    ) as { id: string; name: string; price: number | string }[];
     const items = body.items.map((item) => {
-      const product = products.find((candidate) => candidate.id === String(item.id));
+      const product = availableProducts.find((candidate) => candidate.id === String(item.id));
       const quantity = Number(item.quantity ?? 1);
+      const price = Number(product?.price);
 
-      if (!product || !Number.isInteger(quantity) || quantity < 1 || quantity > 20) {
+      if (!product || !Number.isFinite(price) || !Number.isInteger(quantity) || quantity < 1 || quantity > 20) {
         throw new Error("One or more products are unavailable");
       }
 
       return {
         name: product.name,
-        unit_amount: { currency_code: "EUR", value: product.price.toFixed(2) },
+        unit_amount: { currency_code: "EUR", value: price.toFixed(2) },
         quantity: String(quantity),
-        total: product.price * quantity,
+        total: price * quantity,
       };
     });
 
