@@ -92,6 +92,7 @@ export function StoreCheckoutProvider({ children }: { children: ReactNode }) {
     if (!product || !customer || !sdkReady || !window.paypal || !buttonsRef.current || mountedButtons.current) return;
     mountedButtons.current = true;
     buttonsRef.current.replaceChildren();
+    try {
     const instance = window.paypal.Buttons({
       createOrder: async () => {
         setBusy(true);
@@ -150,6 +151,11 @@ export function StoreCheckoutProvider({ children }: { children: ReactNode }) {
       setMessage("Die PayPal-Schaltfläche konnte nicht geladen werden.");
       mountedButtons.current = false;
     });
+    } catch (error) {
+      console.error("PayPal button initialization failed", error);
+      setMessage("Die PayPal-Schaltfläche konnte nicht initialisiert werden. Bitte versuche es erneut.");
+      mountedButtons.current = false;
+    }
   }, [product, customer, sdkReady]);
 
   const close = () => {
@@ -169,6 +175,7 @@ export function StoreCheckoutProvider({ children }: { children: ReactNode }) {
           src={`https://www.paypal.com/sdk/js?client-id=${encodeURIComponent(clientId)}&currency=EUR&intent=capture&components=buttons`}
           strategy="afterInteractive"
           onLoad={() => setSdkReady(true)}
+          onReady={() => setSdkReady(true)}
           onError={() => setMessage("PayPal konnte nicht geladen werden. Bitte prüfe die Client ID Live in Vercel.")}
         />
       ) : null}
