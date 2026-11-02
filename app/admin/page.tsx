@@ -18,13 +18,13 @@ type Product = {
 
 const categoryOptions: Record<Destination, { value: Category; label: string }[]> = {
   discount: [
-    { value: "duschen", label: "Duschen" },
-    { value: "wasserfilter", label: "Wasserfilter" },
-    { value: "smart-home", label: "Smart Home" },
+    { value: "duschen", label: "Dush" },
+    { value: "wasserfilter", label: "Filtra uji" },
+    { value: "smart-home", label: "Shtëpi inteligjente" },
   ],
   regular: [
-    { value: "badzubehoer", label: "Badzubehör" },
-    { value: "haushalt-wohnen", label: "Haushalt & Wohnen" },
+    { value: "badzubehoer", label: "Pajisje banjoje" },
+    { value: "haushalt-wohnen", label: "Shtëpi dhe banim" },
   ],
 };
 
@@ -59,7 +59,7 @@ export default function AdminPage() {
       const data = await response.json();
       setAuthenticated(Boolean(data.authenticated));
     } catch {
-      setError("Verbindung fehlgeschlagen. Bitte versuche es erneut.");
+      setError("Lidhja dështoi. Ju lutemi provoni përsëri.");
     } finally {
       setChecking(false);
     }
@@ -70,10 +70,10 @@ export default function AdminPage() {
     try {
       const response = await fetch("/api/admin/products", { cache: "no-store" });
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Produkte konnten nicht geladen werden.");
+      if (!response.ok) throw new Error(data.error || "Produktet nuk u ngarkuan.");
       setProducts(data.products || []);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Produkte konnten nicht geladen werden.");
+      setError(err instanceof Error ? err.message : "Produktet nuk u ngarkuan.");
     }
   }
 
@@ -91,11 +91,11 @@ export default function AdminPage() {
         body: JSON.stringify({ password }),
       });
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Anmeldung fehlgeschlagen.");
+      if (!response.ok) throw new Error(data.error || "Hyrja dështoi.");
       setAuthenticated(true);
       setPassword("");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Anmeldung fehlgeschlagen.");
+      setError(err instanceof Error ? err.message : "Hyrja dështoi.");
     } finally {
       setBusy(false);
     }
@@ -122,11 +122,11 @@ export default function AdminPage() {
       body.append("file", file);
       const response = await fetch("/api/admin/upload", { method: "POST", body });
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Bild-Upload fehlgeschlagen.");
+      if (!response.ok) throw new Error(data.error || "Ngarkimi i fotografisë dështoi.");
       setForm((current) => ({ ...current, image_url: data.image_url }));
-      setNotice("Bild wurde hochgeladen.");
+      setNotice("Fotografia u ngarkua me sukses.");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Bild-Upload fehlgeschlagen.");
+      setError(err instanceof Error ? err.message : "Ngarkimi i fotografisë dështoi.");
     } finally {
       setUploading(false);
       event.target.value = "";
@@ -174,31 +174,31 @@ export default function AdminPage() {
         body: JSON.stringify(payload),
       });
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Produkt konnte nicht gespeichert werden.");
-      setNotice(editingId ? "Produkt wurde aktualisiert." : "Produkt wurde hinzugefügt.");
+      if (!response.ok) throw new Error(data.error || "Produkti nuk u ruajt.");
+      setNotice(editingId ? "Produkti u përditësua." : "Produkti u shtua.");
       resetForm();
       await loadProducts();
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Produkt konnte nicht gespeichert werden.");
+      setError(err instanceof Error ? err.message : "Produkti nuk u ruajt.");
     } finally {
       setBusy(false);
     }
   }
 
   async function deleteProduct(product: Product) {
-    if (!window.confirm(`Produkt „${product.name}“ wirklich löschen?`)) return;
+    if (!window.confirm(`A dëshironi ta fshini produktin „${product.name}“?`)) return;
     setBusy(true);
     setError("");
     setNotice("");
     try {
       const response = await fetch(`/api/admin/products/${product.id}`, { method: "DELETE" });
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error || "Produkt konnte nicht gelöscht werden.");
+      if (!response.ok) throw new Error(data.error || "Produkti nuk u fshi.");
       setProducts((current) => current.filter((item) => item.id !== product.id));
       if (editingId === product.id) resetForm();
-      setNotice("Produkt wurde gelöscht.");
+      setNotice("Produkti u fshi.");
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Produkt konnte nicht gelöscht werden.");
+      setError(err instanceof Error ? err.message : "Produkti nuk u fshi.");
     } finally {
       setBusy(false);
     }
@@ -220,7 +220,7 @@ export default function AdminPage() {
             <form onSubmit={login}>
               <label htmlFor="admin-password" style={labelStyle}>Admin-Passwort</label>
               <input id="admin-password" type="password" autoComplete="current-password" value={password} onChange={(event) => setPassword(event.target.value)} required style={{ ...inputStyle, marginBottom: 15 }} />
-              <button disabled={busy} type="submit" style={{ width: "100%", padding: 14, border: 0, borderRadius: 9, background: "#173b63", color: "#fff", fontWeight: 700, cursor: busy ? "wait" : "pointer" }}>{busy ? "Anmeldung …" : "Anmelden"}</button>
+              <button disabled={busy} type="submit" style={{ width: "100%", padding: 14, border: 0, borderRadius: 9, background: "#173b63", color: "#fff", fontWeight: 700, cursor: busy ? "wait" : "pointer" }}>{busy ? "Duke hyrë …" : "Hyr"}</button>
             </form>
           </section>
         ) : (
@@ -230,7 +230,7 @@ export default function AdminPage() {
               <button onClick={logout} style={{ padding: "10px 16px", border: "1px solid #cbd5d9", borderRadius: 9, background: "#fff", cursor: "pointer" }}>Abmelden</button>
             </div>
             <section style={{ background: "#fff", padding: 24, borderRadius: 16, boxShadow: "0 12px 35px rgba(20,47,56,.06)", marginBottom: 24 }}>
-              <h2 style={{ margin: "0 0 20px", fontSize: 21 }}>{editingId ? "Produkt bearbeiten" : "Neues Produkt hinzufügen"}</h2>
+              <h2 style={{ margin: "0 0 20px", fontSize: 21 }}>{editingId ? "Ndrysho produktin" : "Shto produkt të ri"}</h2>
               <form onSubmit={saveProduct}>
                 <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(230px,1fr))", gap: 16 }}>
                   <div style={{ gridColumn: "1 / -1" }}>
@@ -266,12 +266,12 @@ export default function AdminPage() {
                     <label htmlFor="product-image" style={labelStyle}>Produktfoto (JPG, PNG oder WEBP, max. 5 MB)</label>
                     <input id="product-image" type="file" accept="image/jpeg,image/png,image/webp" onChange={uploadImage} disabled={uploading} style={{ display: "block", width: "100%", padding: 10, border: "1px dashed #aebdc3", borderRadius: 9 }} />
                     {uploading ? <p style={{ color: "#607078", fontSize: 13 }}>Bild wird hochgeladen …</p> : null}
-                    {form.image_url ? <div style={{ display: "flex", gap: 14, alignItems: "center", marginTop: 12, flexWrap: "wrap" }}><img src={form.image_url} alt="Produktvorschau" style={{ width: 100, height: 90, objectFit: "contain", borderRadius: 8, border: "1px solid #e1e7e9" }} /><span style={{ color: "#607078", fontSize: 12, overflowWrap: "anywhere" }}>Bild bereit</span></div> : <p style={{ color: "#607078", fontSize: 13 }}>Bitte lade ein Produktfoto hoch, bevor du speicherst.</p>}
+                    {form.image_url ? <div style={{ display: "flex", gap: 14, alignItems: "center", marginTop: 12, flexWrap: "wrap" }}><img src={form.image_url} alt="Pamja paraprake e produktit" style={{ width: 100, height: 90, objectFit: "contain", borderRadius: 8, border: "1px solid #e1e7e9" }} /><span style={{ color: "#607078", fontSize: 12, overflowWrap: "anywhere" }}>Bild bereit</span></div> : <p style={{ color: "#607078", fontSize: 13 }}>Bitte lade ein Produktfoto hoch, bevor du speicherst.</p>}
                   </div>
                   <label style={{ display: "flex", gap: 9, alignItems: "center", fontSize: 14 }}><input type="checkbox" checked={form.active} onChange={(e) => setForm({ ...form, active: e.target.checked })} /> Produkt im Shop anzeigen</label>
                 </div>
                 <div style={{ display: "flex", gap: 10, marginTop: 22, flexWrap: "wrap" }}>
-                  <button disabled={busy || uploading} type="submit" style={{ padding: "13px 20px", border: 0, borderRadius: 9, background: "#173b63", color: "#fff", fontWeight: 700, cursor: busy || uploading ? "wait" : "pointer" }}>{busy ? "Speichern …" : editingId ? "Änderungen speichern" : "Produkt hinzufügen"}</button>
+                  <button disabled={busy || uploading} type="submit" style={{ padding: "13px 20px", border: 0, borderRadius: 9, background: "#173b63", color: "#fff", fontWeight: 700, cursor: busy || uploading ? "wait" : "pointer" }}>{busy ? "Duke ruajtur …" : editingId ? "Ruaj ndryshimet" : "Shto produktin"}</button>
                   {editingId ? <button type="button" onClick={resetForm} style={{ padding: "13px 18px", border: "1px solid #cbd5d9", borderRadius: 9, background: "#fff", cursor: "pointer" }}>Abbrechen</button> : null}
                 </div>
               </form>
@@ -283,7 +283,7 @@ export default function AdminPage() {
               {products.length === 0 ? <p style={{ color: "#607078" }}>Noch keine Produkte gespeichert.</p> : <div style={{ display: "grid", gap: 12 }}>
                 {products.map((product) => <article key={product.id} style={{ display: "grid", gridTemplateColumns: "76px minmax(0,1fr) auto", gap: 14, alignItems: "center", padding: 12, border: "1px solid #e4eaec", borderRadius: 12 }}>
                   <img src={product.image_url} alt="" style={{ width: 76, height: 70, objectFit: "contain", borderRadius: 8, background: "#f7f9f9" }} />
-                  <div style={{ minWidth: 0 }}><strong>{product.name}</strong><p style={{ margin: "5px 0", color: "#607078", fontSize: 13 }}>{product.destination === "discount" ? "Homepage – Zbritjet" : "Weitere Produkte"} · {categoryOptions[product.destination].find((item) => item.value === product.category)?.label} · {euro.format(product.price)}{product.old_price ? ` (statt ${euro.format(product.old_price)})` : ""}</p><span style={{ fontSize: 12, color: product.active ? "#176b55" : "#8b5555" }}>{product.active ? "Im Shop sichtbar" : "Ausgeblendet"}</span></div>
+                  <div style={{ minWidth: 0 }}><strong>{product.name}</strong><p style={{ margin: "5px 0", color: "#607078", fontSize: 13 }}>{product.destination === "discount" ? "Faqja kryesore – Ofertat" : "Produktet e tjera"} · {categoryOptions[product.destination].find((item) => item.value === product.category)?.label} · {euro.format(product.price)}{product.old_price ? ` (statt ${euro.format(product.old_price)})` : ""}</p><span style={{ fontSize: 12, color: product.active ? "#176b55" : "#8b5555" }}>{product.active ? "I dukshëm në dyqan" : "I fshehur nga dyqani"}</span></div>
                   <div style={{ display: "flex", gap: 7, flexWrap: "wrap", justifyContent: "flex-end" }}><button onClick={() => editProduct(product)} style={{ padding: "8px 10px", border: "1px solid #cbd5d9", borderRadius: 8, background: "#fff", cursor: "pointer" }}>Bearbeiten</button><button disabled={busy} onClick={() => void deleteProduct(product)} style={{ padding: "8px 10px", border: "1px solid #e7caca", borderRadius: 8, background: "#fff", color: "#a12b2b", cursor: "pointer" }}>Löschen</button></div>
                 </article>)}
               </div>}
