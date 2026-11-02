@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { AddToCartButton, StoreCheckoutProvider } from "../StoreCheckout";
-import { LanguageSwitcher, useLanguage } from "../Locale";
+import { useLanguage } from "../Locale";
 import { useEffect, useMemo, useState } from "react";
 
 type StoreProduct = { _id: string; category: string; name: string; price: number; description: string; imageUrl: string; destination?: "discount" | "regular" };
@@ -41,7 +41,7 @@ export default function RegularPricePage() {
       <header className="site-header">
         <div className="header-inner">
           <Link className="brand" href="/"><span style={{ color: "#172d35", fontWeight: 800 }}>HEINZE</span><span style={{ color: "#5a9b9b", fontWeight: 500 }}> FILTER</span></Link>
-          <nav className="nav-links" aria-label="Hauptnavigation"><Link href="/">{t("Startseite")}</Link></nav><LanguageSwitcher/>
+          <nav className="nav-links" aria-label="Hauptnavigation"><Link href="/">{t("Startseite")}</Link></nav>
         </div>
       </header>
       <main className="container">
