@@ -76,8 +76,28 @@ export async function POST(request: Request) {
       city: String(body.customer?.city || "").trim(),
       country: countryCode(String(body.customer?.country || "")),
     };
-    if (!shipping.name || !shipping.street || !shipping.zip || !shipping.city || !shipping.country) {
-      return NextResponse.json({ error: "Please enter a complete delivery address and a valid country (e.g. Deutschland)." }, { status: 400 });
+    const missingAddressFields = [
+      !shipping.name ? "name" : "",
+      !shipping.street ? "street" : "",
+      !shipping.zip ? "postal code" : "",
+      !shipping.city ? "city" : "",
+      !shipping.country ? "country (use Deutschland, Österreich, Niederlande or Belgien)" : "",
+    ].filter(Boolean);
+    if (missingAddressFields.length) {
+      console.warn("PayPal checkout received incomplete customer address", {
+        missingFields: missingAddressFields,
+        received: {
+          name: Boolean(body.customer?.name?.trim()),
+          street: Boolean(body.customer?.street?.trim()),
+          zip: Boolean(body.customer?.zip?.trim()),
+          city: Boolean(body.customer?.city?.trim()),
+          country: Boolean(body.customer?.country?.trim()),
+        },
+      });
+      return NextResponse.json(
+        { error: `Delivery details are missing or invalid: ${missingAddressFields.join(", ")}. Please go back and check these fields.` },
+        { status: 400 },
+      );
     }
 
     if (!Array.isArray(body.items) || body.items.length === 0 || body.items.length > 50) {
